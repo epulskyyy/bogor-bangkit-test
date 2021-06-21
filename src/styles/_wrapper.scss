@@ -1,0 +1,21 @@
+.peb-container-auth{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-background {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    height: 90vh;
+    width: 90vw;
+    background-color: #000;
+    background: url("../assets/peb-bac-auth.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .peb-bac-auth{
+    position: absolute;
+    top: 0;
+  }
+}
