@@ -1,0 +1,85 @@
+.peb-text-bold {
+  font-weight: bold;
+}
+
+.ant-typography.peb_t_wf {
+  font-size: 12px;
+}
+
+.peb_cont_t_wf {
+  display: flex;
+  justify-content: center;
+
+  span {
+    align-items: center;
+    max-width: 250px;
+    text-align: center;
+    color: $grey;
+  }
+}
+
+.ant-typography.peb_cont_t_wf.register {
+  span {
+    max-width: 100% !important;
+  }
+}
+
+@for $i from 1 through 10 {
+  .p-#{$i} {
+    padding: #{$i * 10px} !important;
+  }
+  .pt-#{$i} {
+    padding-top: #{$i * 10px} !important;
+  }
+  .pb-#{$i} {
+    padding-bottom: #{$i * 10px} !important;
+  }
+  .pl-#{$i} {
+    padding-left: #{$i * 10px} !important;
+    transition: all 0.5s ease-in-out;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i * 10px} !important;
+  }
+  .ptb-#{$i} {
+    padding-top: #{$i * 10px} !important;
+    padding-bottom: #{$i * 10px} !important;
+  }
+  .prl-#{$i} {
+    padding-right: #{$i * 10px} !important;
+    padding-left: #{$i * 10px} !important;
+  }
+  .pbt-#{$i} {
+    padding-top: #{$i * 10px} !important;
+    padding-bottom: #{$i * 10px} !important;
+  }
+  .plr-#{$i} {
+    padding-right: #{$i * 10px} !important;
+    padding-left: #{$i * 10px} !important;
+  }
+
+  .m-#{$i} {
+    margin: #{$i * 10px} !important;
+  }
+  .mt-#{$i} {
+    margin-top: #{$i * 10px} !important;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i * 10px} !important;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i * 10px} !important;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i * 10px} !important;
+  }
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.peb-text-center{
+  align-items: center;
+  text-align: center;
+}

@@ -4,11 +4,11 @@ import {Layout} from "../components";
 import {routes} from "./routes";
 
 const Routes = () => (
-    <Layout>
+    <Layout title="Pemulihan Ekonomi">
         <Suspense fallback={<div/>}>
             <Switch>
                 {routes.map((v,k)=>(
-                <Route key={k} path={v.path} component={v.component}/>))}
+                <Route exact={v.exact} key={k} path={v.path} component={v.component}/>))}
             </Switch>
         </Suspense>
     </Layout>

@@ -1,5 +1,13 @@
 import React from "react"
+import {Helmet} from "react-helmet-async";
 
-export const Layout = (props: any) => {
-    return (<>{props.children}</>)
+type Props={
+    title: string
+}
+
+export const Layout: React.FC<Props> = ({title,children}) => {
+    return (<>
+        <Helmet>
+        <title>Pemulihan Ekonomi - {title}</title>
+    </Helmet>{children}</>)
 }

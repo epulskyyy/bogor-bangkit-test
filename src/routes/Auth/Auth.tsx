@@ -1,19 +1,21 @@
 import {Helmet} from "react-helmet-async";
 import '../../styles/base.scss'
-import BacAuth from '../../assets/peb-bac-auth.svg'
 import './components/styles.scss'
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, Typography} from "antd";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link, useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {Layout} from "../../components";
+
+const {Text} = Typography;
 
 export const formItemLayout = {
     labelCol: {
-        xs: { span: 24 },
-        sm: { span: 24 },
+        xs: {span: 24},
+        sm: {span: 24},
     },
     wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 24 },
+        xs: {span: 24},
+        sm: {span: 24},
     },
 };
 export const tailFormItemLayout = {
@@ -32,18 +34,15 @@ const Auth: React.FC = () => {
         console.log('Received values of form: ', values);
     };
     return (
-        <>
-            <Helmet>
-                <title>Mekar.id - Login</title>
-            </Helmet>
+        <Layout title="Login">
             <div className="peb-container-auth">
                 <div className="peb-container-auth-background">
-                    <strong>LOGO WEB</strong>
+                    <strong className="pep-login-title">LOGO WEB</strong>
                     <br/>
-                    <div className="peb-card">
+                    <div className="peb-card peb-shadow">
                         <div className="peb-card-body">
                             <div className="peb-dflex-between peb-mb-2">
-                                <h3>Masuk</h3>
+                                <h3 className="peb-text-bold">Masuk</h3>
                                 <Link to="/register">Daftar</Link>
                             </div>
                             <Form
@@ -88,16 +87,24 @@ const Auth: React.FC = () => {
                                 </Form.Item>
 
                                 <Form.Item>
-                                    <Button type="default" block htmlType="submit" >
+                                    <Button type="default" block htmlType="submit">
                                         LOGIN
                                     </Button>
+                                </Form.Item>
+                                <Form.Item>
+                                    <div className="peb_cont_t_wf">
+                                    <Text italic className="peb_t_wf">website ini di peruntukan untuk marketing
+                                        dan branding produk-produk dari
+                                        UMKM Kota Bogor
+                                    </Text>
+                                    </div>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     );
 };
 

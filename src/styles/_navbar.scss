@@ -1,0 +1,66 @@
+@import "variable";
+@import "mixin";
+.peb-navbar {
+  height: 95px;
+  width: 100%;
+  &-top {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: $grey2;
+    @include padding70();
+    &-logo {
+      margin-right: 50px;
+      color: $blue;
+      font-weight: bold;
+    }
+    &-wrap {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      .search-header {
+        display: block;
+        max-width: 800px;
+      }
+    }
+    &-auth {
+      margin-left: auto;
+      &-not{
+        a{
+            padding-left: 5px;
+            padding-right: 5px;
+            color: $grey;
+            font-weight: bold;
+        }
+        a:hover{
+            color: $grey3 ;
+        }
+        a:nth-child(1){
+            border-right: 1px solid $grey
+        }
+      }
+    }
+  }
+  &-bottom {
+    @include padding70();
+    height: 25px;
+    background: $blue;
+    color: white;
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0;
+      margin: 0;
+      li {
+        margin-left: 17px;
+      }
+    }
+    &-link {
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
