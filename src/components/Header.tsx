@@ -91,6 +91,11 @@ const Header: React.FC<Props> = () => {
               Tentang Kami
             </Link>
           </li>
+          <li>
+            <Link className="peb-navbar-bottom-link" to="/about">
+              FAQ
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

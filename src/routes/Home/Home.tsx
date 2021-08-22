@@ -5,7 +5,7 @@ import { Layout } from "../../components";
 import Header from "../../components/Header";
 import ContentHome from "./components/ContentHome";
 import Banner from "../../components/Banner";
-import Footer from "../../components/Footer";
+import Footer from "../../components/footer/Footer";
 
 const { Text } = Typography;
 
