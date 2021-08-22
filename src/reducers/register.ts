@@ -1,6 +1,10 @@
 import {
-    REGISTRATION_ERROR,
+  REGISTRATION_ERROR,
+  REGISTRATION_OTP_ERROR,
+  REGISTRATION_OTP_REQUEST,
+  REGISTRATION_OTP_SUCCESS,
   REGISTRATION_REQUEST,
+  REGISTRATION_RESET,
   REGISTRATION_SUCCESS,
   SET_FORM_REGISTER,
   SET_FORM_STAPS,
@@ -17,6 +21,8 @@ const initialState = {
   isLoading: null,
   isError: null,
   message: null,
+  isLoadingOtp: null,
+  isErrorOtp: null,
 };
 
 export default function reducer(state = initialState, action: any) {
@@ -43,11 +49,50 @@ export default function reducer(state = initialState, action: any) {
         ...state,
         isLoading: false,
       };
-      case REGISTRATION_ERROR:
+    case REGISTRATION_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.message,
+      };
+    case REGISTRATION_OTP_REQUEST:
+      return {
+        ...state,
+        isLoadingOtp: true,
+      };
+
+    case REGISTRATION_OTP_SUCCESS:
+      return {
+        ...state,
+        isLoadingOtp: false,
+        formData:{}, 
+        staps: {
+            current: 0,
+            percent: 0,
+        }
+      };
+    case REGISTRATION_OTP_ERROR:
+      return {
+        ...state,
+        isLoadingOtp: false,
+        isErrorOtp: true,
+        message: action.message,
+      };
+    case REGISTRATION_RESET:
         return {
-          ...state,
-          isLoading: false,
-          message: action.message
+            data: {},
+            formData: {},
+            staps: {
+              current: 0,
+              percent: 0,
+            },
+            isFetching: null,
+            isLoading: null,
+            isError: null,
+            message: null,
+            isLoadingOtp: null,
+            isErrorOtp: null,
         };
     default:
       return state;

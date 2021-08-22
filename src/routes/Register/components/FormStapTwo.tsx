@@ -9,7 +9,11 @@ import {
   kecamatanBogor,
   kelurahanBogor,
 } from "../../../utils/constants";
-import { regristrationRequest, setFormRegister, setFormStaps } from "../../../actions/register";
+import {
+  registrationRequest,
+  setFormRegister,
+  setFormStaps,
+} from "../../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 
@@ -19,8 +23,10 @@ export default function FormStapTwo() {
   const [form] = Form.useForm();
   const [buttonDisabled, setbuttonDisabled] = useState(true);
   const [isHuman, setHuman] = useState(false);
-  const { getFieldsValue } = form;
-  const { formData } = useSelector((state: RootState) => state.register);
+  const { getFieldsValue, getFieldValue } = form;
+  const { formData, isLoading } = useSelector(
+    (state: RootState) => state.register
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,8 +35,22 @@ export default function FormStapTwo() {
     for (let i = 0; i < obj.length; i++) {
       const e = obj[i];
       if (e === "rt" || e === "rw") {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length !== 3) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length !== 3) {
+            formValidation = true;
+            break;
+          }
+        }
+      } else if (e === "password") {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length < 6) {
+            formValidation = true;
+            break;
+          }
+        }
+      }else if (e === "password_confirmation") {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e] !== getFieldValue("password")) {
             formValidation = true;
             break;
           }
@@ -50,7 +70,7 @@ export default function FormStapTwo() {
     if (isHuman) {
       setbuttonDisabled(formValidation);
     }
-  }, [formData]);
+  }, [formData, isHuman]);
 
   const onPrev = () => {
     dispatch(setFormStaps("current", 0));
@@ -81,8 +101,8 @@ export default function FormStapTwo() {
       email,
       alamat: {
         alamat_user,
-        kecamatan: kecamatan.value,
-        kelurahan: kelurahan.value,
+        kecamatan: kecamatan?.value,
+        kelurahan: kelurahan?.value,
         rt,
         rw,
       },
@@ -91,7 +111,7 @@ export default function FormStapTwo() {
       password,
       password_confirmation,
     };
-    dispatch(regristrationRequest(data))
+    dispatch(registrationRequest(data));
   };
   return (
     <Form
@@ -119,7 +139,7 @@ export default function FormStapTwo() {
       <Row gutter={[16, 0]}>
         <Col lg={12} sm={12} xs={12}>
           <Form.Item
-            className="mekar-form-item"
+            className="peb-form-item"
             label="RT"
             name="rt"
             colon={false}
@@ -168,7 +188,7 @@ export default function FormStapTwo() {
         </Col>
         <Col lg={12} sm={12} xs={12}>
           <Form.Item
-            className="mekar-form-item"
+            className="peb-form-item"
             label="RW"
             name="rw"
             colon={false}
@@ -285,6 +305,9 @@ export default function FormStapTwo() {
           { required: true, message: "Tolong masukan Password!" },
           ({ getFieldValue }) => ({
             validator(rule, value) {
+              if (value.length !== 6) {
+                return Promise.reject("Password harus minimal 6 karakter");
+              }
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
@@ -320,8 +343,9 @@ export default function FormStapTwo() {
               block
               disabled={buttonDisabled}
               onClick={onRegist}
+              loading={isLoading || false}
             >
-              Register
+              Registrasi
             </Button>
           </Col>
         </Row>

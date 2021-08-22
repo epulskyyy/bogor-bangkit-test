@@ -14,21 +14,22 @@ export default function FormStapOne() {
   const { getFieldsValue } = form;
   const { formData } = useSelector((state: RootState) => state.register);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let formValidation = false;
     const obj = Object.keys(getFieldsValue());
     for (let i = 0; i < obj.length; i++) {
       const e = obj[i];
       if (e === "nik") {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length !== 16) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length !== 16) {
             formValidation = true;
             break;
           }
         }
       } else {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length === 0) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length === 0) {
             formValidation = true;
             break;
           }
