@@ -1,0 +1,32 @@
+.peb-card {
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 500px;
+  padding: 20px;
+  &-product-image {
+    height: 147px;
+    background: gray;
+  }
+}
+.peb-card-2 {
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 500px;
+  &-product-image {
+    height: 147px;
+    background: gray;
+  }
+}
+.peb-card-2.product {
+  overflow: hidden;
+  color: #a8a8a8;
+  .product-name,.product-button{
+    font-weight: bold;
+  }
+  .price {
+    font-weight: bold;
+    color: #a8a8a8;
+    font-size: 18px;
+    margin: 0;
+  }
+}

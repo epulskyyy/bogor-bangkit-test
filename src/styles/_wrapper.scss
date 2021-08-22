@@ -1,0 +1,29 @@
+
+.peb-dflex-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.peb-mb-2{
+  margin-bottom: 20px;
+}
+
+.peb-shadow{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.cont-fixid{
+  position: fixed;
+}
+
+
+.peb-list.peb-list-flex{
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+.container{
+  padding-left: 68px;
+  padding-right: 68px;
+}
