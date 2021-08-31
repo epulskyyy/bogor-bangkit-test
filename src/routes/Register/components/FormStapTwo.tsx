@@ -16,6 +16,7 @@ import {
 } from "../../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
+import { keys } from "../../../utils/env";
 
 const { TextArea } = Input;
 
@@ -324,7 +325,7 @@ export default function FormStapTwo() {
       </Form.Item>
       <Form.Item>
         <ReCAPTCHA
-          sitekey="6LeYVMwZAAAAAIOqF-Z1JH7MVXWfWTJ01MRB9Sjw"
+          sitekey={keys.recaptcha}
           onChange={() => setHuman(true)}
           onErrored={() => setHuman(false)}
           onExpired={() => setHuman(false)}

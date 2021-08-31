@@ -11,4 +11,11 @@ export interface ResponseGenerator {
 
 export interface RootState {
   register: RegisterRoot
+  auth: AuthRoot
+}
+export interface AuthRoot {
+    formData:any,
+    isLoading:any,
+    isError:any,
+    message:any
 }

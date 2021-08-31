@@ -149,7 +149,7 @@ export default function FormStapOne() {
             },
             {
               required: true,
-              message: "Mohon masukkan email yang terdaftar",
+              message: "Mohon masukkan email yang belum terdaftar",
             },
           ]}
         >

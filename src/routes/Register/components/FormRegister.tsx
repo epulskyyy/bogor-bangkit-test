@@ -27,9 +27,6 @@ export default function FormRegister() {
     useEffect(() => {
       if (emailOtp != undefined) {
         dispatch(setFormStaps("current", 2));
-        console.log('====================================');
-        console.log(emailOtp);
-        console.log('====================================');
       }
     }, [formData]);
   
