@@ -3,6 +3,7 @@
 @import "wrapper";
 @import "card";
 @import "carousel";
+
 .ant-dropdown-link {
 }
 h3 {
@@ -85,4 +86,7 @@ ul.peb-list {
       height: 26px;
     }
   }
+}
+.product-detail{
+  background-color: white;
 }

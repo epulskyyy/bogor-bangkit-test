@@ -13,8 +13,12 @@
   border-radius: 10px;
   max-width: 500px;
   &-product-image {
-    height: 147px;
+    overflow: hidden;
+    height: 200px;
     background: gray;
+  }
+  &-body {
+    background: white;
   }
 }
 .peb-card-2.product {

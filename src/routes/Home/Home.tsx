@@ -10,6 +10,8 @@ import React from "react";
 import { getCategoriesRequest } from "../../actions/categories";
 import Chat from "../../components/chat/Chat";
 import { verifyJWT } from "../../utils/utils";
+import { getProductByCountRequest } from "../../actions/product";
+import { getBannerRequest } from "../../actions/banner";
 
 const { Text } = Typography;
 
@@ -18,7 +20,9 @@ const Home: React.FC = () => {
   const user = verifyJWT();
 
   React.useEffect(() => {
+    dispatch(getProductByCountRequest(8));
     dispatch(getCategoriesRequest(10));
+    dispatch(getBannerRequest());
   }, []);
 
   return (

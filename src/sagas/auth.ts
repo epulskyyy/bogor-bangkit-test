@@ -14,6 +14,7 @@ export function* postLogin(action:any) {
             data,
         });
         notificationMessage("success",`Berhasi`,`Silahkan cek email`)
+        localStorage.setItem('access_token', data.data)
         history.push('/')
     } catch (e:any) {
         yield put({

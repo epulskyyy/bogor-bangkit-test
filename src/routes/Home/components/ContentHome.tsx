@@ -8,8 +8,7 @@ import HomeProducts from "./HomeProducts";
 const ContentHome = () => {
   return (
     <>
-      <HomeProducts title="PRODUK TERLARIS"/>
-      <HomeProducts title="PRODUK TERBARU"/>
+      <HomeProducts title="PRODUK UMKM"/>
       <HomeCategory/>
     </>
   );
