@@ -1,15 +1,26 @@
 import "../../styles/base.scss";
 import { Button, Form, Input, Typography } from "antd";
-import { Link, useHistory } from "react-router-dom";
 import { Layout } from "../../components";
 import Header from "../../components/Header";
 import ContentHome from "./components/ContentHome";
 import Banner from "../../components/Banner";
 import Footer from "../../components/footer/Footer";
+import { useDispatch } from "react-redux";
+import React from "react";
+import { getCategoriesRequest } from "../../actions/categories";
+import Chat from "../../components/chat/Chat";
+import { verifyJWT } from "../../utils/utils";
 
 const { Text } = Typography;
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const user = verifyJWT();
+
+  React.useEffect(() => {
+    dispatch(getCategoriesRequest(10));
+  }, []);
+
   return (
     <Layout title="Home">
       <Header />
@@ -17,7 +28,8 @@ const Home: React.FC = () => {
       <div className="container mt-2 mb-2">
         <ContentHome />
       </div>
-      <Footer/>
+      <Footer />
+      {user ? <Chat /> : null}
     </Layout>
   );
 };

@@ -291,7 +291,16 @@ export default function FormStapTwo() {
       <Form.Item
         name="password"
         label="Password"
-        rules={[{ required: true, message: "Tolong masukan Password!" }]}
+        rules={[{ required: true, message: "Tolong masukan Password!" },
+        ({ getFieldValue }) => ({
+          validator(rule, value) {
+            if (getFieldValue('password').length >= 6) {
+              return Promise.resolve();
+            }
+            return Promise.reject("Password harus minimal 6 karakter");
+          },
+        }),]}
+        
       >
         <Input.Password
           onChange={handleChange}
@@ -306,9 +315,6 @@ export default function FormStapTwo() {
           { required: true, message: "Tolong masukan Password!" },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (value.length !== 6) {
-                return Promise.reject("Password harus minimal 6 karakter");
-              }
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }

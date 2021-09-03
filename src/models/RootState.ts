@@ -12,9 +12,16 @@ export interface ResponseGenerator {
 export interface RootState {
   register: RegisterRoot
   auth: AuthRoot
+  categories: CategoriesRoot
 }
 export interface AuthRoot {
     formData:any,
+    isLoading:any,
+    isError:any,
+    message:any
+}
+export interface CategoriesRoot {
+    data:any,
     isLoading:any,
     isError:any,
     message:any

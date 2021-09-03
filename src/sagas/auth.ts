@@ -14,6 +14,7 @@ export function* postLogin(action:any) {
             data,
         });
         notificationMessage("success",`Berhasi`,`Silahkan cek email`)
+        history.push('/')
     } catch (e:any) {
         yield put({
             type: authAction.LOGIN_ERROR,

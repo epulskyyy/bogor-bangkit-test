@@ -1,10 +1,7 @@
 import crypto from "crypto";
-import CryptoJS from "crypto-js";
-import {serialize} from "./serialize"
 import { keys } from "./env";
 
-
-const ENC_KEY = keys.shakey; // set random encryption key
+const ENC_KEY = keys.shakey;
 
 const SETTINGS = {
 	key : Buffer.from(ENC_KEY.substring(7), 'base64'),
@@ -27,7 +24,7 @@ const SETTINGS = {
  * Decrypts payload with master key
  * @param {String} Payload - base64 encoded json with iv, value, mac information
  */
-function decrypt(payload){
+export function decrypt(payload){
 
 	let _payload = getJsonPayload(payload);
 
@@ -38,8 +35,8 @@ function decrypt(payload){
 	let decrypted = decipher.update(_payload['value'], 'base64', 'utf8');
 
 	decrypted += decipher.final('utf8');
-
-	return hashDeserialize(decrypted);
+	
+	return (decrypted);
 
 }
 

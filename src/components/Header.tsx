@@ -1,9 +1,17 @@
-import { Dropdown, Input, Menu } from "antd";
+import { Button, Dropdown, Input, Menu, Tooltip } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import { DownOutlined } from "@ant-design/icons";
-
+import {
+  AppstoreOutlined,
+  DownOutlined,
+  LogoutOutlined,
+  MailOutlined,
+} from "@ant-design/icons";
+import NoImage from "../assets/peb-noimage.svg";
 import "../styles/_navbar.scss";
+import { verifyJWT } from "../utils/utils";
+import { useDispatch } from "react-redux";
+import { LogoutRequest } from "../actions/auth";
 
 const { Search } = Input;
 
@@ -12,38 +20,49 @@ type Props = {};
 const onSearch = (value: any) => console.log(value);
 
 const Header: React.FC<Props> = () => {
+  const dispatch = useDispatch();
+  const user = verifyJWT();
+  const access_token = localStorage.getItem("access_token");
+  const logout = () => {
+    const data = {
+      token: access_token,
+    };
+    dispatch(LogoutRequest(data));
+  };
   const menu = (
     <Menu>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item icon={<DownOutlined />} disabled>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item (disabled)
-        </a>
-      </Menu.Item>
-      <Menu.Item disabled>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item (disabled)
-        </a>
-      </Menu.Item>
-      <Menu.Item danger>a danger item</Menu.Item>
+      {[
+        "BAHAN POKOK",
+        "MAKANAN & MINUMAN",
+        "FASION",
+        "PERLENGKAPAN OLAHRAGA",
+        "KECANTIKAN",
+        "KESEHATAN",
+        "KERAJINAN",
+        "INTERIOR",
+        "LAINNYA",
+      ].map((v, i) => (
+        <Menu.Item key={v}>
+          <Link to="">{v}</Link>
+        </Menu.Item>
+      ))}
     </Menu>
   );
+  const userMenu = (
+    <Menu>
+      <Menu.Item>
+        <Button icon={<AppstoreOutlined />} type="link">
+          Dasbor
+        </Button>
+      </Menu.Item>
+      <Menu.Item>
+        <Button icon={<LogoutOutlined />} type="link" onClick={logout}>
+          Logout
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className="peb-navbar">
       <div className="peb-navbar-top">
@@ -55,8 +74,8 @@ const Header: React.FC<Props> = () => {
             onSearch={onSearch}
           />
           <ul className="peb-list peb-list-flex ml-2 mr-2">
-            <li>
-              <Dropdown overlay={menu} placement="bottomRight" arrow>
+            <li className="mr-2">
+              <Dropdown overlay={menu} placement="bottomRight">
                 <a
                   className="ant-dropdown-link"
                   onClick={(e) => e.preventDefault()}
@@ -65,14 +84,34 @@ const Header: React.FC<Props> = () => {
                 </a>
               </Dropdown>
             </li>
+            {user ? (
+              <li>
+                <Link to="/mychat">
+                <Tooltip placement="bottom" title="Chat">
+                  <MailOutlined />{" "}
+                  </Tooltip>
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
-        <div className="peb-navbar-top-auth">
-          <div className="peb-navbar-top-auth-not">
-            <Link to="/login">MASUK</Link>
-            <Link to="/register">DAFTAR</Link>
+        {user ? (
+          <Dropdown overlay={userMenu} placement="bottomRight">
+            <div className="peb-navbar-top-auth-logged">
+              <label>Nama UMKM</label>
+              <div className="peb-navbar-top-auth-img">
+                {/* <img src={NoImage} /> */}
+              </div>
+            </div>
+          </Dropdown>
+        ) : (
+          <div className="peb-navbar-top-auth">
+            <div className="peb-navbar-top-auth-not">
+              <Link to="/login">MASUK</Link>
+              <Link to="/register">DAFTAR</Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="peb-navbar-bottom">
         <ul>

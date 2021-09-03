@@ -10,6 +10,7 @@ export function* postRegister(action:any) {
     try {
         const response:ResponseGenerator = yield call(register, action.data);
         let data = response.data;
+        localStorage.setItem("emailOtp", action.data.email)
         yield put({
             type: registerAction.REGISTRATION_SUCCESS,
             data,
@@ -19,16 +20,15 @@ export function* postRegister(action:any) {
             name:"current",
             value:2
         });
-        yield localStorage.setItem("emailOtp", action.data.email)
         notificationMessage("success",`Berhasi`,`Silahkan cek email`)
     } catch (e:any) {
+        localStorage.removeItem("emailOtp")
         yield put({
             type: registerAction.REGISTRATION_ERROR,
             error: e,
             message:"Oups, Error"
         });
-        yield localStorage.removeItem("emailOtp")
-        notificationMessage("error",`Gagal masuk registrasi`,`Mohon periksa kembali data yang anda masukan atau klik ulang Registrasi`)
+        notificationMessage("error",`Gagal masuk registrasi`,e?.response?.data?.responseDescription || `Mohon periksa kembali data yang anda masukan atau klik ulang Registrasi`)
     }
 }
 
@@ -50,6 +50,8 @@ export function* postRegisterVerifyOtp(action:any) {
             error: e,
             message:"Oups, Error"
         });
+        console.log(e?.response);
+        
         notificationMessage("error",`Gagal masuk verifikasi`,`${e?.response?.data?.email.map((v:string)=>(v))||""} Mohon periksa kembali otp anda, klik ulang Verifikasi atau kirim ulang kode otp`)
     }
 }
