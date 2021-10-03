@@ -6,6 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import {Link, useHistory} from "react-router-dom";
 import {Layout} from "../../components";
 import {endPoint} from "../../utils/env";
+import {useEffect} from "react";
 
 const {Text} = Typography;
 
@@ -82,7 +83,7 @@ const Auth: React.FC = () => {
                                 </Form.Item>
                                 <Form.Item>
                                     <ReCAPTCHA
-                                        sitekey={String(endPoint.recaptchaApiKey)}
+                                        sitekey={`${endPoint.recaptchaApiKey}`}
                                         // onChange={onChange}
                                     />
                                 </Form.Item>
