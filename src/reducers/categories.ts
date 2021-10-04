@@ -11,7 +11,7 @@ const initialState = {
   message: null,
 };
 
-export default (state = initialState, action: any) => {
+export default function reducer(state = initialState, action: any) {
   switch (action.type) {
     case GET_CATEGORIES_REQUEST:
       return {

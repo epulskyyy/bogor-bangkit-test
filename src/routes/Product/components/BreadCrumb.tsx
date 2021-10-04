@@ -1,35 +1,30 @@
-import React from "react";
 import { Breadcrumb, Menu } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { RootState } from "../../../models/RootState";
 
 export default function BreadCrumb() {
+
+  const { dataId } = useSelector((state: RootState) => state.product);
+  const categories = useSelector((state: RootState) => state.categories);
   const menu = (
     <Menu>
-      {[
-        "BAHAN POKOK",
-        "MAKANAN & MINUMAN",
-        "FASION",
-        "PERLENGKAPAN OLAHRAGA",
-        "KECANTIKAN",
-        "KESEHATAN",
-        "KERAJINAN",
-        "INTERIOR",
-        "LAINNYA",
-      ].map((v, i) => (
-        <Menu.Item key={v}>
-          <Link to="">{v}</Link>
+        {categories?.data?.data?.data?.map((v: any, i: any) => (
+        <Menu.Item key={i}>
+          <Link to="">{v.nama_klasifikasi}</Link>
         </Menu.Item>
       ))}
     </Menu>
   );
+  const category = categories?.data?.data?.data?.find((v: any, i: any) => ( v.id === dataId?.data?.id_kategori))
   return (
     <div className="mb-2">
       <Breadcrumb>
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item overlay={menu} >Bahan Pokok</Breadcrumb.Item>
-        <Breadcrumb.Item>Nama produk</Breadcrumb.Item>
+        <Breadcrumb.Item overlay={menu}>{category?.nama_klasifikasi}</Breadcrumb.Item>
+        <Breadcrumb.Item>{dataId?.data?.nama_produk}</Breadcrumb.Item>
       </Breadcrumb>
     </div>
   );

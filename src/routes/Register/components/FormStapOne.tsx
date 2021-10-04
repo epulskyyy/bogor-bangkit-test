@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button, Form, Input, Radio } from "antd";
 
@@ -40,6 +40,7 @@ export default function FormStapOne() {
       }
     }
     setbuttonDisabled(formValidation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData]);
 
   const handleChange = (e: any) => {

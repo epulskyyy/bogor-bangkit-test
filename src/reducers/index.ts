@@ -6,8 +6,10 @@ import auth from './auth'
 import categories from './categories'
 import product from './product'
 import banner from './banner'
+import user from './user'
 
 const createRootReducer = (history: any) => combineReducers({
+    user,
     banner,
     product,
     categories,

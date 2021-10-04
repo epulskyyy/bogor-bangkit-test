@@ -4,16 +4,12 @@
 @import "card";
 @import "carousel";
 
-.ant-dropdown-link {
-}
 h3 {
   font-weight: bold;
 }
 
 ul.peb-list {
   list-style: none;
-  li.peb-list-item {
-  }
 }
 
 .peb-whatsapp {
@@ -48,6 +44,14 @@ ul.peb-list {
     font-size: 32px;
     line-height: 39px;
     color: #8c8c8c;
+  }
+}
+@media (max-width: 499px) {
+  .peb-product-price {
+    display: block;
+    .peb- {
+      text-align: center;
+    }
   }
 }
 .peb-navbar-top-auth {
@@ -87,6 +91,16 @@ ul.peb-list {
     }
   }
 }
-.product-detail{
+.product-detail {
   background-color: white;
+}
+.peb-text-bold {
+  font-weight: bold !important;
+}
+
+.peb-umkm {
+  cursor: pointer;
+  &:hover {
+    background: rgb(0 0 0 / 3%);
+  }
 }

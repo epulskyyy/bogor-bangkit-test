@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Row, Col, notification } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Form, Button, Row, Col } from "antd";
 import OtpInput from "./OtpInput";
 import "./OtpInput/index.css";
 import { RootState } from "../../../models/RootState";
@@ -11,8 +10,6 @@ import {
   registrationReset,
 } from "../../../actions/register";
 import { notificationLoadingMessage } from "../../../utils/notifications";
-
-let emailOtp: any = localStorage.getItem("emailOtp");
 
 const formItemLayout = {
   labelCol: {
@@ -37,6 +34,8 @@ type Props = {
 };
 
 const FormsOtp: React.FC<Props> = () => {
+  let emailOtp: any = localStorage.getItem("emailOtp");
+
   const [form] = Form.useForm();
   const { isErrorOtp, isLoadingOtp, messange } = useSelector(
     (state: RootState) => state.register
@@ -47,7 +46,7 @@ const FormsOtp: React.FC<Props> = () => {
   const defaultValue = "";
 
   const handleInputOtp = (otp: any) => {
-    if (otp.length == 4) {
+    if (otp.length === 4) {
       setOtpCode(otp);
       setButtonDisabled(false);
     } else {
@@ -60,6 +59,9 @@ const FormsOtp: React.FC<Props> = () => {
       email: emailOtp,
       otp: otpCode,
     };
+    console.log("====================================");
+    console.log();
+    console.log("====================================");
     dispatch(registrationOtpRequest(data));
   };
 
@@ -127,22 +129,22 @@ const FormsOtp: React.FC<Props> = () => {
         </Form.Item>
         <Row style={{ textAlign: "center", fontSize: "12px" }}>
           <Col xs={24}>
-            <a
+            <Button
               type="link"
               style={{ textDecoration: "underline" }}
               onClick={handleResendOtp}
             >
               Kirim ulang kode OTP
-            </a>
+            </Button>
           </Col>
           <Col xs={24}>
-            <a
+            <Button
               type="link"
               style={{ textDecoration: "underline" }}
               onClick={handleRegistrationReset}
             >
               Daftar Ulang
-            </a>
+            </Button>
           </Col>
         </Row>
       </Form>

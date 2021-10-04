@@ -1,14 +1,23 @@
 import React, {Suspense} from "react";
 import {Route, Switch} from "react-router-dom";
 import {Layout} from "../components";
-import {routes} from "./routes";
+import PageNotFound from "../components/PageNotFound";
+import { ProtectedRoute } from "./protectedRoute";
 
 const Routes = () => (
     <Layout title="Pemulihan Ekonomi">
         <Suspense fallback={<div/>}>
             <Switch>
-                {routes.map((v,k)=>(
-                <Route exact={v.exact} key={k} path={v.path} component={v.component}/>))}
+                {ProtectedRoute().routes.map((value:any, key:any)=>(
+                    <Route
+                    key={key}
+                    exact={value.exact}
+                    path={value.path}
+                    render={()=>(<value.component authedData={ProtectedRoute().data}/>)}
+                    
+                    />
+                ))}
+              <Route path="*" component={PageNotFound}/>
             </Switch>
         </Suspense>
     </Layout>

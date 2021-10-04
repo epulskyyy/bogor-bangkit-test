@@ -1,4 +1,4 @@
-import { Col, Form, Row } from "antd";
+import { Col, Row } from "antd";
 
 import "./components/styles.scss";
 import "../../styles/base.scss";
@@ -11,7 +11,7 @@ const Register = () => {
   return (
     <Layout title="Register">
       <div className="register-layout">
-        <h3 className="peb-logo-mobile"> Logo Web </h3>
+        <h3 className="peb-logo-mobile"> PEB </h3>
         <Row className="register-bac">
           <Col className="register-bac-left p-6" xs={0} lg={12} md={0}>
             <SideBanner />

@@ -39,15 +39,21 @@ export default function reducer(state = initialState, action: any) {
       };
 
     case REGISTRATION_REQUEST:
+      console.log("sini");
+
       return {
         ...state,
         isLoading: true,
+        isErrorOtp: false,
+        isError: false,
       };
 
     case REGISTRATION_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        isErrorOtp: false,
+        isError: false,
       };
     case REGISTRATION_ERROR:
       return {
@@ -60,17 +66,20 @@ export default function reducer(state = initialState, action: any) {
       return {
         ...state,
         isLoadingOtp: true,
+        isError: false,
+        isErrorOtp: false,
       };
-
     case REGISTRATION_OTP_SUCCESS:
       return {
         ...state,
         isLoadingOtp: false,
-        formData:{}, 
+        formData: {},
         staps: {
-            current: 0,
-            percent: 0,
-        }
+          current: 0,
+          percent: 0,
+        },
+        isErrorOtp: false,
+        isError: false,
       };
     case REGISTRATION_OTP_ERROR:
       return {
@@ -80,20 +89,20 @@ export default function reducer(state = initialState, action: any) {
         message: action.message,
       };
     case REGISTRATION_RESET:
-        return {
-            data: {},
-            formData: {},
-            staps: {
-              current: 0,
-              percent: 0,
-            },
-            isFetching: null,
-            isLoading: null,
-            isError: null,
-            message: null,
-            isLoadingOtp: null,
-            isErrorOtp: null,
-        };
+      return {
+        data: {},
+        formData: {},
+        staps: {
+          current: 0,
+          percent: 0,
+        },
+        isFetching: null,
+        isLoading: null,
+        isError: null,
+        message: null,
+        isLoadingOtp: null,
+        isErrorOtp: null,
+      };
     default:
       return state;
   }

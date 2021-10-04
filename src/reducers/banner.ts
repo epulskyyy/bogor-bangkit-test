@@ -7,7 +7,7 @@ const initialState = {
   message: null,
 };
 
-export default (state = initialState, action: any) => {
+export default function reducer(state = initialState, action: any) {
   switch (action.type) {
     case bannerAction.GET_BANNER_REQUEST:
       return {

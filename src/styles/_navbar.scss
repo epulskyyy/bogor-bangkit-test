@@ -19,27 +19,70 @@
       display: flex;
       width: 100%;
       align-items: center;
-      .search-header {
+      .peb-navbar-search {
+        position: relative;
+        width: 100%;
+        .search-header {
+          position: relative;
+          display: block;
+        }
+        .content-search {
+          display: none;
+          content: "";
+          position: absolute;
+          z-index: 10;
+          background-color: white;
+          width: 100%;
+          box-shadow: 0px 14px 25px 3px rgba(0, 0, 0, 0.22);
+          -webkit-box-shadow: 0px 14px 25px 3px rgba(0, 0, 0, 0.22);
+          -moz-box-shadow: 0px 14px 25px 3px rgba(0, 0, 0, 0.22);
+          .peb-search-close {
+            display: flex;
+            justify-content: flex-end;
+          }
+          .peb-search {
+            max-height: 400px !important;
+            padding: 0 10px;
+            height: inherit;
+            overflow: auto;
+            .serach-link {
+              cursor: pointer;
+              &:hover {
+                background: rgb(0 0 0 / 3%);
+              }
+            }
+          }
+        }
+      }
+      .peb-navbar-search:focus-within .content-search {
         display: block;
-        max-width: 800px;
       }
     }
     &-auth {
       margin-left: auto;
-      &-not{
-        a{
-            padding-left: 5px;
-            padding-right: 5px;
-            color: $grey;
-            font-weight: bold;
+      &-not {
+        a {
+          padding-left: 5px;
+          padding-right: 5px;
+          color: $grey;
+          font-weight: bold;
         }
-        a:hover{
-            color: $grey3 ;
+        a:hover {
+          color: $grey3;
         }
-        a:nth-child(1){
-            border-right: 1px solid $grey
+        a:nth-child(1) {
+          border-right: 1px solid $grey;
         }
       }
+      &-img {
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+    &-btn-drawer {
+      display: none;
     }
   }
   &-bottom {
@@ -62,5 +105,21 @@
       font-size: 12px;
       font-weight: bold;
     }
+  }
+}
+
+@media (max-width: 722px) {
+  .peb-navbar-top {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+}
+@media (max-width: 548px) {
+  .peb-navbar-user,
+  .peb-list.peb-list-flex {
+    display: none;
+  }
+  .peb-navbar-top-btn-drawer {
+    display: flex;
   }
 }

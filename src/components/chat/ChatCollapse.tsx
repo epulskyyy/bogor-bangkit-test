@@ -67,7 +67,7 @@ const ChatCollapse:React.FC<Props> =({isOpen,setIsOpen})=> {
                 <List.Item>
                   <List.Item.Meta
                     avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                      <Avatar alt="" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                     }
                     title={"Nama UMKM".substring(0, 20)}
                     description={
@@ -113,7 +113,7 @@ const ChatCollapse:React.FC<Props> =({isOpen,setIsOpen})=> {
             </>
           ) : (
             <div className="peb-chat-content-content-nodata">
-              <img src={IcNoChat} />
+              <img src={IcNoChat} alt=""/>
               <h3>Selamat Datang di Chat</h3>
               <label>Pilih pesan untuk memulai percakapan</label>
             </div>

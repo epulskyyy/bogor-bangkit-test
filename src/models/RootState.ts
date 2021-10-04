@@ -8,13 +8,19 @@ export interface ResponseGenerator {
   status?: number;
   statusText?: string;
 }
-
+export interface DefaultRoot {
+  data: any;
+  isLoading: any;
+  isError: any;
+  message: any;
+}
 export interface RootState {
   register: RegisterRoot;
   auth: AuthRoot;
-  categories: CategoriesRoot;
+  categories: DefaultRoot;
   product: ProductRoot;
-  banner: BannerRoot
+  banner: DefaultRoot;
+  user: DefaultRoot;
 }
 export interface AuthRoot {
   formData: any;
@@ -22,25 +28,11 @@ export interface AuthRoot {
   isError: any;
   message: any;
 }
-export interface CategoriesRoot {
-  data: any;
-  isLoading: any;
-  isError: any;
-  message: any;
-}
-
 export interface ProductRoot {
+  data: any;
   dataCount: any;
   dataId: any;
   isLoading: any;
   isError: any;
   message: any;
 }
-
-export interface BannerRoot {
-  data: any;
-  isLoading: any;
-  isError: any;
-  message: any;
-}
-

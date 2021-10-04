@@ -1,0 +1,8 @@
+.peb-dropdown-search-page {
+  display: none;
+}
+@media (max-width: 767px) {
+  .peb-dropdown-search-page {
+    display: inline-block;
+  }
+}

@@ -1,40 +1,32 @@
 import "../../styles/base.scss";
-import { Button, Form, Input, Typography } from "antd";
-import { Layout } from "../../components";
-import Header from "../../components/Header";
 import ContentHome from "./components/ContentHome";
-import Banner from "../../components/Banner";
-import Footer from "../../components/footer/Footer";
+import Banner from "../../components/Banner/Banner";
 import { useDispatch } from "react-redux";
 import React from "react";
-import { getCategoriesRequest } from "../../actions/categories";
-import Chat from "../../components/chat/Chat";
-import { verifyJWT } from "../../utils/utils";
 import { getProductByCountRequest } from "../../actions/product";
 import { getBannerRequest } from "../../actions/banner";
+import Container from "./components/Container";
 
-const { Text } = Typography;
-
-const Home: React.FC = () => {
+type Props = {
+  authedData?: any;
+};
+const Home: React.FC<Props> = ({ authedData }) => {
   const dispatch = useDispatch();
-  const user = verifyJWT();
 
   React.useEffect(() => {
     dispatch(getProductByCountRequest(8));
-    dispatch(getCategoriesRequest(10));
     dispatch(getBannerRequest());
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
-
   return (
-    <Layout title="Home">
-      <Header />
-      <Banner />
+    <Container title="Beranda" authedData={authedData}>
+      <div>
+        <Banner data={[{}]} />
+      </div>
       <div className="container mt-2 mb-2">
         <ContentHome />
       </div>
-      <Footer />
-      {user ? <Chat /> : null}
-    </Layout>
+    </Container>
   );
 };
 

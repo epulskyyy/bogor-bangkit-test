@@ -1,55 +1,60 @@
-import { Button, Dropdown, Input, Menu, Tooltip } from "antd";
-import React from "react";
+import { Button, Dropdown, Menu, Tooltip } from "antd";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   AppstoreOutlined,
-  DownOutlined,
   LogoutOutlined,
   MailOutlined,
+  ProfileOutlined,
 } from "@ant-design/icons";
-import NoImage from "../assets/peb-noimage.svg";
 import "../styles/_navbar.scss";
-import { verifyJWT } from "../utils/utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LogoutRequest } from "../actions/auth";
+import SearchComp from "./Search";
+import { AuthUser } from "../models/AuthUser";
+import UserImage from "../assets/peb-user.svg";
+import HeaderDrawer from "./HeaderDrawer";
+import { getCategoriesRequest } from "../actions/categories";
+import { RootState } from "../models/RootState";
+import { capitalize } from "../utils/utils";
 
-const { Search } = Input;
+type Props = {
+  authedData?: AuthUser;
+};
 
-type Props = {};
-
-const onSearch = (value: any) => console.log(value);
-
-const Header: React.FC<Props> = () => {
+const Header: React.FC<Props> = ({ authedData }) => {
   const dispatch = useDispatch();
-  const user = verifyJWT();
+  const user = authedData;
   const access_token = localStorage.getItem("access_token");
+  const categories = useSelector((state: RootState) => state.categories);
+
   const logout = () => {
     const data = {
       token: access_token,
     };
     dispatch(LogoutRequest(data));
   };
+
+  useEffect(() => {
+    dispatch(getCategoriesRequest(10));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const menu = (
     <Menu>
-      {[
-        "BAHAN POKOK",
-        "MAKANAN & MINUMAN",
-        "FASION",
-        "PERLENGKAPAN OLAHRAGA",
-        "KECANTIKAN",
-        "KESEHATAN",
-        "KERAJINAN",
-        "INTERIOR",
-        "LAINNYA",
-      ].map((v, i) => (
+      {categories?.data?.data?.data?.map((v: any, i: any) => (
         <Menu.Item key={v}>
-          <Link to="">{v}</Link>
+          <Link to="">{capitalize(v.nama_klasifikasi, true)}</Link>
         </Menu.Item>
       ))}
     </Menu>
   );
   const userMenu = (
     <Menu>
+      <Menu.Item>
+        <Button icon={<ProfileOutlined />} type="link">
+          Profil
+        </Button>
+      </Menu.Item>
       <Menu.Item>
         <Button icon={<AppstoreOutlined />} type="link">
           Dasbor
@@ -68,39 +73,51 @@ const Header: React.FC<Props> = () => {
       <div className="peb-navbar-top">
         <div className="peb-navbar-top-logo">PEB</div>
         <div className="peb-navbar-top-wrap">
-          <Search
-            className="search-header"
-            placeholder="Cari produk"
-            onSearch={onSearch}
-          />
+          <SearchComp />
           <ul className="peb-list peb-list-flex ml-2 mr-2">
             <li className="mr-2">
               <Dropdown overlay={menu} placement="bottomRight">
-                <a
+                <Button
+                  type="link"
                   className="ant-dropdown-link"
                   onClick={(e) => e.preventDefault()}
                 >
                   Kategori
-                </a>
+                </Button>
               </Dropdown>
             </li>
             {user ? (
-              <li>
-                <Link to="/mychat">
-                <Tooltip placement="bottom" title="Chat">
-                  <MailOutlined />{" "}
+              <>
+                <li>
+                  <Tooltip placement="bottom" title="Chat">
+                    <Button type="link">
+                      <MailOutlined />{" "}
+                    </Button>
                   </Tooltip>
-                </Link>
-              </li>
+                </li>
+              </>
             ) : null}
           </ul>
+          <div className="peb-navbar-top-btn-drawer ml-2 peb-dflex-center">
+            <HeaderDrawer authedData={authedData} logout={logout} />
+          </div>
         </div>
         {user ? (
-          <Dropdown overlay={userMenu} placement="bottomRight">
+          <Dropdown
+            className="peb-navbar-user"
+            overlay={userMenu}
+            placement="bottomRight"
+          >
             <div className="peb-navbar-top-auth-logged">
-              <label>Nama UMKM</label>
+              <label>
+                {authedData?.username.slice(
+                  0,
+                  authedData?.username.length >= 20 ? 20 : 10
+                )}
+                ...
+              </label>
               <div className="peb-navbar-top-auth-img">
-                {/* <img src={NoImage} /> */}
+                <img alt="" src={UserImage} />
               </div>
             </div>
           </Dropdown>

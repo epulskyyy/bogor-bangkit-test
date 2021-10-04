@@ -4,7 +4,6 @@
   max-width: 500px;
   padding: 20px;
   &-product-image {
-    height: 147px;
     background: gray;
   }
 }
@@ -14,7 +13,6 @@
   max-width: 500px;
   &-product-image {
     overflow: hidden;
-    height: 200px;
     background: gray;
   }
   &-body {
@@ -24,7 +22,8 @@
 .peb-card-2.product {
   overflow: hidden;
   color: #a8a8a8;
-  .product-name,.product-button{
+  .product-name,
+  .product-button {
     font-weight: bold;
   }
   .price {

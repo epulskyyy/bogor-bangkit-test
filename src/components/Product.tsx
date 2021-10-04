@@ -2,6 +2,7 @@ import { Button, Statistic } from "antd";
 import React from "react";
 import "../styles/base.scss";
 import history from "../utils/history";
+import noImage from "../assets/img/peb-product-noimage.jpg"
 
 type Props = {
   data: any;
@@ -13,7 +14,7 @@ const Product: React.FC<Props> = ({ data }) => {
   return (
     <div className="peb-card-2 product peb-shadow">
       <div className="peb-card-2-product-image">
-        <img src="https://th.bing.com/th/id/OIP.kqoYKb0_m_8VCpD0Ev1pQgHaFM?pid=ImgDet&w=570&h=400&rs=1"/>
+        <img alt="gambar produk" className="peb-img-responsive" src={data?.url_gambar || noImage}/>
       </div>
       <div className="peb-card-2-body p-2">
         <Statistic

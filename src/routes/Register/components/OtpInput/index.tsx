@@ -1,8 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
-import React, { memo, useRef, useState, useCallback, CSSProperties, useEffect } from 'react';
-import SingleInput from './SingleInput';
+import React, {
+  memo,
+  useRef,
+  useState,
+  useCallback,
+  CSSProperties,
+  useEffect,
+} from "react";
+import SingleInput from "./SingleInput";
 
 export interface OTPInputProps {
   defaultValue: string;
@@ -40,12 +47,13 @@ export function OTPInputComponent(props: OTPInputProps) {
   const firstMount = useRef(true);
 
   const [activeInput, setActiveInput] = useState(0);
-  const [otpValues, setOTPValues] = useState(Array<string>(length).fill(''));
+  const [otpValues, setOTPValues] = useState(Array<string>(length).fill(""));
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (defaultValue !== '' && firstMount.current) {
+    if (defaultValue !== "" && firstMount.current) {
       firstMount.current = false;
-      let updatedOTPValues = defaultValue.split('')
+      let updatedOTPValues = defaultValue.split("");
       setOTPValues(updatedOTPValues);
       handleOtpChange(updatedOTPValues);
       handleButtonDisabled(false);
@@ -55,12 +63,12 @@ export function OTPInputComponent(props: OTPInputProps) {
   // Helper to return OTP from inputs
   const handleOtpChange = useCallback(
     (otp: string[]) => {
-      const otpValue = otp.join('');
+      const otpValue = otp.join("");
       onChangeOTP(otpValue);
     },
-    [onChangeOTP],
+    [onChangeOTP]
   );
-  
+
   // Helper to return value with the right type: 'text' or 'number'
   const getRightValue = useCallback(
     (str: string) => {
@@ -68,33 +76,34 @@ export function OTPInputComponent(props: OTPInputProps) {
       if (!isNumberInput) {
         return changedValue;
       }
-      return !changedValue || /\d/.test(changedValue) ? changedValue : '';
+      return !changedValue || /\d/.test(changedValue) ? changedValue : "";
     },
-    [isNumberInput],
+    [isNumberInput]
   );
 
   // Change OTP value at focussing input
   const changeCodeAtFocus = useCallback(
     (str: string) => {
       let updatedOTPValues = [...otpValues];
-      if (activeInput == 0 && str.length == 4) {
-        updatedOTPValues = str.split('') || '';
+      if (activeInput === 0 && str.length === 4) {
+        updatedOTPValues = str.split("") || "";
       } else {
-        updatedOTPValues[activeInput] = str[0] || '';
+        updatedOTPValues[activeInput] = str[0] || "";
       }
       setOTPValues(updatedOTPValues);
       handleOtpChange(updatedOTPValues);
     },
-    [activeInput, handleOtpChange, otpValues],
+    [activeInput, handleOtpChange, otpValues]
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const changeCodeIfDefault = useCallback(
     (str: string) => {
       let updatedOTPValues = [...otpValues];
-      updatedOTPValues = str.split('') || '';
+      updatedOTPValues = str.split("") || "";
       setOTPValues(updatedOTPValues);
     },
-    [otpValues],
+    [otpValues]
   );
 
   // Focus `inputIndex` input
@@ -103,7 +112,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       const selectedIndex = Math.max(Math.min(length - 1, inputIndex), 0);
       setActiveInput(selectedIndex);
     },
-    [length],
+    [length]
   );
 
   const focusPrevInput = useCallback(() => {
@@ -119,7 +128,7 @@ export function OTPInputComponent(props: OTPInputProps) {
     (index: number) => () => {
       focusInput(index);
     },
-    [focusInput],
+    [focusInput]
   );
 
   // Handle onChange value for each input
@@ -133,7 +142,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       changeCodeAtFocus(val);
       focusNextInput();
     },
-    [changeCodeAtFocus, focusNextInput, getRightValue],
+    [changeCodeAtFocus, focusNextInput, getRightValue]
   );
 
   // Hanlde onBlur input
@@ -145,27 +154,27 @@ export function OTPInputComponent(props: OTPInputProps) {
   const handleOnKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       switch (e.key) {
-        case 'Backspace':
-        case 'Delete': {
+        case "Backspace":
+        case "Delete": {
           e.preventDefault();
           if (otpValues[activeInput]) {
-            changeCodeAtFocus('');
+            changeCodeAtFocus("");
           } else {
             focusPrevInput();
           }
           break;
         }
-        case 'ArrowLeft': {
+        case "ArrowLeft": {
           e.preventDefault();
           focusPrevInput();
           break;
         }
-        case 'ArrowRight': {
+        case "ArrowRight": {
           e.preventDefault();
           focusNextInput();
           break;
         }
-        case ' ': {
+        case " ": {
           e.preventDefault();
           break;
         }
@@ -173,17 +182,17 @@ export function OTPInputComponent(props: OTPInputProps) {
           break;
       }
     },
-    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues],
+    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues]
   );
 
   const handleOnPaste = useCallback(
     (e: React.ClipboardEvent<HTMLInputElement>) => {
       e.preventDefault();
       const pastedData = e.clipboardData
-        .getData('text/plain')
+        .getData("text/plain")
         .trim()
         .slice(0, length - activeInput)
-        .split('');
+        .split("");
       if (pastedData) {
         let nextFocusIndex = 0;
         const updatedOTPValues = [...otpValues];
@@ -197,17 +206,17 @@ export function OTPInputComponent(props: OTPInputProps) {
           }
         });
         // setOTPValues(updatedOTPValues);
-        changeCodeAtFocus(updatedOTPValues.join(''));
+        changeCodeAtFocus(updatedOTPValues.join(""));
         setActiveInput(Math.min(nextFocusIndex + 1, length - 1));
       }
     },
-    [changeCodeAtFocus, activeInput, getRightValue, length, otpValues],
+    [changeCodeAtFocus, activeInput, getRightValue, length, otpValues]
   );
 
   return (
     <div {...rest}>
       {Array(length)
-        .fill('')
+        .fill("")
         .map((_, index) => (
           <SingleInput
             key={`SingleInput-${index}`}

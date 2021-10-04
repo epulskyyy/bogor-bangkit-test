@@ -13,7 +13,7 @@ export function* postLogin(action:any) {
             type: authAction.LOGIN_SUCCESS,
             data,
         });
-        notificationMessage("success",`Berhasi`,`Silahkan cek email`)
+        notificationMessage("success",`Berhasil`,``)
         localStorage.setItem('access_token', data.data)
         history.push('/')
     } catch (e:any) {

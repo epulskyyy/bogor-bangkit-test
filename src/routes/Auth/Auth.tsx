@@ -1,9 +1,8 @@
-import { Helmet } from "react-helmet-async";
 import "../../styles/base.scss";
 import "./components/styles.scss";
 import { Button, Form, Input, Typography } from "antd";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../models/RootState";
@@ -34,7 +33,7 @@ export const tailFormItemLayout = {
 };
 
 const Auth: React.FC = () => {
-  const { isLoading, isError, formData } = useSelector(
+  const { isLoading, formData } = useSelector(
     (state: RootState) => state.auth
   );
   const [isHuman, setHuman] = useState(false);
@@ -107,7 +106,7 @@ const Auth: React.FC = () => {
                   />
                 </Form.Item>
                 <Form.Item>
-                  {keys.recaptcha == "" ? null : (
+                  {keys.recaptcha === "" ? null : (
                     <ReCAPTCHA
                       sitekey={keys.recaptcha}
                       onChange={() => setHuman(true)}
@@ -118,7 +117,7 @@ const Auth: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item>
-                  <Button type="default" disabled={!isHuman || formData?.email?.length == 0 || formData?.password?.length == 0 } loading={isLoading || false} block onClick={handleSubmit}>
+                  <Button type="default" disabled={!isHuman || formData?.email?.length === 0 || formData?.password?.length === 0 } loading={isLoading || false} block onClick={handleSubmit}>
                     LOGIN
                   </Button>
                 </Form.Item>

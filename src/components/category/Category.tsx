@@ -1,5 +1,6 @@
 import React from 'react'
-import NoImage from "../../assets/peb-noimage.svg";
+import MakananImage from "../../assets/img/makanan.png"
+import BusanaImage from "../../assets/img/busana.png"
 import'./styles.scss'
 
 type Props ={
@@ -9,10 +10,9 @@ type Props ={
 
 const Category: React.FC<Props>=({title, icon})=> {
     return (
-        <div className="peb-category">
+        <div className="peb-category" style={{background:`url(${title.includes("makanan")?MakananImage:title.includes("busana")?BusanaImage:BusanaImage})`}}>
             <div className="peb-category-left">
                 <div className="peb-category-icon">
-                    <img height="40px" src={icon || NoImage} alt="icon" />
                 </div>
             </div>
             <div className="peb-category-right">
