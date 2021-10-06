@@ -1,6 +1,10 @@
 import {
-    REGISTRATION_ERROR,
+  REGISTRATION_ERROR,
+  REGISTRATION_OTP_ERROR,
+  REGISTRATION_OTP_REQUEST,
+  REGISTRATION_OTP_SUCCESS,
   REGISTRATION_REQUEST,
+  REGISTRATION_RESET,
   REGISTRATION_SUCCESS,
   SET_FORM_REGISTER,
   SET_FORM_STAPS,
@@ -17,6 +21,8 @@ const initialState = {
   isLoading: null,
   isError: null,
   message: null,
+  isLoadingOtp: null,
+  isErrorOtp: null,
 };
 
 export default function reducer(state = initialState, action: any) {
@@ -33,22 +39,70 @@ export default function reducer(state = initialState, action: any) {
       };
 
     case REGISTRATION_REQUEST:
+      console.log("sini");
+
       return {
         ...state,
         isLoading: true,
+        isErrorOtp: false,
+        isError: false,
       };
 
     case REGISTRATION_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        isErrorOtp: false,
+        isError: false,
       };
-      case REGISTRATION_ERROR:
-        return {
-          ...state,
-          isLoading: false,
-          message: action.message
-        };
+    case REGISTRATION_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.message,
+      };
+    case REGISTRATION_OTP_REQUEST:
+      return {
+        ...state,
+        isLoadingOtp: true,
+        isError: false,
+        isErrorOtp: false,
+      };
+    case REGISTRATION_OTP_SUCCESS:
+      return {
+        ...state,
+        isLoadingOtp: false,
+        formData: {},
+        staps: {
+          current: 0,
+          percent: 0,
+        },
+        isErrorOtp: false,
+        isError: false,
+      };
+    case REGISTRATION_OTP_ERROR:
+      return {
+        ...state,
+        isLoadingOtp: false,
+        isErrorOtp: true,
+        message: action.message,
+      };
+    case REGISTRATION_RESET:
+      return {
+        data: {},
+        formData: {},
+        staps: {
+          current: 0,
+          percent: 0,
+        },
+        isFetching: null,
+        isLoading: null,
+        isError: null,
+        message: null,
+        isLoadingOtp: null,
+        isErrorOtp: null,
+      };
     default:
       return state;
   }

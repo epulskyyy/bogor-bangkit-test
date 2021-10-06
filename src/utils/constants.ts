@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export const formItemLayoutR = {
   labelCol: {
     xs: { span: 24 },
@@ -7,6 +8,18 @@ export const formItemLayoutR = {
     xs: { span: 24 },
     sm: { span: 24 },
   },
+};
+export const regexTest = { alphaNumeric: /[^A-Za-z ]/g, numeric: /[0-9]/ };
+
+export const messageValidate = (
+  type: "required" | "minmax",
+  nameField: string,
+  length?: number
+): string => {
+  if (type === "required") return nameField + "Tidak boleh kosong";
+  if (type === "minmax")
+    return nameField + "Harus terdiri dari " + length + " digit";
+  return "";
 };
 
 export const kecamatanBogor = [

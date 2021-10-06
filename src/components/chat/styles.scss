@@ -1,0 +1,220 @@
+.peb-chat {
+  &-btn.hide {
+    display: none;
+  }
+  &-btn {
+    cursor: pointer;
+    padding: 8px 20px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 50px 0px 0px 0px;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  &-collapse.hide {
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+    transform: scale(0);
+  }
+  &-collapse {
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+    position: absolute;
+    display: flex;
+    background-color: white;
+    min-width: 603px;
+    max-width: 683px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+  }
+  &-sidebar {
+    width: 35%;
+    border-right: 1px solid #dbdbdb;
+    height: inherit;
+    &-header {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dbdbdb;
+      h3 {
+        margin: 0;
+      }
+    }
+    &-content {
+      overflow-x: auto;
+      height: 344px;
+      padding: 10px;
+      .ant-list-item {
+        padding: 0;
+      }
+      &-nodata {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        label {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 17px;
+          color: #dbdbdb;
+        }
+      }
+    }
+  }
+  &-content {
+    width: 65%;
+    border-right: 1px solid #dbdbdb;
+    height: inherit;
+    &-header {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dbdbdb;
+      h3 {
+        margin: 0;
+      }
+    }
+    &-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &-nodata {
+        padding: 20px;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-size: 14px;
+        line-height: 17px;
+        font-weight: bold;
+        label {
+          color: #8c8c8c;
+          font-size: 12px;
+        }
+      }
+    }
+    &-discus {
+      height: 344px;
+      overflow-x: auto;
+      padding: 10px;
+      border-bottom: 1px solid #dbdbdb;
+      &-sender {
+        display: flex;
+        justify-content: flex-end;
+        label {
+          padding: 10px;
+          background-color: #d7ecff;
+
+          border-radius: 10px;
+        }
+      }
+      &-receiver {
+        label {
+          margin-left: auto;
+          padding: 10px;
+          background-color: #75bdff;
+          border-radius: 10px;
+        }
+      }
+    }
+    &-text {
+      width: inherit;
+      &-input {
+        width: 90%;
+        height: 40px;
+        padding: 10px;
+        border: none;
+      }
+    }
+  }
+}
+.peb-list-chat {
+  cursor: pointer;
+}
+#peb-chat-collapse {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#peb-chat-btn {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  bottom: 30px;
+  left: 35px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 99;
+  .peb-chat-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0px 2px 17px -1px rgba(0, 0, 0, 0.3);
+  }
+  .peb-chat-btn.hide {
+    display: none;
+  }
+  &.fab-active {
+    li:hover {
+      background-color: #f8e487;
+    }
+    &.left {
+      li:nth-child(1) {
+        top: 0%;
+        left: 300%;
+        transition-delay: 0s;
+      }
+      li:nth-child(2) {
+        top: 0%;
+        left: 200%;
+        transition-delay: 0.2s;
+      }
+      li:nth-child(3) {
+        top: 0%;
+        left: 100%;
+        transition-delay: 0.4s;
+      }
+    }
+    &.right {
+      li:nth-child(1) {
+        top: 0%;
+        left: -300%;
+        transition-delay: 0s;
+      }
+      li:nth-child(2) {
+        top: 0%;
+        left: -200%;
+        transition-delay: 0.2s;
+      }
+      li:nth-child(3) {
+        top: 0%;
+        left: -100%;
+        transition-delay: 0.4s;
+      }
+    }
+  }
+}
+@media (max-width: 722px) {
+  .peb-chat {
+    right: 30px;
+  }
+}

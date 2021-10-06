@@ -30,7 +30,7 @@
     top: 0;
   }
   @include breakpoint(md-down) {
-    .pep-login-title{
+    .peb-login-title{
       color: white;
     }
     @include headMobile()

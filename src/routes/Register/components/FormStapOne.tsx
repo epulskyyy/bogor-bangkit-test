@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button, Form, Input, Radio } from "antd";
 
@@ -14,21 +14,22 @@ export default function FormStapOne() {
   const { getFieldsValue } = form;
   const { formData } = useSelector((state: RootState) => state.register);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let formValidation = false;
     const obj = Object.keys(getFieldsValue());
     for (let i = 0; i < obj.length; i++) {
       const e = obj[i];
       if (e === "nik") {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length !== 16) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length !== 16) {
             formValidation = true;
             break;
           }
         }
       } else {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length === 0) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length === 0) {
             formValidation = true;
             break;
           }
@@ -39,6 +40,7 @@ export default function FormStapOne() {
       }
     }
     setbuttonDisabled(formValidation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData]);
 
   const handleChange = (e: any) => {
@@ -148,7 +150,7 @@ export default function FormStapOne() {
             },
             {
               required: true,
-              message: "Mohon masukkan email yang terdaftar",
+              message: "Mohon masukkan email yang belum terdaftar",
             },
           ]}
         >

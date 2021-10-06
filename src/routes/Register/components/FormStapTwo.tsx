@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Button, Col, Form, Input, Row, Select, Typography } from "antd";
+import { Button, Col, Form, Input, Row, Select } from "antd";
 
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -9,9 +9,15 @@ import {
   kecamatanBogor,
   kelurahanBogor,
 } from "../../../utils/constants";
-import { regristrationRequest, setFormRegister, setFormStaps } from "../../../actions/register";
+import {
+  registrationRequest,
+  setFormRegister,
+  setFormStaps,
+} from "../../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
+import { keys } from "../../../utils/env";
+import { xssValid } from "../../../utils/utils";
 
 const { TextArea } = Input;
 
@@ -19,9 +25,18 @@ export default function FormStapTwo() {
   const [form] = Form.useForm();
   const [buttonDisabled, setbuttonDisabled] = useState(true);
   const [isHuman, setHuman] = useState(false);
-  const { getFieldsValue } = form;
-  const { formData } = useSelector((state: RootState) => state.register);
+  const { getFieldsValue, getFieldValue } = form;
+  const { formData, isLoading } = useSelector(
+    (state: RootState) => state.register
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (formData?.password != null || formData?.password_confirmation != null) {
+      form.validateFields(["password", "password_confirmation"]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData?.password, formData?.password_confirmation]);
 
   useEffect(() => {
     let formValidation = false;
@@ -29,8 +44,22 @@ export default function FormStapTwo() {
     for (let i = 0; i < obj.length; i++) {
       const e = obj[i];
       if (e === "rt" || e === "rw") {
-        if (form.getFieldsValue()[e] !== undefined) {
-          if (form.getFieldsValue()[e].length !== 3) {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length !== 3) {
+            formValidation = true;
+            break;
+          }
+        }
+      } else if (e === "password") {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e].length < 6) {
+            formValidation = true;
+            break;
+          }
+        }
+      } else if (e === "password_confirmation") {
+        if (getFieldsValue()[e] !== undefined) {
+          if (getFieldsValue()[e] !== getFieldValue("password")) {
             formValidation = true;
             break;
           }
@@ -50,7 +79,11 @@ export default function FormStapTwo() {
     if (isHuman) {
       setbuttonDisabled(formValidation);
     }
-  }, [formData]);
+    console.log("====================================");
+    console.log(isHuman, "isHuman");
+    console.log("====================================");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData, isHuman]);
 
   const onPrev = () => {
     dispatch(setFormStaps("current", 0));
@@ -81,8 +114,8 @@ export default function FormStapTwo() {
       email,
       alamat: {
         alamat_user,
-        kecamatan: kecamatan.value,
-        kelurahan: kelurahan.value,
+        kecamatan: kecamatan?.label,
+        kelurahan: kelurahan?.label,
         rt,
         rw,
       },
@@ -90,8 +123,9 @@ export default function FormStapTwo() {
       jenis_kelamin,
       password,
       password_confirmation,
+      role: "customer",
     };
-    dispatch(regristrationRequest(data))
+    dispatch(registrationRequest(data));
   };
   return (
     <Form
@@ -119,7 +153,7 @@ export default function FormStapTwo() {
       <Row gutter={[16, 0]}>
         <Col lg={12} sm={12} xs={12}>
           <Form.Item
-            className="mekar-form-item"
+            className="peb-form-item"
             label="RT"
             name="rt"
             colon={false}
@@ -151,6 +185,7 @@ export default function FormStapTwo() {
               type="number"
               placeholder="000"
               onChange={handleChange}
+              onWheel={(e: any) => e.target.blur()}
               onKeyDown={(e) => {
                 if (
                   e.key === "Delete" ||
@@ -168,7 +203,7 @@ export default function FormStapTwo() {
         </Col>
         <Col lg={12} sm={12} xs={12}>
           <Form.Item
-            className="mekar-form-item"
+            className="peb-form-item"
             label="RW"
             name="rw"
             colon={false}
@@ -200,6 +235,7 @@ export default function FormStapTwo() {
               type="number"
               placeholder="000"
               onChange={handleChange}
+              onWheel={(e: any) => e.target.blur()}
               onKeyDown={(e) => {
                 if (
                   e.key === "Delete" ||
@@ -236,12 +272,13 @@ export default function FormStapTwo() {
       </Form.Item>
       <Form.Item
         name="kelurahan"
-        label="kelurahan"
+        label="Kelurahan"
         rules={[{ required: true, message: "Tolong masukan Kelurahan!" }]}
       >
         <Select
           placeholder="Ketik Kelurahan Anda"
           options={kelurahanBogor
+            // eslint-disable-next-line eqeqeq
             .filter((v) => v.id_kecamatan == formData?.kecamatan?.id)
             .map((el: any) => ({
               label: el.nama,
@@ -265,12 +302,31 @@ export default function FormStapTwo() {
           autoSize
           placeholder="Ketik alamat Anda"
           name="alamat_user"
+          onKeyPress={(e) => {
+            // eslint-disable-next-line no-useless-escape
+            /[^A-Za-z0-9 ,-\./]/g.test(e.key) && e.preventDefault();
+          }}
         />
       </Form.Item>
       <Form.Item
         name="password"
         label="Password"
-        rules={[{ required: true, message: "Tolong masukan Password!" }]}
+        rules={[
+          { required: true, message: "Tolong masukan Password!" },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              if (getFieldValue("password").length >= 6) {
+                return Promise.resolve();
+              }
+              return Promise.reject("Password harus minimal 6 karakter");
+            },
+          }),
+          (value) => ({
+            validator() {
+              return xssValid(value.getFieldValue("password"));
+            },
+          }),
+        ]}
       >
         <Input.Password
           onChange={handleChange}
@@ -301,10 +357,16 @@ export default function FormStapTwo() {
       </Form.Item>
       <Form.Item>
         <ReCAPTCHA
-          sitekey="6LeYVMwZAAAAAIOqF-Z1JH7MVXWfWTJ01MRB9Sjw"
+          sitekey={keys.recaptcha}
           onChange={() => setHuman(true)}
-          onErrored={() => setHuman(false)}
-          onExpired={() => setHuman(false)}
+          onErrored={() => {
+            setbuttonDisabled(true);
+            setHuman(false);
+          }}
+          onExpired={() => {
+            setbuttonDisabled(true);
+            setHuman(false);
+          }}
         />
       </Form.Item>
       <Form.Item>
@@ -320,8 +382,9 @@ export default function FormStapTwo() {
               block
               disabled={buttonDisabled}
               onClick={onRegist}
+              loading={isLoading || false}
             >
-              Register
+              Registrasi
             </Button>
           </Col>
         </Row>

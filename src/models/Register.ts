@@ -8,5 +8,7 @@ export interface RegisterRoot {
     isFetching:any,
     isLoading:any,
     isError:any,
-    messange:any
+    messange:any,
+    isLoadingOtp:any,
+    isErrorOtp:any,
 } 

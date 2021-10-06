@@ -4,7 +4,6 @@
   max-width: 500px;
   padding: 20px;
   &-product-image {
-    height: 147px;
     background: gray;
   }
 }
@@ -13,14 +12,19 @@
   border-radius: 10px;
   max-width: 500px;
   &-product-image {
-    height: 147px;
+    overflow: hidden;
     background: gray;
+  }
+  &-body {
+    background: white;
   }
 }
 .peb-card-2.product {
+  position: relative;
   overflow: hidden;
   color: #a8a8a8;
-  .product-name,.product-button{
+  .product-name,
+  .product-button {
     font-weight: bold;
   }
   .price {
@@ -28,5 +32,10 @@
     color: #a8a8a8;
     font-size: 18px;
     margin: 0;
+  }
+}
+@media (max-width: 398px) {
+  .search-page .ant-card-body {
+    padding: 0 !important;
   }
 }

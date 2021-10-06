@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 
 class Service {
   constructor() {
@@ -55,6 +55,19 @@ class Service {
       );
   }
 
+  getCM(path, params, callback) {
+    return this.service
+      .get(path, {
+        params,
+        headers: {
+          Authorization: this.token,
+        },
+      })
+      .then((response) =>
+        callback ? callback(response.status, response.data) : response
+      );
+  }
+
   getBlob(path, params, callback) {
     return this.service
       .get(path, {
@@ -100,7 +113,21 @@ class Service {
         callback ? callback(response.status, response.data) : response
       );
   }
-
+  postCM(path, payload, callback) {
+    return this.service
+      .request({
+        method: "POST",
+        url: path,
+        responseType: "json",
+        data: payload,
+        headers: {
+          Authorization: this.token,
+        },
+      })
+      .then((response) =>
+        callback ? callback(response.status, response.data) : response
+      );
+  }
   post(path, payload, callback) {
     return this.service
       .request({
