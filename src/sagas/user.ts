@@ -1,8 +1,24 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as userAction from "../actions/user";
 import { ResponseGenerator } from "../models/RootState";
-import { editProfile, getUserById } from "../requests/user";
+import { editProfile, getAllUser, getUserById } from "../requests/user";
 import { notificationMessage } from "../utils/notifications";
+
+export function* getAllUserF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(getAllUser, action.perPage);
+    let data = response.data;
+    yield put({
+      type: userAction.GET_ALL_USER_SUCCESS,
+      data,
+    });
+  } catch (e: any) {
+    yield put({
+      type: userAction.GET_ALL_USER_ERROR,
+      data: e,
+    });
+  }
+}
 
 export function* getUserByIdF(action: any) {
   try {
@@ -40,6 +56,7 @@ export function* editProfileF(action: any) {
   }
 }
 export default all([
+  takeLatest(userAction.GET_ALL_USER_REQUEST, getAllUserF),
   takeLatest(userAction.GET_USER_BY_ID_REQUEST, getUserByIdF),
   takeLatest(userAction.EDIT_PROFILE_REQUEST, editProfileF),
 ]);

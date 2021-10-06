@@ -1,72 +1,59 @@
-import { Input, List, Avatar, Empty } from "antd";
-const { Search } = Input;
-
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
+import { SearchOutlined } from "@ant-design/icons";
+import { Input, Select, Spin } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductSearchRequest } from "../actions/product";
+import { RootState } from "../models/RootState";
+import history from "../utils/history";
+import { useQuery } from "../utils/utils";
 
 const SearchComp = () => {
-  const onSearch = (value: any) => console.log(value);
+  const dispatch = useDispatch();
+  const { dataSearch, isLoadingSearch } = useSelector(
+    (state: RootState) => state.product
+  );
+  let query: any = useQuery();
 
+  const queryData: any = {
+    category_id: "",
+    perPage: "5",
+    sort: "",
+    name: "",
+    umkm_id: "",
+    page: "1",
+  };
+  const debounceFetcher = (name: any) => {
+    dispatch(getProductSearchRequest({ ...queryData, name }));
+  };
+  const searchProduct = (name: any) => {
+    history.push({
+      search: `category=&per_page=${10}&sort=&product_name=${name.replace(
+        " ",
+        "-"
+      )}&umkm=&page=${1}`,
+      pathname: "search",
+    });
+  };
+  const resetSearchData = () => {};
   return (
     <div className="peb-navbar-search">
-      <Search
-        className="search-header"
+      <Select
+        allowClear={false}
+        showSearch
+        defaultValue={query.get("product_name")}
+        filterOption={false}
+        suffixIcon={<SearchOutlined />}
+        style={{ display: "block" }}
         placeholder="Cari produk"
-        onSearch={onSearch}
+        onSearch={debounceFetcher}
+        onSelect={searchProduct}
+        notFoundContent={isLoadingSearch ? <Spin size="small" /> : null}
+        options={dataSearch?.data?.map((value: any, num: number) => ({
+          label: value.nama_produk,
+          value: value.nama_produk,
+          id: value.nama_produk,
+        }))}
+        onChange={resetSearchData}
       />
-      <div className="content-search">
-        <div className="peb-search">
-          {data != null ? (
-            <List
-              itemLayout="horizontal"
-              dataSource={data}
-              renderItem={(item) => (
-                <List.Item className="serach-link">
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    }
-                    title={item.title}
-                  />
-                </List.Item>
-              )}
-            />
-          ) : (
-            <Empty
-              className="p-3"
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              imageStyle={{
-                height: 60,
-              }}
-              description={<span>Tidak ada data</span>}
-            />
-          )}
-        </div>
-      </div>
     </div>
   );
 };

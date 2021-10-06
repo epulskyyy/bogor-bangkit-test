@@ -7,6 +7,8 @@ const initialState = {
   isLoading: null,
   isError: null,
   message: null,
+  dataSearch: null,
+  isLoadingSearch: null,
 };
 
 export default function reducer(state = initialState, action: any) {
@@ -17,13 +19,26 @@ export default function reducer(state = initialState, action: any) {
         isLoading: true,
       };
     case productAction.GET_PRODUCT_SUCCESS:
-      return { ...state, data: action.data, isLoading: false };
+      return { ...state, data: action.data, isLoading: null };
     case productAction.GET_PRODUCT_ERROR:
       return {
         ...state,
         data: null,
-        isLoading: false,
-      }; 
+        isLoading: null,
+      };
+    case productAction.GET_PRODUCT_SEARCH_REQUEST:
+      return {
+        ...state,
+        isLoadingSearch: true,
+      };
+    case productAction.GET_PRODUCT_SEARCH_SUCCESS:
+      return { ...state, dataSearch: action.data, isLoadingSearch: null };
+    case productAction.GET_PRODUCT_SEARCH_ERROR:
+      return {
+        ...state,
+        dataSearch: null,
+        isLoadingSerach: null,
+      };
 
     case productAction.GET_PRODUCT_BY_COUNT_REQUEST:
       return {
@@ -38,8 +53,8 @@ export default function reducer(state = initialState, action: any) {
         ...state,
         dataCount: null,
         isLoading: false,
-      }; 
-      case productAction.GET_PRODUCT_BY_ID_REQUEST:
+      };
+    case productAction.GET_PRODUCT_BY_ID_REQUEST:
       return {
         ...state,
         dataId: null,
@@ -56,4 +71,4 @@ export default function reducer(state = initialState, action: any) {
     default:
       return state;
   }
-};
+}

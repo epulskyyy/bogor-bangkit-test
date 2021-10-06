@@ -24,7 +24,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ authedData }) => {
   const dispatch = useDispatch();
-  const user = authedData;
+  const user = authedData ?? false;
   const access_token = localStorage.getItem("access_token");
   const categories = useSelector((state: RootState) => state.categories);
 
@@ -71,7 +71,9 @@ const Header: React.FC<Props> = ({ authedData }) => {
   return (
     <div className="peb-navbar">
       <div className="peb-navbar-top">
-        <div className="peb-navbar-top-logo">PEB</div>
+        <div className="peb-navbar-top-logo">
+          <Link to="/">PEB</Link>
+        </div>
         <div className="peb-navbar-top-wrap">
           <SearchComp />
           <ul className="peb-list peb-list-flex ml-2 mr-2">
@@ -110,7 +112,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
           >
             <div className="peb-navbar-top-auth-logged">
               <label>
-                {authedData?.username.slice(
+                {authedData?.username?.slice(
                   0,
                   authedData?.username.length >= 20 ? 20 : 10
                 )}

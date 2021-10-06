@@ -37,6 +37,22 @@ export function* getProductF(action: any) {
     });
   }
 }
+
+export function* getProductSearchF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(getProduct, action.data);
+    let data = response.data;
+    yield put({
+      type: productAction.GET_PRODUCT_SEARCH_SUCCESS,
+      data,
+    });
+  } catch (e: any) {
+    yield put({
+      type: productAction.GET_PRODUCT_SEARCH_ERROR,
+      data: e,
+    });
+  }
+}
 export function* getProductIdF(action: any) {
   try {
     const response: ResponseGenerator = yield call(getProductId, action.data);
@@ -53,6 +69,7 @@ export function* getProductIdF(action: any) {
   }
 }
 export default all([
+  takeLatest(productAction.GET_PRODUCT_SEARCH_REQUEST, getProductSearchF),
   takeLatest(productAction.GET_PRODUCT_REQUEST, getProductF),
   takeLatest(productAction.GET_PRODUCT_BY_COUNT_REQUEST, getProductCountF),
   takeLatest(productAction.GET_PRODUCT_BY_ID_REQUEST, getProductIdF),

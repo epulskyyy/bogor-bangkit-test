@@ -1,13 +1,26 @@
-import React from "react"
-import {Helmet} from "react-helmet-async";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
-type Props={
-    title: string
-}
+type Props = {
+  title: string;
+};
 
-export const Layout: React.FC<Props> = ({title,children}) => {
-    return (<>
-        <Helmet>
+export const Layout: React.FC<Props> = ({ title, children }) => {
+  return (
+    <>
+      <Helmet>
         <title>Pemulihan Ekonomi - {title}</title>
-    </Helmet>{children}</>)
-}
+      </Helmet>
+      <div
+        id="peb-layout"
+        style={{
+          minHeight: "100vh",
+          width:"100%",
+          position: "relative",
+        }}
+      >
+        {children}
+      </div>
+    </>
+  );
+};

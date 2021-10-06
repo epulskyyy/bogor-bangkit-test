@@ -1,5 +1,18 @@
 import { defaultActionCreator } from ".";
 
+export const GET_ALL_USER_REQUEST = "GET_ALL_USER_REQUEST";
+export const getAllUserRequest = defaultActionCreator(
+  GET_ALL_USER_REQUEST,
+  "perPage","status"
+);
+export const GET_ALL_USER_SUCCESS = "GET_ALL_USER_SUCCESS";
+export const getAllUserSuccess = defaultActionCreator(
+  GET_ALL_USER_SUCCESS,
+  "data"
+);
+export const GET_ALL_USER_ERROR = "GET_ALL_USER_ERROR";
+export const getAllUserError = defaultActionCreator(GET_ALL_USER_ERROR, "data");
+
 export const GET_USER_BY_ID_REQUEST = "GET_USER_BY_ID_REQUEST";
 export const getUserByIdRequest = defaultActionCreator(
   GET_USER_BY_ID_REQUEST,
@@ -19,7 +32,9 @@ export const getUserByIdError = defaultActionCreator(
 export const EDIT_PROFILE_REQUEST = "EDIT_PROFILE_REQUEST";
 export const editProfileRequest = defaultActionCreator(
   EDIT_PROFILE_REQUEST,
-  "id", "data", "func"
+  "id",
+  "data",
+  "func"
 );
 export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS";
 export const editProfileSuccess = defaultActionCreator(

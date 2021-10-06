@@ -20,7 +20,7 @@ const Product: React.FC<Props> = ({ data }) => {
         <Statistic
           title={data.nama_produk}
           value={Number(data.harga_produk)}
-          valueRender={(text)=>(<>RP.{text}</>)}
+          valueRender={(text)=>(<h3 className="peb-product-price-text">RP.{text}</h3>)}
         />
       </div>
       <div className="peb-card-2-footer">

@@ -1,6 +1,10 @@
-.peb-footer{
-    background-color: #FAFAFA;
-    &-list{
-        display: flex;
-    }
+.peb-footer {
+  background-color: #fafafa;
+  margin-top: auto !important;
+  &-list {
+    display: flex;
+  }
+}
+.peb-list{
+    padding: 0;
 }

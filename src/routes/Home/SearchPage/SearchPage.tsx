@@ -15,18 +15,16 @@ import Container from "../components/Container";
 import Product from "../../../components/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
-import { useLocation } from "react-router";
 import { useEffect } from "react";
 import { getProducRequest } from "../../../actions/product";
 import history from "../../../utils/history";
 import { AppstoreOutlined } from "@ant-design/icons";
 import "../styles/styles.scss";
 import "../../../styles/base.scss";
+import { useQuery } from "../../../utils/utils";
 
 const { Option } = Select;
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+
 type Props = {
   authedData?: any;
 };
@@ -36,12 +34,12 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
   const data = categories?.data?.data?.data || [];
   let query = useQuery();
   const queryData: any = {
-    category_id: query.get("category"),
-    perPage: query.get("per_page"),
-    sort: query.get("sort"),
-    name: query.get("product_name"),
-    umkm_id: query.get("umkm"),
-    page: query.get("page"),
+    category_id: query.get("category")||"",
+    perPage: query.get("per_page")||"10",
+    sort: query.get("sort")||"",
+    name: query.get("product_name")||"",
+    umkm_id: query.get("umkm")||"",
+    page: query.get("page")||"1",
   };
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,28 +49,47 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
   const onChangeProduct = (pagination: any, filters?: any, sorter?: any) => {
     dispatch(getProducRequest({ ...queryData, page: pagination }));
     history.push({
-      search: `category=${queryData.category_id}&per_page=${queryData.perPage}&sort=${queryData.sort}&product_name=${queryData.name}&umkm=${queryData.umkm_id}&page=${pagination}`,
+      search: `category=${queryData.category_id || ""}&per_page=${
+        queryData.perPage || ""
+      }&sort=${queryData.sort || ""}&product_name=${
+        queryData.name || ""
+      }&umkm=${queryData.umkm_id || ""}&page=${pagination || ""}`,
     });
   };
 
   const onChangeProductPageSize = (pageSize: any) => {
     dispatch(getProducRequest({ ...queryData, pageSize }));
     history.push({
-      search: `category=${queryData.category_id}&per_page=${pageSize}&sort=${queryData.sort}&product_name=${queryData.name}&umkm=${queryData.umkm_id}&page=${queryData.page}`,
+      search: `category=${queryData.category_id || ""}&per_page=${
+        pageSize || ""
+      }&sort=${queryData.sort || ""}&product_name=${
+        queryData.name || ""
+      }&umkm=${queryData.umkm_id || ""}&page=${queryData.page || ""}`,
     });
   };
 
   const onChangeProductSort = (sort: any) => {
     dispatch(getProducRequest({ ...queryData, sort }));
     history.push({
-      search: `category=${queryData.category_id}&per_page=${queryData.perPage}&sort=${sort}&product_name=${queryData.name}&umkm=${queryData.umkm_id}&page=${queryData.page}`,
+      search: `category=${queryData.category_id || ""}&per_page=${
+        queryData.perPage || ""
+      }&sort=${sort || ""}&product_name=${queryData.name || ""}&umkm=${
+        queryData.umkm_id || ""
+      }&page=${queryData.page || ""}`,
     });
   };
 
   const onChangeProductCategory = (category_id: any) => {
+    console.log('====================================');
+    console.log(queryData);
+    console.log('====================================');
     dispatch(getProducRequest({ ...queryData, category_id }));
     history.push({
-      search: `category=${category_id}&per_page=${queryData.perPage}&sort=${queryData.sort}&product_name=${queryData.name}&umkm=${queryData.umkm_id}&page=${queryData.page}`,
+      search: `category=${category_id || ""}&per_page=${
+        queryData.perPage || 10
+      }&sort=${queryData.sort || ""}&product_name=${
+        queryData.name || ""
+      }&umkm=${queryData.umkm_id || ""}&page=${queryData.page || 1}`,
     });
   };
   const menu = (
@@ -103,7 +120,7 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
   );
   return (
     <Container title="Pencarian" authedData={authedData}>
-      <div className="container mt-2 mb-2">
+      <div className="container search-page mt-2 mb-2">
         <Row gutter={[16, 16]}>
           <Col lg={6} md={6} xs={0}>
             <List bordered>
@@ -158,8 +175,6 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
                     style={{ width: 100 }}
                     className="mr-2"
                   >
-                    <Option value="asc"> A-Z </Option>
-                    <Option value="desc"> Z-A </Option>
                     <Option value="terbaru"> Terbaru </Option>
                     <Option value="termurah"> Termurah </Option>
                     <Option value="termahal"> Termahal </Option>

@@ -10,9 +10,10 @@ type Props = {
   authedData?: AuthUser;
 };
 const Footer: React.FC<Props> = ({ authedData }) => {
+  
   return (
     <div className="container mt-3 peb-footer pt-3 pb-3">
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col lg={14} xl={14}>
           <Text strong>Pemulihan Ekonomi Bogor</Text>
           <p className="">

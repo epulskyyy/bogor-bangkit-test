@@ -1,6 +1,8 @@
 /* eslint-disable no-script-url */
 /* eslint-disable no-useless-escape */
 import jwtDecode from "jwt-decode";
+import { useLocation } from "react-router";
+
 export const onlyAlpha = (text) =>
   text
     .replace(/[0-9\/]+/g, "")
@@ -40,6 +42,10 @@ export const getDataSession = () => {
     //checking jwt
     jwtDecode(access_token, { header: true });
     const data = jwtDecode(access_token);
+    if (data.user_id == null) {
+      localStorage.removeItem("access_token");
+      return undefined;
+    }
     return data;
   } catch {
     localStorage.removeItem("access_token");
@@ -61,12 +67,20 @@ export const xssValidBool = (value) =>
     ? false
     : true;
 
-
 export const formatMoney = (num) => {
-  return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+  return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
 };
 
 export const capitalize = (str, allWord) => {
-  const cap = (text) => `${text[0].toUpperCase()}${text.slice(1)}`
-  return allWord ? str.split(' ').map(word => cap(word)).join(' ') : cap(str);
+  const cap = (text) => `${text[0].toUpperCase()}${text.slice(1)}`;
+  return allWord
+    ? str
+        .split(" ")
+        .map((word) => cap(word))
+        .join(" ")
+    : cap(str);
+};
+
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
 }

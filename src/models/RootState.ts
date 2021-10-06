@@ -21,6 +21,7 @@ export interface RootState {
   product: ProductRoot;
   banner: DefaultRoot;
   user: DefaultRoot;
+  chat: ChatRoot;
 }
 export interface AuthRoot {
   formData: any;
@@ -30,9 +31,22 @@ export interface AuthRoot {
 }
 export interface ProductRoot {
   data: any;
+  dataSearch: any;
   dataCount: any;
   dataId: any;
   isLoading: any;
+  isLoadingSearch: any;
   isError: any;
   message: any;
+}
+export interface ChatRoot {
+  dataMessage: any,
+  inputMessage: any,
+  userList: any,
+  selectedUserID: any,
+  isLoading: any,
+  isMessageLoading: any,
+  isSendLoading: any,
+  isError: any,
+  messageRes: any,
 }

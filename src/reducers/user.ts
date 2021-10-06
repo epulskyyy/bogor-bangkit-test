@@ -2,6 +2,7 @@ import * as userAction from "../actions/user";
 
 const initialState = {
   data: {},
+  datas: null,
   isLoading: null,
   isError: null,
   message: null,
@@ -23,6 +24,20 @@ export default function reducer(state = initialState, action: any) {
         data: {},
         isLoading: false,
       };
+      case userAction.GET_ALL_USER_REQUEST:
+        return {
+          ...state,
+          datas: null,
+          isLoading: true,
+        };
+      case userAction.GET_ALL_USER_SUCCESS:
+        return { ...state, datas: action.data, isLoading: false };
+      case userAction.GET_ALL_USER_ERROR:
+        return {
+          ...state,
+          datas: null,
+          isLoading: false,
+        };
     default:
       return state;
   }

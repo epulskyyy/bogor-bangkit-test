@@ -46,14 +46,7 @@ ul.peb-list {
     color: #8c8c8c;
   }
 }
-@media (max-width: 499px) {
-  .peb-product-price {
-    display: block;
-    .peb- {
-      text-align: center;
-    }
-  }
-}
+
 .peb-navbar-top-auth {
   &-logged {
     cursor: pointer;
@@ -102,5 +95,20 @@ ul.peb-list {
   cursor: pointer;
   &:hover {
     background: rgb(0 0 0 / 3%);
+  }
+}
+h3.peb-product-price-text {
+  font-size: 16px;
+}
+
+@media (max-width: 499px) {
+  h3.peb-product-price-text {
+    font-size: 12px;
+  }
+  .peb-product-price {
+    display: block;
+    .peb- {
+      text-align: center;
+    }
   }
 }
