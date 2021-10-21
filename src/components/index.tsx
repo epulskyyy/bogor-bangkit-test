@@ -9,7 +9,7 @@ export const Layout: React.FC<Props> = ({ title, children }) => {
   return (
     <>
       <Helmet>
-        <title>Pemulihan Ekonomi - {title}</title>
+        <title>ADA UMKM - {title}</title>
       </Helmet>
       <div
         id="peb-layout"

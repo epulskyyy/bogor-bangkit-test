@@ -61,7 +61,7 @@ export default function reducer(state = initialState, action: any) {
         isLoading: true,
       };
     case productAction.GET_PRODUCT_BY_ID_SUCCESS:
-      return { ...state, dataId: action.data, isLoading: true };
+      return { ...state, dataId: action.data, isLoading: false };
     case productAction.GET_PRODUCT_BY_ID_ERROR:
       return {
         ...state,

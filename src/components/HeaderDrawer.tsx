@@ -7,7 +7,10 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Drawer, Dropdown, Menu, Row, Select } from "antd";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { AuthUser } from "../models/AuthUser";
+import { RootState } from "../models/RootState";
+import history from "../utils/history";
 
 const { Option } = Select;
 type Props = {
@@ -16,6 +19,8 @@ type Props = {
 };
 
 const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
+  const categories = useSelector((state: RootState) => state.categories);
+
   const [visible, setVisible] = useState(false);
   const showDrawer = () => {
     setVisible(true);
@@ -24,18 +29,34 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
     setVisible(false);
   };
 
-  function onChange(value: any) {
-    console.log(`selected ${value}`);
+  function goTo(value: any) {
+    history.push(value);
   }
+
+  const searchKategori = (id: any) => {
+    onClose();
+    history.push({
+      search: `category=${id}&per_page=${10}&sort=&product_name=&umkm=&page=${1}`,
+      pathname: "search",
+    });
+  };
   const userMenu = (
     <Menu>
       <Menu.Item>
-        <Button icon={<ProfileOutlined />} type="link">
+        <Button
+          icon={<ProfileOutlined />}
+          type="link"
+          onClick={() => goTo("/profile/" + authedData?.user_id)}
+        >
           Profil
         </Button>
       </Menu.Item>
       <Menu.Item>
-        <Button icon={<AppstoreOutlined />} type="link">
+        <Button
+          icon={<AppstoreOutlined />}
+          type="link"
+          onClick={() => goTo("/dashboard")}
+        >
           Dasbor
         </Button>
       </Menu.Item>
@@ -55,7 +76,7 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
         icon={<MenuUnfoldOutlined />}
       />
       <Drawer placement="right" onClose={onClose} visible={visible}>
-        <Row gutter={[16,16]}>
+        <Row gutter={[16, 16]}>
           <Col xs={24}>
             <Dropdown.Button
               className="pt-4"
@@ -70,11 +91,11 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
               showSearch
               placeholder="Kategori"
               style={{ width: "100%" }}
-              onChange={onChange}
+              onSelect={searchKategori}
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="tom">Tom</Option>
+              {categories?.data?.data?.data?.map((v: any, i: any) => (
+                <Option value={v.id}>{v.nama_klasifikasi}</Option>
+              ))}
             </Select>
           </Col>
           <Col xs={24}>
@@ -83,6 +104,7 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
               icon={<MailFilled />}
               style={{ width: "100%" }}
               size="small"
+              onClick={() => goTo("/chat")}
             >
               Pesan
             </Button>

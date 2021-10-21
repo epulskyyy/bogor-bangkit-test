@@ -36,15 +36,17 @@ export function* postLogout(action:any) {
             data,
         });
         notificationMessage("success",`Berhasi`,`anda telah keluar`)
+        localStorage.removeItem("access_token")
         history.push("/login")
     } catch (e:any) {
-        
         yield put({
             type: authAction.LOGOUT_ERROR,
             error: e,
             message:"Oups, Error"
         });
-        notificationMessage("error",`Gagal keluar`,``)
+        localStorage.removeItem("access_token")
+        history.push("/login")
+        // notificationMessage("error",`Gagal keluar`,``)
     }
 }
 

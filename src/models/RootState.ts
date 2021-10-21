@@ -20,8 +20,10 @@ export interface RootState {
   categories: DefaultRoot;
   product: ProductRoot;
   banner: DefaultRoot;
-  user: DefaultRoot;
+  user: UserRoot;
   chat: ChatRoot;
+  infoWisata: ProductRoot;
+  faq: DefaultRoot;
 }
 export interface AuthRoot {
   formData: any;
@@ -49,4 +51,11 @@ export interface ChatRoot {
   isSendLoading: any,
   isError: any,
   messageRes: any,
+}
+export interface UserRoot {
+  data: any,
+  datas: any,
+  isLoading: any,
+  isError: any,
+  message: any,
 }

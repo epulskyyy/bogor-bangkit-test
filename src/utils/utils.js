@@ -42,7 +42,7 @@ export const getDataSession = () => {
     //checking jwt
     jwtDecode(access_token, { header: true });
     const data = jwtDecode(access_token);
-    if (data.user_id == null) {
+    if (data.user_id == null || data.role == null) {
       localStorage.removeItem("access_token");
       return undefined;
     }
@@ -84,3 +84,8 @@ export const capitalize = (str, allWord) => {
 export function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
+export const scrollToBottomChat = () => {
+  var chatWindow = document.getElementById("content-discus");
+  var xH = chatWindow.scrollHeight;
+  chatWindow.scrollTo(0, xH);
+};

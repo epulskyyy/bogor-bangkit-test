@@ -28,7 +28,7 @@ export default function reducer(state = initialState, action: any) {
     case chatAction.GET_ALL_USER_CHAT_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         isError: false,
         userList: action.data,
       };
@@ -36,7 +36,7 @@ export default function reducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        isError: true,
+        isError: false,
       };
     case chatAction.GET_HISTORY_CHAT_REQUEST:
       return {
@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action: any) {
     case chatAction.GET_HISTORY_CHAT_SUCCESS:
       return {
         ...state,
-        isMessageLoading: true,
+        isMessageLoading: false,
         isError: false,
         dataMessage: action.data,
       };
@@ -69,7 +69,7 @@ export default function reducer(state = initialState, action: any) {
 
       return {
         ...state,
-        isSendLoading: true,
+        isSendLoading: false,
         isError: false,
         dataMessage: dataChat,
         inputMessage:""

@@ -1,6 +1,6 @@
 export const endPoint = {
-    pemulihanEkonomiUrl : {v1:(process.env.REACT_APP_PEMULIHAN_EKONOMI_URL || "")+"api/pemulihan-ekonomi/"},
-    messagingUrl : {v1:(process.env.REACT_APP_MESSAGING_URL || "")+"api/v1/"}
+    pemulihanEkonomiUrl : {v1:(process.env.REACT_APP_PEMULIHAN_EKONOMI_URL || "")},
+    messagingUrl : {v1:(process.env.REACT_APP_MESSAGING_URL || "")}
 }
 
 export const keys = {

@@ -16,7 +16,7 @@ export default function reducer(state = initialState, action: any) {
         isLoading: true,
       };
     case bannerAction.GET_BANNER_SUCCESS:
-      return { ...state, data: action.data, isLoading: true };
+      return { ...state, data: action.data, isLoading: false };
     case bannerAction.GET_BANNER_ERROR:
       return {
         ...state,

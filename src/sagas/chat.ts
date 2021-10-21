@@ -3,6 +3,7 @@ import * as chatAction from "../actions/chat";
 import { ResponseGenerator } from "../models/RootState";
 import { getAllUserChat, getHistoryChat, sendMessage } from "../requests/chat";
 import { notificationMessage } from "../utils/notifications";
+import { scrollToBottomChat } from "../utils/utils";
 
 export function* getAllUserChatF(action: any) {
   try {
@@ -30,6 +31,7 @@ export function* getHistoryChatF(action: any) {
       type: chatAction.GET_HISTORY_CHAT_SUCCESS,
       data,
     });
+    yield scrollToBottomChat()
   } catch (e: any) {
     yield put({
       type: chatAction.GET_HISTORY_CHAT_ERROR,
@@ -55,6 +57,8 @@ export function* sendMessageF(action: any) {
       type: chatAction.SEND_CHAT_SUCCESS,
       data: bodyMessage,
     });
+    yield scrollToBottomChat()
+
   } catch (e: any) {
       console.log(e);
       

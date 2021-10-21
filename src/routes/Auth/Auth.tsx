@@ -33,9 +33,7 @@ export const tailFormItemLayout = {
 };
 
 const Auth: React.FC = () => {
-  const { isLoading, formData } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoading, formData } = useSelector((state: RootState) => state.auth);
   const [isHuman, setHuman] = useState(false);
   const dispatch = useDispatch();
 
@@ -43,14 +41,16 @@ const Auth: React.FC = () => {
     dispatch(setFormAuth(e?.target.name, e?.target.value));
   };
   const handleSubmit = () => {
-    const data = { encrypt: encryptText(JSON.stringify(formData)) }
+    const data = { encrypt: encryptText(JSON.stringify(formData)) };
     dispatch(loginRequest(data));
   };
   return (
     <Layout title="Login">
       <div className="peb-container-auth">
         <div className="peb-container-auth-background">
-          <strong className="peb-login-title">LOGO WEB</strong>
+          <Link to="/">
+            <strong className="peb-login-title">ADA UMKM</strong>
+          </Link>
           <br />
           <div className="peb-card peb-shadow">
             <div className="peb-card-body">
@@ -117,7 +117,17 @@ const Auth: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item>
-                  <Button type="default" disabled={!isHuman || formData?.email?.length === 0 || formData?.password?.length === 0 } loading={isLoading || false} block onClick={handleSubmit}>
+                  <Button
+                    type="default"
+                    disabled={
+                      !isHuman ||
+                      formData?.email?.length === 0 ||
+                      formData?.password?.length === 0
+                    }
+                    loading={isLoading || false}
+                    block
+                    onClick={handleSubmit}
+                  >
                     LOGIN
                   </Button>
                 </Form.Item>

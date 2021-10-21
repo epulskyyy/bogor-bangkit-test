@@ -6,7 +6,7 @@ import { notificationMessage } from "../utils/notifications";
 
 export function* getAllUserF(action: any) {
   try {
-    const response: ResponseGenerator = yield call(getAllUser, action.perPage);
+    const response: ResponseGenerator = yield call(getAllUser, action.perPage, action.status, action.page);
     let data = response.data;
     yield put({
       type: userAction.GET_ALL_USER_SUCCESS,

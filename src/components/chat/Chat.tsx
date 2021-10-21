@@ -128,7 +128,7 @@ export default function Chat() {
       >
         <WechatOutlined style={{ fontSize: "32px" }} />
       </button>
-      <ChatCollapse isOpen={isOpen} setIsOpen={closeChat} />
+      <ChatCollapse isModal={true} isOpen={isOpen} setIsOpen={closeChat} />
     </div>
   );
 }

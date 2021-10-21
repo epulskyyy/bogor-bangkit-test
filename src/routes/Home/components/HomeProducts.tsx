@@ -22,7 +22,7 @@ const HomeProducts: React.FC<Props> = ({ title }) => {
         ))}
       </Row>
       <div className="mt-3 mb-3 peb-text-center">
-        <Link className="" to="product">
+        <Link className="" to="/search">
           Lihat Semua
         </Link>
       </div>

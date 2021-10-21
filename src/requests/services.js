@@ -144,6 +144,19 @@ class Service {
       );
   }
 
+  getLogout(path, payload, callback) {
+    return this.service
+      .request({
+        method: "GET",
+        url: path,
+        responseType: "json",
+        data: payload,
+      })
+      .then((response) =>
+        callback ? callback(response.status, response.data) : response
+      );
+  }
+
   delete(path, payload, callback) {
     return this.service
       .request({

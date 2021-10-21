@@ -80,9 +80,6 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
   };
 
   const onChangeProductCategory = (category_id: any) => {
-    console.log('====================================');
-    console.log(queryData);
-    console.log('====================================');
     dispatch(getProducRequest({ ...queryData, category_id }));
     history.push({
       search: `category=${category_id || ""}&per_page=${
@@ -171,7 +168,7 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
                   <Select
                     onSelect={onChangeProductSort}
                     size="small"
-                    defaultValue="asc"
+                    defaultValue="terbaru"
                     style={{ width: 100 }}
                     className="mr-2"
                   >
@@ -192,7 +189,7 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
                 </>
               }
             >
-              <Spin spinning={product.isLoading} tip="Loading...">
+              <Spin spinning={product.isLoading} tip="Memuat...">
                 <Row gutter={[16, 16]}>
                   {product?.data?.data?.map((v: any, i: any) => (
                     <Col lg={6} md={8} sm={12} xs={12} key={i}>

@@ -10,7 +10,7 @@ export default function Images() {
   const [openImage, setopenImage] = useState(false);
   const [content, setcontent] = useState("");
   const { dataId } = useSelector((state: RootState) => state.product);
-  const imageUrl = JSON.parse(dataId?.data?.url_gambar || "[]");
+  const imageUrl = dataId?.data?.url_gambar.split(",");
   const onClickLinkImage = (l: any) => {
     setopenImage(true);
     setcontent(l);

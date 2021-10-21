@@ -3,9 +3,19 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Category from "../../../components/category/Category";
 import { RootState } from "../../../models/RootState";
+import history from "../../../utils/history";
 
 const HomeCategory = () => {
   const categories = useSelector((state: RootState) => state.categories);
+  const searchProduct = (name: any) => {
+    history.push({
+      search: `category=&per_page=${10}&sort=&product_name=${name.replace(
+        " ",
+        "-"
+      )}&umkm=&page=${1}`,
+      pathname: "search",
+    });
+  };
   return (
     <>
     <Divider orientation="left" className="peb-text-bold">KATEGORI PRODUK</Divider>
