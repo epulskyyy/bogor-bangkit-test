@@ -8,8 +8,12 @@ import product from './product'
 import banner from './banner'
 import user from './user'
 import chat from './chat'
+import infoWisata from './infoWisata'
+import faq from './faq'
 
 const createRootReducer = (history: any) => combineReducers({
+    faq,
+    infoWisata,
     chat,
     user,
     banner,

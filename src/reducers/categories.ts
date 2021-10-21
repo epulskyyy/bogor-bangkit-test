@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action: any) {
         data: {},
       };
     case GET_CATEGORIES_SUCCESS:
-      return { ...state, data: action.data, isLoading: true };
+      return { ...state, data: action.data, isLoading: false };
     case GET_CATEGORIES_ERROR:
       return {
         ...state,

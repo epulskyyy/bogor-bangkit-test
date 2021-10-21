@@ -2,6 +2,8 @@ import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 import { Pagination, AutoPlay, Fade } from "@egjs/flicking-plugins";
 import "@egjs/flicking-plugins/dist/arrow.css";
 import "./reactFlicking.css";
+import { RootState } from "../../models/RootState";
+import { useSelector } from "react-redux";
 
 /**
  * Create banner with master key.
@@ -10,16 +12,17 @@ import "./reactFlicking.css";
  */
 
 type Props = {
-  data: Array<object>;
+  data:any
 };
 
-const Banner: React.FC<Props> = ({ data }) => {
+const Banner: React.FC<Props> = ({data}) => {
 
   const _plugins = [
     new Fade(),
     new AutoPlay({ duration: 3000, direction: "NEXT", stopOnHover: true }),
     new Pagination({ type: "bullet" }),
   ];
+ 
   return (
     <>
       <Flicking
@@ -28,24 +31,16 @@ const Banner: React.FC<Props> = ({ data }) => {
         resizeOnContentsReady={true}
         adaptive={true}
       >
-        <div className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel">
-          <img
-            className="panel-image" alt=""
-            src="https://static.vecteezy.com/system/resources/previews/000/175/898/original/vector-super-offer-advertising-banner-template-with-colorful-waves.jpg"
-          />
-        </div>
-        <div className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel">
-          <img
-            className="panel-image" alt=""
-            src="https://static.vecteezy.com/system/resources/previews/000/175/898/original/vector-super-offer-advertising-banner-template-with-colorful-waves.jpg"
-          />
-        </div>
-        <div className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel">
-          <img
-            className="panel-image" alt=""
-            src="https://static.vecteezy.com/system/resources/previews/000/175/898/original/vector-super-offer-advertising-banner-template-with-colorful-waves.jpg"
-          />
-        </div>
+        {data()?.map((v: any, k: any) => (
+          <>
+            <div
+              key={k}
+              className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel"
+            >
+              <img className="panel-image" alt="" src={v} />
+            </div>
+          </>
+        ))}
 
         <ViewportSlot>
           <div className="flicking-pagination "></div>

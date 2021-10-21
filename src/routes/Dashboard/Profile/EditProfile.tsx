@@ -30,8 +30,8 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
   const { validateFields, getFieldValue } = form;
   const categories = useSelector((state: RootState) => state.categories);
   const { data } = useSelector((state: RootState) => state.user);
-  const alamatUser = JSON.parse(data?.data?.alamat || "{}");
-  const detailUmkm = JSON.parse(data?.data?.umkm_detail || "{}");
+  const alamatUser = data?.data?.alamat;
+  const detailUmkm = data?.data?.umkm_detail;
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { LinkOutlined, WechatOutlined } from "@ant-design/icons";
-import { Button, Divider, List, Tabs, Tooltip } from "antd";
+import { Button, List, Tabs, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import IcShopee from "../../../assets/peb-shopee.svg";
 import IcTokped from "../../../assets/peb-tokped.svg";
@@ -9,7 +9,7 @@ import IcLazada from "../../../assets/peb-lazada.svg";
 import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import { RootState } from "../../../models/RootState";
 import { useSelector } from "react-redux";
-import { formatMoney } from "../../../utils/utils";
+import { capitalize, formatMoney } from "../../../utils/utils";
 
 const { TabPane } = Tabs;
 
@@ -19,10 +19,14 @@ function callback(key: any) {
 
 export default function Product() {
   const { dataId } = useSelector((state: RootState) => state.product);
-  const ecommerceUrl = JSON.parse(dataId?.data?.url_ecommerce || "{}");
+  const ecommerceUrl = dataId?.data?.url_ecommerce;
   const [copy, setcopy] = useState(false);
   const { data } = useSelector((state: RootState) => state.user);
-  const detailUmkm = JSON.parse(data?.data?.umkm_detail || "{}");
+  const detailUmkm = data?.data?.umkm_detail;
+  const categories = useSelector((state: RootState) => state.categories);
+  const category = categories?.data?.data?.data?.find(
+    (v: any, i: any) => v.id === dataId?.data?.id_kategori
+  );
 
   useEffect(() => {
     if (copy) {
@@ -32,17 +36,19 @@ export default function Product() {
     }
   }, [copy]);
   const onCopy = () => {
-    var dummy = document.createElement('input');
+    var dummy = document.createElement("input");
     document.body.appendChild(dummy);
-    dummy.setAttribute('value', document.URL);
+    dummy.setAttribute("value", document.URL);
     dummy.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     dummy.remove();
     setcopy(true);
   };
   return (
     <div className="peb-product-detail">
-      <h3 className="peb-product-detail-name">{dataId?.data?.nama_produk}</h3>
+      <h3 className="peb-product-detail-name">
+        {dataId?.data?.nama_produk.toUpperCase()}
+      </h3>
       <div className="peb-product-price">
         <h3 className="peb-product-price-">
           Rp {formatMoney(dataId?.data?.harga_produk || "")}
@@ -55,7 +61,7 @@ export default function Product() {
           </Link>
           <Button
             onClick={onCopy}
-            className={`peb-product-share ${copy?"copied":""}`}
+            className={`peb-product-share ${copy ? "copied" : ""}`}
             type="link"
             icon={<LinkOutlined />}
             size="middle"
@@ -70,12 +76,15 @@ export default function Product() {
             <List bordered>
               <List.Item>
                 <label>Alamat :</label>
-                <label>{detailUmkm?.alamat_umkm}</label>
+                <label>{capitalize(detailUmkm?.alamat_umkm ?? "-")}</label>
+              </List.Item>
+              <List.Item>
+                <label>Kategori :</label>
+                <label>{capitalize(category?.nama_klasifikasi ?? "-")}</label>
               </List.Item>
             </List>
-            <Divider orientation="left" plain>
-              Deskripsi Produk
-            </Divider>
+            <br/>
+            <h3>Deskripsi Produk</h3>
             {dataId?.data?.deskripsi || "Tidak ada deskripsi"}
             <div className="peb-marketplace mt-2">
               {ecommerceUrl?.shopee_url != null ||

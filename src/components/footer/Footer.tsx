@@ -10,18 +10,17 @@ type Props = {
   authedData?: AuthUser;
 };
 const Footer: React.FC<Props> = ({ authedData }) => {
-  
   return (
     <div className="container mt-3 peb-footer pt-3 pb-3">
       <Row gutter={[16, 16]}>
         <Col lg={14} xl={14}>
-          <Text strong>Pemulihan Ekonomi Bogor</Text>
+          <Text strong>ADA UMKM</Text>
           <p className="">
-            website ini di peruntukan untuk marketing dan branding produk-produk
+            Website ini di peruntukan untuk marketing dan branding produk-produk
             dari UMKM Kota Bogor
           </p>
           <div className="mt-3">
-            <p>© 2021 • Pemulihan Ekonomi Bogor</p>
+            <p>© 2021 • Ada UMKM</p>
           </div>
         </Col>
         <Col lg={8} xl={8}>
@@ -32,26 +31,23 @@ const Footer: React.FC<Props> = ({ authedData }) => {
                   <Link to="">MASUK</Link>
                 </li>
                 <li className="peb-list-item">
-                  <Link to="">RESGITRASI</Link>
+                  <Link to="">REGISTRASI</Link>
                 </li>
               </ul>
             ) : null}
 
             <ul className="peb-list">
               <li className="peb-list-item">
-                <Link to="">Produk</Link>
+                <Link to="/search">Produk</Link>
               </li>
               <li className="peb-list-item">
-                <Link to="">UMKM</Link>
+                <Link to="/umkm">UMKM</Link>
               </li>
               <li className="peb-list-item">
-                <Link to="">Info Wisata</Link>
+                <Link to="/info-wisata">Info Wisata</Link>
               </li>
               <li className="peb-list-item">
-                <Link to="">Tentang Kami</Link>
-              </li>
-              <li className="peb-list-item">
-                <Link to="">FAQ</Link>
+                <Link to="/faq">FAQ</Link>
               </li>
             </ul>
           </div>

@@ -3,7 +3,9 @@ import { defaultActionCreator } from ".";
 export const GET_ALL_USER_REQUEST = "GET_ALL_USER_REQUEST";
 export const getAllUserRequest = defaultActionCreator(
   GET_ALL_USER_REQUEST,
-  "perPage","status"
+  "perPage",
+  "status",
+  "page"
 );
 export const GET_ALL_USER_SUCCESS = "GET_ALL_USER_SUCCESS";
 export const getAllUserSuccess = defaultActionCreator(

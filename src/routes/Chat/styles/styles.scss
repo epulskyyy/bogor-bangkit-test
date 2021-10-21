@@ -1,0 +1,16 @@
+@import "../../../styles/variable";
+@import "../../../styles/mixin";
+.chat-content {
+  padding: 20px 250px;
+
+  @include breakpoint(lg-down) {
+    padding: 20px 70px !important;
+  }
+  @include breakpoint(md-down) {
+    padding: 20px 50px !important;
+  }
+
+  @include breakpoint(sm-down) {
+    padding: 20px 10px !important;
+  }
+}

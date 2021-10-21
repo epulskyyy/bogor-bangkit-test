@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Avatar, Button, Dropdown, Image, Menu } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 import React from "react";
 
 import IcWhatsapp from "../../../assets/peb-whatsapp.svg";
@@ -47,19 +47,17 @@ export default function Umkm() {
   return (
     <div>
       <div className="peb-user">
-        <div className="peb-user-avatar">
-          <Avatar
-            alt=""
-            src={
-              <Image src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
-          />
-        </div>
+        <div className="peb-user-avatar"></div>
         <div className="peb-user-name">
           <div>
             <h3>
               {data?.data?.nama_umkm}{" "}
-              <Dropdown className="peb-dropdown-umkm" overlay={menu} placement="bottomRight" arrow>
+              <Dropdown
+                className="peb-dropdown-umkm"
+                overlay={menu}
+                placement="bottomRight"
+                arrow
+              >
                 <Button type="dashed" shape="circle" icon={<MoreOutlined />} />
               </Dropdown>
             </h3>

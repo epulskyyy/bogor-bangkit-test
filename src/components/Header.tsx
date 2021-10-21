@@ -17,6 +17,8 @@ import HeaderDrawer from "./HeaderDrawer";
 import { getCategoriesRequest } from "../actions/categories";
 import { RootState } from "../models/RootState";
 import { capitalize } from "../utils/utils";
+import axios from "axios";
+import history from "../utils/history";
 
 type Props = {
   authedData?: AuthUser;
@@ -32,18 +34,21 @@ const Header: React.FC<Props> = ({ authedData }) => {
     const data = {
       token: access_token,
     };
-    dispatch(LogoutRequest(data));
+    dispatch(LogoutRequest({ token: data }));
   };
 
   useEffect(() => {
     dispatch(getCategoriesRequest(10));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const onGo = (to: string) => {
+    history.push(to);
+  };
   const menu = (
     <Menu>
       {categories?.data?.data?.data?.map((v: any, i: any) => (
         <Menu.Item key={v}>
-          <Link to="">{capitalize(v.nama_klasifikasi, true)}</Link>
+          <Link to={`search?category=${v.id}&per_page=${10}&sort=&product_name=&umkm=&page=${1}`}>{capitalize(v.nama_klasifikasi, true)}</Link>
         </Menu.Item>
       ))}
     </Menu>
@@ -51,12 +56,20 @@ const Header: React.FC<Props> = ({ authedData }) => {
   const userMenu = (
     <Menu>
       <Menu.Item>
-        <Button icon={<ProfileOutlined />} type="link">
-          Profil
+        <Button
+          icon={<ProfileOutlined />}
+          type="link"
+          onClick={() => onGo("/profile/" + authedData?.user_id)}
+        >
+          Data Diri
         </Button>
       </Menu.Item>
       <Menu.Item>
-        <Button icon={<AppstoreOutlined />} type="link">
+        <Button
+          icon={<AppstoreOutlined />}
+          type="link"
+          onClick={() => onGo("/dashboard")}
+        >
           Dasbor
         </Button>
       </Menu.Item>
@@ -67,12 +80,12 @@ const Header: React.FC<Props> = ({ authedData }) => {
       </Menu.Item>
     </Menu>
   );
-
+ 
   return (
     <div className="peb-navbar">
       <div className="peb-navbar-top">
         <div className="peb-navbar-top-logo">
-          <Link to="/">PEB</Link>
+          <Link to="/">ADA UMKM</Link>
         </div>
         <div className="peb-navbar-top-wrap">
           <SearchComp />
@@ -91,9 +104,9 @@ const Header: React.FC<Props> = ({ authedData }) => {
             {user ? (
               <>
                 <li>
-                  <Tooltip placement="bottom" title="Chat">
-                    <Button type="link">
-                      <MailOutlined />{" "}
+                  <Tooltip placement="bottom" title="Pesan">
+                    <Button type="link" onClick={()=> history.push("/chat") }>
+                      <MailOutlined />
                     </Button>
                   </Tooltip>
                 </li>
@@ -145,12 +158,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
             </Link>
           </li>
           <li>
-            <Link className="peb-navbar-bottom-link" to="/about">
-              Tentang Kami
-            </Link>
-          </li>
-          <li>
-            <Link className="peb-navbar-bottom-link" to="/about">
+            <Link className="peb-navbar-bottom-link" to="/faq">
               FAQ
             </Link>
           </li>

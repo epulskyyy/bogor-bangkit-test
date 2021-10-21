@@ -6,5 +6,5 @@ export const login = (data: any) => {
 };
 
 export const logout = (data: any) => {
-  return services.extPost(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
+  return services.getLogout(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
 };
