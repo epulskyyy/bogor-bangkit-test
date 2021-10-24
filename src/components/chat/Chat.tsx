@@ -12,10 +12,6 @@ export default function Chat() {
     const fabElement: any = document.getElementById("peb-chat-btn");
     const fabColElement: any = document.getElementById("pebChatCollape");
     const height = window.innerHeight
-    console.log(Number(fabElement.style.top.replace("px", "")));
-    console.log(Number(fabElement.style.top.replace("px", ""))> 590);
-    console.log(height-Number(fabElement.style.top.replace("px", "")));
-    console.log(height);
     if (
       oldPositionY.current === fabElement.style.top &&
       oldPositionX.current === fabElement.style.left

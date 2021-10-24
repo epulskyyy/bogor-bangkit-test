@@ -39,9 +39,6 @@ const ChatCollapse: React.FC<Props> = ({ isOpen, setIsOpen, isModal }) => {
 
   const pickUser = (userInfo: UserInfo) => {
     var availableWidth = window.innerWidth;
-    console.log('====================================');
-    console.log(availableWidth <= 471);
-    console.log('====================================');
     
     dispatch(changeStateChatRequest("selectedUserID", userInfo));
     dispatch(changeStateChatRequest("inputMessage", ""));

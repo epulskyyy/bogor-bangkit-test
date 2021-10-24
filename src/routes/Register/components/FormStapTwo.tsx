@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { keys } from "../../../utils/env";
-import { xssValid } from "../../../utils/utils";
+import { xssValidBool } from "../../../utils/utils";
 
 const { TextArea } = Input;
 
@@ -79,9 +79,6 @@ export default function FormStapTwo() {
     if (isHuman) {
       setbuttonDisabled(formValidation);
     }
-    console.log("====================================");
-    console.log(isHuman, "isHuman");
-    console.log("====================================");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, isHuman]);
 
@@ -322,8 +319,13 @@ export default function FormStapTwo() {
             },
           }),
           (value) => ({
-            validator() {
-              return xssValid(value.getFieldValue("password"));
+            validator(rule, value) {
+              if (value != null) {
+                if (!xssValidBool(value)) {
+                  return Promise.reject("Masukan tidak valid");
+                }
+              }
+              return Promise.resolve();
             },
           }),
         ]}

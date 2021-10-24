@@ -15,9 +15,9 @@ import { messageValidate, regexTest } from "../../../utils/constants";
 import { useForm } from "antd/lib/form/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
-import { xssValid } from "../../../utils/utils";
+import { xssValidBool } from "../../../utils/utils";
 import { AuthUser } from "../../../models/AuthUser";
-import { editProfileRequest } from "../../../actions/user";
+import { editProfileRequest, getUserByIdRequest } from "../../../actions/user";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 
 const { Option } = Select;
@@ -80,9 +80,11 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
         onOk() {
           notificationLoadingMessage("Tunggu sebentar");
           dispatch(
-            editProfileRequest(authedData.user_id, dataForm, () =>
-              setVisible(false)
-            )
+            editProfileRequest(authedData.user_id, dataForm, () => {
+              setVisible(false);
+
+              dispatch(getUserByIdRequest(authedData?.user_id));
+            })
           );
         },
         onCancel() {},
@@ -222,8 +224,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                     message: messageValidate("required", "Nama UMKM "),
                   },
                   (value) => ({
-                    validator() {
-                      return xssValid(value.getFieldValue("nama_umkm"));
+                    validator(rule, value) {
+                      if (value != null) {
+                        if (!xssValidBool(value)) {
+                          return Promise.reject("Masukan tidak valid");
+                        }
+                      }
+                      return Promise.resolve();
                     },
                   }),
                 ]}
@@ -246,8 +253,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                     message: messageValidate("required", "Legalitas "),
                   },
                   (value) => ({
-                    validator() {
-                      return xssValid(value.getFieldValue("legalitas"));
+                    validator(rule, value) {
+                      if (value != null) {
+                        if (!xssValidBool(value)) {
+                          return Promise.reject("Masukan tidak valid");
+                        }
+                      }
+                      return Promise.resolve();
                     },
                   }),
                 ]}
@@ -384,8 +396,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                           message: messageValidate("required", "Alamat UMKM "),
                         },
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("alamat_umkm"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -428,8 +445,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Shopee URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("shopee_url"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -443,8 +465,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Tokopedia URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("tokped_url"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -458,10 +485,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Bukalapak URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(
-                              value.getFieldValue("bukalapak_url")
-                            );
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -475,8 +505,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Lazada URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("lazada_url"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -490,8 +525,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Instagram URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("instagram"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}
@@ -505,8 +545,13 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
                       label="Facebook URL"
                       rules={[
                         (value) => ({
-                          validator() {
-                            return xssValid(value.getFieldValue("facebook"));
+                          validator(rule, value) {
+                            if (value != null) {
+                              if (!xssValidBool(value)) {
+                                return Promise.reject("Masukan tidak valid");
+                              }
+                            }
+                            return Promise.resolve();
                           },
                         }),
                       ]}

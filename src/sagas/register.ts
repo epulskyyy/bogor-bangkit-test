@@ -64,8 +64,6 @@ export function* postRegisterVerifyOtp(action: any) {
       error: e,
       message: "Oups, Error",
     });
-    console.log(e?.response);
-
     notificationMessage(
       "error",
       `Gagal masuk verifikasi`,

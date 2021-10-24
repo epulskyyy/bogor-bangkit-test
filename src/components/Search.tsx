@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Input, Select, Spin } from "antd";
+import { Select, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductSearchRequest } from "../actions/product";
 import { RootState } from "../models/RootState";

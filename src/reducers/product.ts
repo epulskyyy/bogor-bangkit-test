@@ -54,20 +54,32 @@ export default function reducer(state = initialState, action: any) {
         dataCount: null,
         isLoading: false,
       };
-    case productAction.GET_PRODUCT_BY_ID_REQUEST:
-      return {
-        ...state,
-        dataId: null,
-        isLoading: true,
-      };
-    case productAction.GET_PRODUCT_BY_ID_SUCCESS:
-      return { ...state, dataId: action.data, isLoading: false };
-    case productAction.GET_PRODUCT_BY_ID_ERROR:
-      return {
-        ...state,
-        dataId: null,
-        isLoading: false,
-      };
+      case productAction.GET_PRODUCT_BY_ID_REQUEST:
+        return {
+          ...state,
+          dataId: null,
+          isLoading: true,
+        };
+      case productAction.GET_PRODUCT_BY_ID_SUCCESS:
+        return { ...state, dataId: action.data, isLoading: false };
+      case productAction.GET_PRODUCT_BY_ID_ERROR:
+        return {
+          ...state,
+          dataId: null,
+          isLoading: false,
+        };
+        case productAction.POST_PRODUCT_REQUEST:
+          return {
+            ...state,
+            isLoading: true,
+          };
+        case productAction.POST_PRODUCT_SUCCESS:
+          return { ...state, data: action.data, isLoading: false };
+        case productAction.POST_PRODUCT_ERROR:
+          return {
+            ...state,
+            isLoading: false,
+          };
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 export const endPoint = {
     pemulihanEkonomiUrl : {v1:(process.env.REACT_APP_PEMULIHAN_EKONOMI_URL || "")},
+    uploadFile : {v1:(process.env.REACT_APP_UPLOAD_FILE || "")},
     messagingUrl : {v1:(process.env.REACT_APP_MESSAGING_URL || "")}
 }
 

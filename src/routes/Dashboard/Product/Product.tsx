@@ -1,110 +1,220 @@
-import { Button, Select, Table } from "antd";
+import { Button, Popconfirm, Select, Table, Tag } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnsType } from "antd/lib/table";
 import "../../../styles/base.scss";
 import Page from "../../../components/Page/Page";
 import AddProduct from "./AddProduct";
+import { useEffect, useState } from "react";
+import {
+  deleteProductRequest,
+  getProducRequest,
+} from "../../../actions/product";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthUser } from "../../../models/AuthUser";
+import { RootState } from "../../../models/RootState";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { convertDate, formatMoney } from "../../../utils/utils";
+import { getCategoriesRequest } from "../../../actions/categories";
+import EditProduct from "./EditProduct";
 const { Option } = Select;
 
-export default function Product() {
-  
+type Props = {
+  authedData?: AuthUser;
+};
+const Product: React.FC<Props> = ({ authedData }) => {
+  const dispatch = useDispatch();
+  const product = useSelector((state: RootState) => state.product);
+  const categories = useSelector((state: RootState) => state.categories);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+  const [editVisible, setEditVisible] = useState(false);
+  const [selectedObj, setselectedObj] = useState({});
+  const [queryData, setQueryData] = useState({
+    category_id: "",
+    perPage: "10",
+    sort: "terbaru",
+    name: "",
+    umkm_id: authedData?.user_id,
+    page: "1",
+  });
+  const deleteProduct = (obj: any) => {
+    dispatch(
+      deleteProductRequest(obj.id, () => {
+        dispatch(getProducRequest(queryData));
+      })
+    );
+  };
+  const editProduct = (obj: any) => {
+    setEditVisible(true);
+    setselectedObj(obj);
+  };
   const columns: ColumnsType<any> = [
     {
-      title: "ID Produk",
-      width: 100,
-      dataIndex: "id_produk",
-      key: "id_produk",
-      fixed: "left",
+      key: "operation",
+      fixed: true,
+      width: 50,
+      render: (text, obj) => (
+        <>
+          <Popconfirm
+            placement="bottomLeft"
+            title="Yakin ingin menghapus?"
+            onConfirm={() => deleteProduct(obj)}
+            okText="Ya, Hapus"
+            cancelText="Tidak"
+          >
+            <Button danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+          <Button onClick={() => editProduct(obj)} icon={<EditOutlined />} />
+        </>
+      ),
+      // render: () => <Button icon={<EditOutlined />} type="link" />,
+    },
+    {
+      title: "ID ",
+      dataIndex: "id",
+      width: 50,
     },
     {
       title: "Nama Produk",
-      width: 150,
       dataIndex: "nama_produk",
+      width: 300,
       key: "nama_produk",
-      fixed: "left",
     },
     {
-      title: "Kategori",
-      dataIndex: "kategori",
-      key: "kategori",
-      width: 150,
+      title: "Tanggal Buat",
+      dataIndex: "created_at",
+      width: 200,
+      render: (text) => {
+        return convertDate(text).full;
+      },
     },
     {
-      title: "Column 2",
-      dataIndex: "address",
-      key: "2",
-      width: 150,
+      title: "Harga",
+      dataIndex: "harga_produk",
+      width: 200,
+      className: "column-money",
+      render: (text) => {
+        return formatMoney(text);
+      },
     },
     {
-      title: "Column 3",
-      dataIndex: "address",
-      key: "3",
-      width: 150,
-    },
-    {
-      title: "Column 4",
-      dataIndex: "address",
-      key: "4",
-      width: 150,
-    },
-    {
-      title: "Column 5",
-      dataIndex: "address",
-      key: "5",
-      width: 150,
-    },
-    {
-      title: "Column 6",
-      dataIndex: "address",
-      key: "6",
-      width: 150,
-    },
-    {
-      title: "Column 7",
-      dataIndex: "address",
-      key: "7",
-      width: 150,
-    },
-    { title: "Column 8", dataIndex: "address", key: "8" },
-    {
-      title: "#",
-      key: "operation",
-      fixed: "right",
+      title: "ID Kategori",
       width: 100,
-      render: () => <Button type="link">Ubah</Button>,
+      dataIndex: "id_kategori",
+      key: "id_kategori",
+    },
+    {
+      title: "Deskripsi",
+      width: 400,
+      dataIndex: "deskripsi",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      width: 100,
+      render: (text, row, index) => {
+        if (text === "active") {
+          return <Tag color="green">Aktif</Tag>;
+        } else {
+          return <Tag color="red">Tidak Aktif</Tag>;
+        }
+      },
     },
   ];
 
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      id_produk: `P${i}`,
-      nama_produk: 32,
-      kategori: `Makanan. ${i}`,
-    });
-  }
+  const data = product.data?.data?.map((v: any, i: any) => ({ ...v, key: i }));
+
+  useEffect(() => {
+    dispatch(getProducRequest(queryData));
+    dispatch(getCategoriesRequest(99));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const onChangeProduct = (paginations: any, filters?: any, sorter?: any) => {
+    setPagination((v) => ({ ...v, ...paginations }));
+    dispatch(
+      getProducRequest({
+        ...queryData,
+        page: paginations.current,
+        perPage: paginations.pageSize,
+      })
+    );
+  };
+
+  const onChangeProductSort = (sort: any) => {
+    setQueryData((v) => ({ ...v, sort }));
+    dispatch(
+      getProducRequest({
+        ...queryData,
+        sort,
+        page: pagination.current,
+        perPage: pagination.pageSize,
+      })
+    );
+  };
+
+  const onChangeProductCategory = (category_id: any) => {
+    setQueryData((v) => ({ ...v, category_id }));
+    dispatch(
+      getProducRequest({
+        ...queryData,
+        category_id,
+        page: pagination.current,
+        perPage: pagination.pageSize,
+      })
+    );
+  };
+  const onChangeSearch = (name: any) => {
+    setQueryData((v) => ({ ...v, name }));
+    dispatch(
+      getProducRequest({
+        ...queryData,
+        name,
+        page: pagination.current,
+        perPage: pagination.pageSize,
+      })
+    );
+  };
   return (
     <Page title="">
       <>
-        <AddProduct/>
+        <AddProduct authedData={authedData} />
+        <EditProduct
+          authedData={authedData}
+          setEditVisible={setEditVisible}
+          editVisible={editVisible}
+          selectedObj={selectedObj}
+        />
         <div className="mb-2">
           <Search
             className="search-header mr-2"
             placeholder="Cari produk"
-            style={{ width: 250 }}
-
-            // onSearch={onSearch}
+            // value={queryData.name}
+            style={{ maxWidth: 250 }}
+            onSearch={onChangeSearch}
           />
-          <label>Urutkan : </label>
           <Select
-            size="small"
-            defaultValue="asc"
-            style={{ width: 100 }}
+            showSearch
+            className="mr-2"
+            placeholder="Pilih Kategori"
+            style={{ width: 150 }}
+            // value={queryData.category_id}
+            onSelect={onChangeProductCategory}
+          >
+            <Option value="">- Pilih Kategori -</Option>
+
+            {categories?.data?.data?.data?.map((v: any, i: any) => (
+              <Option value={v.id}>{v.nama_klasifikasi}</Option>
+            ))}
+          </Select>
+          <Select
+            onSelect={onChangeProductSort}
+            placeholder="Urutkan"
+            // value={queryData.sort}
             className="mr-2"
           >
-            <Option value="asc"> A-Z </Option>
-            <Option value="desc"> Z-A </Option>
             <Option value="terbaru"> Terbaru </Option>
             <Option value="termurah"> Termurah </Option>
             <Option value="termahal"> Termahal </Option>
@@ -112,12 +222,18 @@ export default function Product() {
         </div>
         <div>
           <Table
+            onChange={onChangeProduct}
             columns={columns}
+            rowKey={(record) => record.id}
             dataSource={data}
-            scroll={{ x: 1500, y: 300 }}
+            loading={product.isLoading ?? false}
+            pagination={{ ...pagination, total: product.data?.total_data }}
+            scroll={{ x: 2000, y: 500 }}
+            bordered
           />
         </div>
       </>
     </Page>
   );
-}
+};
+export default Product;
