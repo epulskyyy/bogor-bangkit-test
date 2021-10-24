@@ -17,7 +17,6 @@ import HeaderDrawer from "./HeaderDrawer";
 import { getCategoriesRequest } from "../actions/categories";
 import { RootState } from "../models/RootState";
 import { capitalize } from "../utils/utils";
-import axios from "axios";
 import history from "../utils/history";
 
 type Props = {
@@ -38,7 +37,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
   };
 
   useEffect(() => {
-    dispatch(getCategoriesRequest(10));
+    dispatch(getCategoriesRequest(99));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const onGo = (to: string) => {

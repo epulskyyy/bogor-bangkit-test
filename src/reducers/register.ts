@@ -39,8 +39,6 @@ export default function reducer(state = initialState, action: any) {
       };
 
     case REGISTRATION_REQUEST:
-      console.log("sini");
-
       return {
         ...state,
         isLoading: true,

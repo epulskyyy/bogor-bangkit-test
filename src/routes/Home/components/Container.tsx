@@ -15,9 +15,24 @@ const Container: React.FC<Props> = ({ title, children, authedData }) => {
   const user = authedData;
   let loc = useLocation();
   let locArr = loc.pathname.split("/");
-  console.log("====================================");
-  console.log(locArr[1]);
-  console.log("====================================");
+  const chat = () => {
+    if (user) {
+      switch (locArr[1]) {
+        case "umkm":
+          return null;
+        case "info-wisata":
+          return null;
+        case "profile":
+          return null;
+        case "chat":
+          return null;
+        case "faq":
+          return null;
+        default:
+          return <Chat />;
+      }
+    }
+  };
   return (
     <Layout title={title}>
       <div
@@ -29,8 +44,7 @@ const Container: React.FC<Props> = ({ title, children, authedData }) => {
         {children}
         <Footer authedData={authedData} />
       </div>
-
-      {user && locArr[1] !== "umkm" ? <Chat /> : null}
+      {chat()}
     </Layout>
   );
 };

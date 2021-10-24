@@ -59,9 +59,6 @@ const FormsOtp: React.FC<Props> = () => {
       email: emailOtp,
       otp: otpCode,
     };
-    console.log("====================================");
-    console.log();
-    console.log("====================================");
     dispatch(registrationOtpRequest(data));
   };
 

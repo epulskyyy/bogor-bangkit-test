@@ -19,8 +19,7 @@ export default function Images() {
     setopenImage(false);
     setcontent("");
   };
-  const img =
-    "https://images.unsplash.com/photo-1508919801845-fc2ae1bc2a28?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aW1nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80";
+
   return (
     <>
       <Modal

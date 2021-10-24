@@ -42,6 +42,9 @@ export const getDataSession = () => {
     //checking jwt
     jwtDecode(access_token, { header: true });
     const data = jwtDecode(access_token);
+    if (Date.now() >= data.exp * 1000) {
+      localStorage.removeItem("access_token");
+    }
     if (data.user_id == null || data.role == null) {
       localStorage.removeItem("access_token");
       return undefined;
@@ -88,4 +91,59 @@ export const scrollToBottomChat = () => {
   var chatWindow = document.getElementById("content-discus");
   var xH = chatWindow.scrollHeight;
   chatWindow.scrollTo(0, xH);
+};
+
+export const monthName = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
+
+export const dayInWeek = [
+  { name: "Se", fullName: "Senin" },
+  { name: "Se", fullName: "Selasa" },
+  { name: "Ra", fullName: "Rabu" },
+  { name: "Ka", fullName: "Kamis" },
+  { name: "Ju", fullName: "Jumat" },
+  { name: "Sa", fullName: "Sabtu" },
+  { name: "Mi", fullName: "Minggu" },
+];
+
+export const convertDate = (item) => {
+  const newDate = new Date(item);
+  const date = newDate.getDate();
+  const monthsx = newDate.getMonth();
+  const year = newDate.getFullYear();
+  const month = monthName[monthsx];
+  let h = newDate.getHours().toString();
+  let m = newDate.getMinutes().toString();
+  let s = newDate.getSeconds().toString();
+  if (h.length < 2) {
+    h = `0${h}`;
+  }
+  if (m.length < 2) {
+    m = `0${m}`;
+  }
+  if (s.length < 2) {
+    s = `0${s}`;
+  }
+  const dTime = h + ":" + m;
+  return {
+    date,
+    month,
+    year,
+    dTime,
+    full: `${date} ${month} ${year}`,
+    ddmmyyyy: `${date}-${String(newDate.getMonth()).padStart(2, "0")}-${year}`,
+    yyyymmdd: `${year}-${String(newDate.getMonth()).padStart(2, "0")}-${date}`,
+  };
 };

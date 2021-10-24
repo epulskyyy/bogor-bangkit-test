@@ -6,7 +6,7 @@ import { endPoint } from "./utils/env";
 
 function App() {
   const visit = sessionStorage.getItem('visit_')
-  if (visit != undefined) {
+  if (visit !== undefined) {
     fetch(`${endPoint.pemulihanEkonomiUrl}/index`).then(()=>{
       sessionStorage.setItem("visit_","_true")
     })

@@ -2,8 +2,6 @@ import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 import { Pagination, AutoPlay, Fade } from "@egjs/flicking-plugins";
 import "@egjs/flicking-plugins/dist/arrow.css";
 import "./reactFlicking.css";
-import { RootState } from "../../models/RootState";
-import { useSelector } from "react-redux";
 
 /**
  * Create banner with master key.

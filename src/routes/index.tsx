@@ -14,9 +14,7 @@ import { RootState } from "../models/RootState";
 const Routes = () => {
   const dispatch = useDispatch();
   let stompClients: any = null;
-  const sockJsClient = new SockJS(
-    `https://devadaumkm.kotabogor.go.id/ms-messaging/ws/`
-  );
+  const sockJsClient = new SockJS(`${process.env.REACT_APP_MESSAGING_URL}ws/`);
   const { dataMessage, selectedUserID } = useSelector(
     (state: RootState) => state.chat
   );
@@ -29,13 +27,11 @@ const Routes = () => {
         EncryptionUtil.encodeHex(user + "-message-destination"),
       function (msg: any) {
         if (msg.body) {
-          console.log("message : " + msg.body);
           let messageAdd2: ChatMessage[] = messageAdd;
           let jsonMessage: ChatMessage = JSON.parse(msg.body);
           messageAdd2.push(jsonMessage);
           dispatch(changeStateChatRequest("selectedUserID", selectedUserID));
           dispatch(changeStateChatRequest("inputMessage", messageAdd2));
-          console.log("list message setelah masuk baru", dataMessage);
         }
       }
     );

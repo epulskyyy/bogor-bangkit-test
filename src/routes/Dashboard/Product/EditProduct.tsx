@@ -1,4 +1,4 @@
-import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -20,7 +20,7 @@ import { RootState } from "../../../models/RootState";
 import { endPoint } from "../../../utils/env";
 import { xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
-import { getProducRequest, postProductRequest } from "../../../actions/product";
+import { editProductRequest, getProducRequest } from "../../../actions/product";
 import { AuthUser } from "../../../models/AuthUser";
 
 const { Option } = Select;
@@ -28,9 +28,17 @@ const { confirm } = Modal;
 
 type Props = {
   authedData?: AuthUser;
+  editVisible: any;
+  setEditVisible: any;
+  selectedObj: any;
 };
 
-const AddProduct: React.FC<Props> = ({ authedData }) => {
+const EditProduct: React.FC<Props> = ({
+  authedData,
+  editVisible,
+  setEditVisible,
+  selectedObj,
+}) => {
   const [imageUploads, setimageUploads] = useState<any>({
     imageOne: "",
     imageTwo: "",
@@ -48,18 +56,68 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
     imageFourteen: "",
     imageFifteen: "",
   });
-  const [visible, setvisible] = useState(false);
   const [form] = useForm();
   const dispatch = useDispatch();
   const { getFieldValue, validateFields } = form;
-  const showDrawer = () => {
-    setvisible(true);
-  };
+
   const onClose = () => {
-    setvisible(false);
+    setEditVisible(false);
   };
   const [fileLists, setFileLists] = useState<any>([]);
+  useEffect(() => {
+    const temp = {
+      uid: "1",
+      name: "xxx.png",
+      status: "done",
+      response: "Server Error 500", // custom error message to show
+      url: "http://www.baidu.com/xxx.png",
+    };
+    let arrTemp = [];
+    if (selectedObj.url_gambar) {
+      const arr = selectedObj.url_gambar.split(",");
 
+      if (arr.length === 0) {
+      } else {
+        let imgTemp: any = {
+          imageOne: "",
+          imageTwo: "",
+          imageThree: "",
+          imageFour: "",
+          imageFive: "",
+          imageSix: "",
+          imageSeven: "",
+          imageEight: "",
+          imageNine: "",
+          imageTen: "",
+          imageEleven: "",
+          imageTwelve: "",
+          imageThirteen: "",
+          imageFourteen: "",
+          imageFifteen: "",
+        };
+        for (let index = 0; index < arr.length; index++) {
+          const element = arr[index];
+          for (const key in imgTemp) {
+            if (imgTemp[key] === "") {
+              imgTemp = { ...imgTemp, [key]: element };
+              arrTemp.push({
+                ...temp,
+                uid: index,
+                name: element,
+                response: { [key]: element },
+                url: element,
+              });
+              break;
+            }
+          }
+        }
+        setimageUploads(imgTemp);
+        setFileLists(arrTemp);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedObj.id]);
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
       console.log("removed");
@@ -138,8 +196,8 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
         onOk() {
           notificationLoadingMessage("Tunggu sebentar");
           dispatch(
-            postProductRequest(dataForm, () => {
-              setvisible(false);
+            editProductRequest(dataForm, selectedObj.id, () => {
+              setEditVisible(false);
               dispatch(
                 getProducRequest({
                   category_id: "",
@@ -166,25 +224,59 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
 
   return (
     <>
-      <Button
-        type="primary"
-        className="mb-2"
-        onClick={showDrawer}
-        icon={<PlusOutlined />}
-      >
-        Tambah Produk
-      </Button>
       <Drawer
-        title="Tambahakan Produk Baru"
+        title={"Ubah Produk | " + selectedObj.id}
         width="90%"
         onClose={onClose}
-        visible={visible}
+        visible={editVisible}
         bodyStyle={{ paddingBottom: 80 }}
       >
         <Form
           layout="vertical"
           hideRequiredMark
           form={form}
+          fields={[
+            {
+              name: "nama_produk",
+              value: selectedObj.nama_produk,
+            },
+            {
+              name: "id_klasifikasi",
+              value: selectedObj.id_kategori,
+            },
+            {
+              name: "harga_produk",
+              value: selectedObj.harga_produk,
+            },
+            {
+              name: "deskripsi",
+              value: selectedObj.deskripsi,
+            },
+            {
+              name: "instagram",
+              value: selectedObj.url_ecommerce?.instagram,
+            },
+            {
+              name: "facebook",
+              value: selectedObj.url_ecommerce?.facebook,
+            },
+            {
+              name: "shopee",
+              value: selectedObj.url_ecommerce?.shopee_url,
+            },
+            {
+              name: "tokopedia",
+              value: selectedObj.url_ecommerce?.tokped_url,
+            },
+            {
+              name: "bukalapak",
+              value: selectedObj.url_ecommerce?.bukalapak_url,
+            },
+            {
+              name: "lazada",
+              value: selectedObj.url_ecommerce?.lazada_url,
+            },
+          ]}
           onFinish={onSaveProduct}
         >
           <Row gutter={16}>
@@ -448,4 +540,4 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
