@@ -18,6 +18,8 @@ import {
 } from "../../actions/chat";
 import { RootState } from "../../models/RootState";
 import history from "../../utils/history";
+import { useQuery } from "../../utils/utils";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   isOpen?: any;
@@ -32,14 +34,40 @@ const ChatCollapse: React.FC<Props> = ({ isOpen, setIsOpen, isModal }) => {
   const [collapseSide, setCollapseSide] = useState(true);
   const dispatch = useDispatch();
 
+  let query: any = useQuery();
+  const loc = useLocation();
   useEffect(() => {
     dispatch(getAllUserChatRequest());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (loc.state) {
+      for (let index = 0; index < userList?.data?.response?.length; index++) {
+        console.log(query.get("sendto"));
 
+        const element = userList.data.response[index]?.conversationWith;
+        if (element?.email === loc.state) {
+          let requestBody = {
+            content: "Hallo",
+            receiver: element.id,
+          };
+          let requestBodys = {
+            pageNumber: 0,
+            pageSize: 999999,
+            receiver: element.id,
+          };
+          dispatch(getHistoryChatRequest(requestBodys));
+          dispatch(changeStateChatRequest("selectedUserID", element));
+          dispatch(sendChatRequest(requestBody));
+          history.push("chat");
+          break;
+        }
+      }
+    }
+  }, [query.get("sendto"), userList]);
   const pickUser = (userInfo: UserInfo) => {
     var availableWidth = window.innerWidth;
-    
+
     dispatch(changeStateChatRequest("selectedUserID", userInfo));
     dispatch(changeStateChatRequest("inputMessage", ""));
     let requestBody = {
