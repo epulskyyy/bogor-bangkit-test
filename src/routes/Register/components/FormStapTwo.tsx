@@ -307,15 +307,15 @@ export default function FormStapTwo() {
       </Form.Item>
       <Form.Item
         name="password"
-        label="Password"
+        label="Kata Sandi"
         rules={[
-          { required: true, message: "Tolong masukan Password!" },
+          { required: true, message: "Tolong masukan Kata Sandi!" },
           ({ getFieldValue }) => ({
             validator(rule, value) {
               if (getFieldValue("password").length >= 6) {
                 return Promise.resolve();
               }
-              return Promise.reject("Password harus minimal 6 karakter");
+              return Promise.reject("Kata Sandi harus minimal 6 karakter");
             },
           }),
           (value) => ({
@@ -333,20 +333,20 @@ export default function FormStapTwo() {
         <Input.Password
           onChange={handleChange}
           name="password"
-          placeholder="Ketik Password"
+          placeholder="Ketik Kata Sandi"
         />
       </Form.Item>
       <Form.Item
         name="password_confirmation"
-        label="Konfirmasi Password"
+        label="Konfirmasi Kata Sandi"
         rules={[
-          { required: true, message: "Tolong masukan Password!" },
+          { required: true, message: "Tolong masukan Kata Sandi!" },
           ({ getFieldValue }) => ({
             validator(rule, value) {
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
-              return Promise.reject("Password tidak sama");
+              return Promise.reject("Kata Sandi tidak sama");
             },
           }),
         ]}
@@ -354,7 +354,7 @@ export default function FormStapTwo() {
         <Input.Password
           onChange={handleChange}
           name="password_confirmation"
-          placeholder="Ketik konfirmasi Password"
+          placeholder="Ketik konfirmasi Kata Sandi"
         />
       </Form.Item>
       <Form.Item>

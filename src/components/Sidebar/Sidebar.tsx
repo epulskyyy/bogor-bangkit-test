@@ -3,6 +3,7 @@ import {
   TagsOutlined,
   ProfileFilled,
   ArrowLeftOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 
@@ -31,6 +32,12 @@ const SideBar: React.FC<Props> = () => {
       key: "/dashboard/product",
       icon: <TagsOutlined />,
       name: "Produk",
+      subMenu: [],
+    },
+    {
+      key: "/dashboard/reset-password",
+      icon: <LockOutlined />,
+      name: "Reset Kata Sandi",
       subMenu: [],
     },
   ];

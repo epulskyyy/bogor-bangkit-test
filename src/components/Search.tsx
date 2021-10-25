@@ -1,11 +1,12 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Select, Spin } from "antd";
+import { Select, Spin, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductSearchRequest } from "../actions/product";
+import { getProducRequest, getProductSearchRequest } from "../actions/product";
 import { RootState } from "../models/RootState";
 import history from "../utils/history";
 import { useQuery } from "../utils/utils";
 
+const { Search } = Input;
 const SearchComp = () => {
   const dispatch = useDispatch();
   const { dataSearch, isLoadingSearch } = useSelector(
@@ -21,12 +22,12 @@ const SearchComp = () => {
     umkm_id: "",
     page: "1",
   };
-  const debounceFetcher = (name: any) => {
-    dispatch(getProductSearchRequest({ ...queryData, name }));
-  };
   const searchProduct = (name: any) => {
+    dispatch(getProducRequest({ ...queryData, name }));
     history.push({
-      search: `category=&per_page=${10}&sort=&product_name=${name.replace(
+      search: `category=${query.get(
+        "category"
+      )}&per_page=${10}&sort=${query.get("sort")}&product_name=${name.replace(
         " ",
         "-"
       )}&umkm=&page=${1}`,
@@ -36,7 +37,13 @@ const SearchComp = () => {
   const resetSearchData = () => {};
   return (
     <div className="peb-navbar-search">
-      <Select
+      <Search
+        defaultValue={query.get("product_name")}
+        placeholder="input search text"
+        onSearch={searchProduct}
+        style={{ display: "block" }}
+      />
+      {/* <Select
         allowClear={false}
         showSearch
         defaultValue={query.get("product_name")}
@@ -53,7 +60,7 @@ const SearchComp = () => {
           id: value.nama_produk,
         }))}
         onChange={resetSearchData}
-      />
+      />  */}
     </div>
   );
 };

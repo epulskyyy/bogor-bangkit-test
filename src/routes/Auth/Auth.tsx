@@ -93,7 +93,7 @@ const Auth: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                   name="password"
-                  label="Password"
+                  label="Kata Sandi"
                   rules={[
                     { required: true, message: "Please input your Password!" },
                   ]}
@@ -102,7 +102,7 @@ const Auth: React.FC = () => {
                     onChange={handleOnChange}
                     name="password"
                     type="password"
-                    placeholder="Ketik Password"
+                    placeholder="Ketik Kata Sandi"
                   />
                 </Form.Item>
                 <Form.Item>
@@ -130,6 +130,9 @@ const Auth: React.FC = () => {
                   >
                     LOGIN
                   </Button>
+                  {/* <div className="peb-text-center">
+                    <Link to="/forgot-password">Lupa Kata Sandi?</Link>
+                  </div> */}
                 </Form.Item>
                 <Form.Item>
                   <div className="peb_cont_t_wf">

@@ -1,4 +1,4 @@
-import { Affix, Layout } from "antd";
+import { Affix } from "antd";
 import "../../styles/base.scss";
 import "../../components/chat/styles.scss";
 import "./styles/styles.scss";
@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import { AuthUser } from "../../models/AuthUser";
 import ChatCollapse from "../../components/chat/ChatCollapse";
 import Footer from "../../components/footer/Footer";
+import { Layout } from "../../components";
 
 type Props = {
   authedData?: AuthUser;

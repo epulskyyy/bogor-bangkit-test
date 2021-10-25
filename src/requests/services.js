@@ -16,10 +16,10 @@ class Service {
   handleError = (error) => {
     console.log("Service error: ", error);
     if (error.response && error.response.status === 401) {
+      localStorage.removeItem("access_token");
     } else if (error.response && error.response.status === 400) {
-      const statusCode = error.response.data.responseCode
-      if (statusCode === 4002 || statusCode ===4003) {
-        
+      const statusCode = error.response.data.responseCode;
+      if (statusCode === 4002 || statusCode === 4003) {
       }
     }
     return Promise.reject(error);
