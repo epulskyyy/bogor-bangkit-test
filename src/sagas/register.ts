@@ -33,7 +33,7 @@ export function* postRegister(action: any) {
     });
     notificationMessage(
       "error",
-      `Gagal masuk registrasi`,
+      e?.response?.data?.message || `Gagal masuk registrasi`,
       e?.response?.data?.responseDescription ||
         `Mohon periksa kembali data yang anda masukan atau klik ulang Registrasi`
     );
@@ -66,8 +66,9 @@ export function* postRegisterVerifyOtp(action: any) {
     });
     notificationMessage(
       "error",
-      `Gagal masuk verifikasi`,
-      ` Mohon periksa kembali otp anda, klik ulang Verifikasi atau kirim ulang kode otp`
+      e?.response?.data?.message || `Gagal masuk verifikasi`,
+      e?.response?.data?.responseDescription ||
+        `Mohon periksa kembali otp anda, klik ulang Verifikasi atau kirim ulang kode otp`
     );
   }
 }
@@ -83,7 +84,11 @@ export function* postRegisterResendOtp(action: any) {
       error: e,
       message: "Oups, Error",
     });
-    notificationMessage("error", `Gagal kirim ulang`, ``);
+    notificationMessage(
+      "error",
+      e?.response?.data?.message || `Gagal kirim ulang`,
+      e?.response?.data?.responseDescription || ``
+    );
   }
 }
 export default all([

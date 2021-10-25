@@ -10,6 +10,7 @@ import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import { RootState } from "../../../models/RootState";
 import { useSelector } from "react-redux";
 import { capitalize, formatMoney } from "../../../utils/utils";
+import history from "../../../utils/history";
 
 const { TabPane } = Tabs;
 
@@ -54,7 +55,7 @@ export default function Product() {
           Rp {formatMoney(dataId?.data?.harga_produk || "")}
         </h3>
         <div className="peb-">
-          <Link to="">
+          <Link to={{ pathname: "/chat", state: data?.data?.email }}>
             <Button type="link" icon={<WechatOutlined />} size="middle">
               Chat
             </Button>
@@ -83,7 +84,7 @@ export default function Product() {
                 <label>{capitalize(category?.nama_klasifikasi ?? "-")}</label>
               </List.Item>
             </List>
-            <br/>
+            <br />
             <h3>Deskripsi Produk</h3>
             {dataId?.data?.deskripsi || "Tidak ada deskripsi"}
             <div className="peb-marketplace mt-2">

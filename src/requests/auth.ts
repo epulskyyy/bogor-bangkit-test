@@ -8,3 +8,11 @@ export const login = (data: any) => {
 export const logout = (data: any) => {
   return services.getLogout(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
 };
+
+export const forgotPassword = (data: any) => {
+  return services.extPost(`${endPoint.pemulihanEkonomiUrl.v1}resetPassword/sendOtp`, data);
+};
+
+export const resetPassword = (data: any, id :any) => {
+  return services.post(`${endPoint.pemulihanEkonomiUrl.v1}user/resetPassword?user_id=${id}`, data);
+};

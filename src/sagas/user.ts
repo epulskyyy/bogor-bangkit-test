@@ -6,7 +6,12 @@ import { notificationMessage } from "../utils/notifications";
 
 export function* getAllUserF(action: any) {
   try {
-    const response: ResponseGenerator = yield call(getAllUser, action.perPage, action.status, action.page);
+    const response: ResponseGenerator = yield call(
+      getAllUser,
+      action.perPage,
+      action.status,
+      action.page
+    );
     let data = response.data;
     yield put({
       type: userAction.GET_ALL_USER_SUCCESS,
@@ -38,21 +43,28 @@ export function* getUserByIdF(action: any) {
 
 export function* editProfileF(action: any) {
   try {
-    const response: ResponseGenerator = yield call(editProfile, action.id, action.data);
+    const response: ResponseGenerator = yield call(
+      editProfile,
+      action.id,
+      action.data
+    );
     let data = response.data;
     yield put({
       type: userAction.EDIT_PROFILE_SUCCESS,
       data,
     });
     notificationMessage("success", `Berhasil menyimpan!`, ``);
-    action.func()
+    action.func();
   } catch (e: any) {
     yield put({
       type: userAction.EDIT_PROFILE_ERROR,
       data: e,
     });
-    notificationMessage("error", `Gagal menyimpan!`, `coba beberapa saat lagi`);
-
+    notificationMessage(
+      "error",
+      e?.response?.data?.message || `Gagal menyimpan`,
+      e?.response?.data?.responseDescription || `coba beberapa saat lagi`
+    );
   }
 }
 export default all([
