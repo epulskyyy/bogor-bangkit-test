@@ -25,6 +25,7 @@ import IcShopee from "../../../assets/peb-shopee.svg";
 import IcTokped from "../../../assets/peb-tokped.svg";
 import IcLazada from "../../../assets/peb-lazada.svg";
 import IcBukalapak from "../../../assets/peb-bukalapak.svg";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 type Props = {
@@ -70,9 +71,11 @@ const Umkm: React.FC<Props> = ({ authedData }) => {
                 </Tooltip>
               ) : null}
               {authedData == null ? null : (
-                <Button type="link" icon={<WechatOutlined />} size="middle">
-                  Chat
-                </Button>
+                <Link to={{ pathname: "/chat", state: item?.email }}>
+                  <Button type="link" icon={<WechatOutlined />} size="middle">
+                    Chat
+                  </Button>
+                </Link>
               )}
             </div>
           </div>

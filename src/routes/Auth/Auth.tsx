@@ -95,7 +95,7 @@ const Auth: React.FC = () => {
                   name="password"
                   label="Kata Sandi"
                   rules={[
-                    { required: true, message: "Please input your Password!" },
+                    { required: true, message: "Mohon masukkan Kata Sandi" },
                   ]}
                 >
                   <Input.Password
