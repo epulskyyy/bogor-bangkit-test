@@ -53,9 +53,10 @@ const Routes = () => {
 
   useEffect(() => {
     connectWs();
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  // console.clear()
   return (
     <Layout title="ADA UMKM">
       <Suspense fallback={<div />}>

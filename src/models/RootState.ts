@@ -45,6 +45,7 @@ export interface ChatRoot {
   dataMessage: any,
   inputMessage: any,
   userList: any,
+  users: any,
   selectedUserID: any,
   isLoading: any,
   isMessageLoading: any,

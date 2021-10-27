@@ -25,45 +25,49 @@ type Props = {
   isOpen?: any;
   setIsOpen?: any;
   isModal?: any;
+  authedData?: any;
 };
 
-const ChatCollapse: React.FC<Props> = ({ isOpen, setIsOpen, isModal }) => {
-  const { userList, dataMessage, selectedUserID, inputMessage } = useSelector(
-    (state: RootState) => state.chat
-  );
+const ChatCollapse: React.FC<Props> = ({
+  isOpen,
+  setIsOpen,
+  isModal,
+  authedData,
+}) => {
+  const { userList, dataMessage, selectedUserID, inputMessage } =
+    useSelector((state: RootState) => state.chat);
   const [collapseSide, setCollapseSide] = useState(true);
   const dispatch = useDispatch();
 
   let query: any = useQuery();
-  const loc = useLocation();
+  const loc = useLocation<any>();
   useEffect(() => {
     dispatch(getAllUserChatRequest());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (loc.state) {
       for (let index = 0; index < userList?.data?.response?.length; index++) {
-        console.log(query.get("sendto"));
-
-        const element = userList.data.response[index]?.conversationWith;
-        if (element?.email === loc.state) {
+        console.log(loc.state);
+        if (authedData?.user_id !== loc.state?.id) {
           let requestBody = {
             content: "Hallo",
-            receiver: element.id,
+            receiver: loc.state?.id,
           };
           let requestBodys = {
             pageNumber: 0,
             pageSize: 999999,
-            receiver: element.id,
+            receiver: loc.state?.id,
           };
           dispatch(getHistoryChatRequest(requestBodys));
-          dispatch(changeStateChatRequest("selectedUserID", element));
+          dispatch(changeStateChatRequest("selectedUserID", loc.state));
           dispatch(sendChatRequest(requestBody));
           history.push("chat");
-          break;
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.get("sendto"), userList]);
   const pickUser = (userInfo: UserInfo) => {
     var availableWidth = window.innerWidth;
