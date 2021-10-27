@@ -56,7 +56,7 @@ const Routes = () => {
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.clear()
+  // console.clear()
   return (
     <Layout title="ADA UMKM">
       <Suspense fallback={<div />}>
