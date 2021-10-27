@@ -74,8 +74,13 @@ const EditProduct: React.FC<Props> = ({
     };
     let arrTemp = [];
     if (selectedObj.url_gambar) {
-      const arr = selectedObj.url_gambar.split(",");
-
+      const arr = [];
+      for (const key in selectedObj?.url_gambar) {
+        const element = selectedObj?.url_gambar[key];
+        if (element !== "") {
+          arr.push(element);
+        }
+      }
       if (arr.length === 0) {
       } else {
         let imgTemp: any = {
@@ -301,7 +306,11 @@ const EditProduct: React.FC<Props> = ({
                   }),
                 ]}
               >
-                <Input placeholder="Ketik Nama Produk" />
+                <Input placeholder="Ketik Nama Produk" 
+                  onKeyPress={(e) => {
+                    // eslint-disable-next-line no-useless-escape
+                    /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
+                  }}/>
               </Form.Item>
             </Col>
           </Row>
