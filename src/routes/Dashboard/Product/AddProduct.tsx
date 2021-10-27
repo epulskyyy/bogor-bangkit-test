@@ -51,7 +51,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
   const [visible, setvisible] = useState(false);
   const [form] = useForm();
   const dispatch = useDispatch();
-  const { getFieldValue, validateFields } = form;
+  const { getFieldValue, validateFields, resetFields } = form;
   const showDrawer = () => {
     setvisible(true);
   };
@@ -140,6 +140,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
           dispatch(
             postProductRequest(dataForm, () => {
               setvisible(false);
+              resetFields()
               dispatch(
                 getProducRequest({
                   category_id: "",
@@ -209,7 +210,11 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                   }),
                 ]}
               >
-                <Input placeholder="Ketik Nama Produk" />
+                <Input placeholder="Ketik Nama Produk" 
+                  onKeyPress={(e) => {
+                    // eslint-disable-next-line no-useless-escape
+                    /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
+                  }}/>
               </Form.Item>
             </Col>
           </Row>
