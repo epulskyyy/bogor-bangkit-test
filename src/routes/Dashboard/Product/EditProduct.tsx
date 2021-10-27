@@ -74,8 +74,13 @@ const EditProduct: React.FC<Props> = ({
     };
     let arrTemp = [];
     if (selectedObj.url_gambar) {
-      const arr = selectedObj.url_gambar.split(",");
-
+      const arr = [];
+      for (const key in selectedObj?.url_gambar) {
+        const element = selectedObj?.url_gambar[key];
+        if (element !== "") {
+          arr.push(element);
+        }
+      }
       if (arr.length === 0) {
       } else {
         let imgTemp: any = {
