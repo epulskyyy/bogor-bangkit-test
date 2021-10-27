@@ -17,7 +17,7 @@ const Banner: React.FC<Props> = ({data}) => {
 
   const _plugins = [
     new Fade(),
-    new AutoPlay({ duration: 3000, direction: "NEXT", stopOnHover: true }),
+    // new AutoPlay({ duration: 3000, direction: "NEXT", stopOnHover: true }),
     new Pagination({ type: "bullet" }),
   ];
  
@@ -26,7 +26,7 @@ const Banner: React.FC<Props> = ({data}) => {
       <Flicking
         circular={true}
         plugins={_plugins}
-        resizeOnContentsReady={true}
+        // resizeOnContentsReady={true}
         adaptive={true}
       >
         {data()?.map((v: any, k: any) => (
