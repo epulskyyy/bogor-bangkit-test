@@ -69,20 +69,6 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
     }
     setFileLists(newFileList);
   };
-  const onPreview = async (file: any) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow: any = window.open(src);
-    imgWindow.document.write(image.outerHTML);
-  };
   const uploadMedia = (componentsData: any) => {
     let formData = new FormData();
     formData.append("imageOne", componentsData.file);
@@ -140,7 +126,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
           dispatch(
             postProductRequest(dataForm, () => {
               setvisible(false);
-              resetFields()
+              resetFields();
               dispatch(
                 getProducRequest({
                   category_id: "",
@@ -164,6 +150,23 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileLists]);
+  const [previewImages, setpreviewImages] = useState<any>({
+    previewVisible: false,
+    previewImage: "",
+    previewTitle: "",
+  });
+  const handlePreview = async (file: any) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setpreviewImages({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+    });
+  };
+  const handleCancel = () => setpreviewImages({ previewVisible: false });
 
   return (
     <>
@@ -210,16 +213,18 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                   }),
                 ]}
               >
-                <Input placeholder="Ketik Nama Produk" 
+                <Input
+                  placeholder="Ketik Nama Produk"
                   onKeyPress={(e) => {
                     // eslint-disable-next-line no-useless-escape
                     /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
-                  }}/>
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 name="id_klasifikasi"
                 label="Kategori"
@@ -239,7 +244,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 name="harga_produk"
                 label="Harga Produk"
@@ -290,15 +295,28 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                     listType="picture-card"
                     fileList={fileLists}
                     onChange={onChange}
-                    onPreview={onPreview}
+                    onPreview={handlePreview}
                   >
                     {fileLists.length < 15 && "+ Unduh"}
                   </Upload>
                 </ImgCrop>
+
+                <Modal
+                  visible={previewImages.previewVisible}
+                  title={previewImages.previewTitle}
+                  footer={null}
+                  onCancel={handleCancel}
+                >
+                  <img
+                    alt="example"
+                    style={{ width: "100%" }}
+                    src={previewImages.previewImage}
+                  />
+                </Modal>
               </Form.Item>
             </Col>
 
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -318,7 +336,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 <Input placeholder="Ketik url Instagtram" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -338,7 +356,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 <Input placeholder="Ketik url Facebook" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -358,7 +376,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 <Input placeholder="Ketik url Shopee" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -378,7 +396,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 <Input placeholder="Ketik url Tokopedia" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -398,7 +416,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
                 <Input placeholder="Ketik url Bukalapak" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <Form.Item
                 rules={[
                   (value) => ({
@@ -454,3 +472,6 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
 };
 
 export default AddProduct;
+function getBase64(originFileObj: any): any {
+  throw new Error("Function not implemented.");
+}
