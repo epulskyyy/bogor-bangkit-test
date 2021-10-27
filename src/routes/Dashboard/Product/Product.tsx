@@ -100,10 +100,10 @@ const Product: React.FC<Props> = ({ authedData }) => {
       },
     },
     {
-      title: "ID Kategori",
+      title: "ID Klasifikasi",
       width: 100,
-      dataIndex: "id_kategori",
-      key: "id_kategori",
+      dataIndex: "id_klasifikasi",
+      key: "id_klasifikasi",
     },
     {
       title: "Deskripsi",
