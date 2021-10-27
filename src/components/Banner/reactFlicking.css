@@ -2846,8 +2846,13 @@ a.cmm_pg_prev {
 }
 
 
-@media (max-width: 524px) {
+@media (max-width: 600px) {
   .flicking-viewport {
-    height: 300px !important;
+    height: 250px !important;
+  }
+}
+@media (max-width: 379px) {
+  .flicking-viewport {
+    height: 200px !important;
   }
 }

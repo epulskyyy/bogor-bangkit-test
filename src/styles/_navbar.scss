@@ -116,8 +116,9 @@
 }
 @media (max-width: 548px) {
   .peb-navbar-user,
+  .peb-navbar-top-auth,
   .peb-list.peb-list-flex {
-    display: none;
+    display: none !important;
   }
   .peb-navbar-top-btn-drawer {
     display: flex;

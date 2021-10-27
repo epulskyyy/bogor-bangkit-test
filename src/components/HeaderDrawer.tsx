@@ -76,16 +76,19 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
         icon={<MenuUnfoldOutlined />}
       />
       <Drawer placement="right" onClose={onClose} visible={visible}>
+        <br />
         <Row gutter={[16, 16]}>
-          <Col xs={24}>
-            <Dropdown.Button
-              className="pt-4"
-              style={{ width: "100%" }}
-              overlay={userMenu}
-            >
-              {authedData?.username}
-            </Dropdown.Button>
-          </Col>
+          {authedData ? (
+            <Col xs={24}>
+              <Dropdown.Button
+                className="pt-4"
+                style={{ width: "100%" }}
+                overlay={userMenu}
+              >
+                {authedData?.username}
+              </Dropdown.Button>
+            </Col>
+          ) : null}
           <Col xs={24}>
             <Select
               showSearch
@@ -98,17 +101,43 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
               ))}
             </Select>
           </Col>
-          <Col xs={24}>
-            <Button
-              type="primary"
-              icon={<MailFilled />}
-              style={{ width: "100%" }}
-              size="small"
-              onClick={() => goTo("/chat")}
-            >
-              Pesan
-            </Button>
-          </Col>
+          {authedData ? (
+            <Col xs={24}>
+              <Button
+                type="primary"
+                icon={<MailFilled />}
+                style={{ width: "100%" }}
+                size="small"
+                onClick={() => goTo("/chat")}
+              >
+                Pesan
+              </Button>
+            </Col>
+          ) : (
+            <>
+              <Col xs={24}>
+                <Button
+                  type="primary"
+                  style={{ width: "100%" }}
+                  size="small"
+                  onClick={() => goTo("/login")}
+                >
+                  Login
+                </Button>
+              </Col>
+
+              <Col xs={24}>
+                <Button
+                  type="ghost"
+                  style={{ width: "100%" }}
+                  size="small"
+                  onClick={() => goTo("/register")}
+                >
+                  Daftar
+                </Button>
+              </Col>
+            </>
+          )}
         </Row>
       </Drawer>
       ,
