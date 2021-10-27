@@ -132,20 +132,6 @@ const EditProduct: React.FC<Props> = ({
     }
     setFileLists(newFileList);
   };
-  const onPreview = async (file: any) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow: any = window.open(src);
-    imgWindow.document.write(image.outerHTML);
-  };
   const uploadMedia = (componentsData: any) => {
     let formData = new FormData();
     formData.append("imageOne", componentsData.file);
@@ -226,6 +212,23 @@ const EditProduct: React.FC<Props> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileLists]);
+  const [previewImages, setpreviewImages] = useState<any>({
+    previewVisible: false,
+    previewImage: "",
+    previewTitle: "",
+  });
+  const handlePreview = async (file: any) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setpreviewImages({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+    });
+  };
+  const handleCancel = () => setpreviewImages({ previewVisible: false });
 
   return (
     <>
@@ -306,11 +309,13 @@ const EditProduct: React.FC<Props> = ({
                   }),
                 ]}
               >
-                <Input placeholder="Ketik Nama Produk" 
+                <Input
+                  placeholder="Ketik Nama Produk"
                   onKeyPress={(e) => {
                     // eslint-disable-next-line no-useless-escape
                     /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
-                  }}/>
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -386,11 +391,24 @@ const EditProduct: React.FC<Props> = ({
                     listType="picture-card"
                     fileList={fileLists}
                     onChange={onChange}
-                    onPreview={onPreview}
+                    onPreview={handlePreview}
                   >
                     {fileLists.length < 15 && "+ Unduh"}
                   </Upload>
                 </ImgCrop>
+
+                <Modal
+                  visible={previewImages.previewVisible}
+                  title={previewImages.previewTitle}
+                  footer={null}
+                  onCancel={handleCancel}
+                >
+                  <img
+                    alt="example"
+                    style={{ width: "100%" }}
+                    src={previewImages.previewImage}
+                  />
+                </Modal>
               </Form.Item>
             </Col>
 
@@ -550,3 +568,6 @@ const EditProduct: React.FC<Props> = ({
 };
 
 export default EditProduct;
+function getBase64(originFileObj: any): any {
+  throw new Error("Function not implemented.");
+}
