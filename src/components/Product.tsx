@@ -8,7 +8,16 @@ type Props = {
   data: any;
 };
 const Product: React.FC<Props> = ({ data }) => {
-  // const urlImage:string = JSON.parse(data?.url_gambar);
+  let urlImage: string = "";
+  for (const key in data?.url_gambar) {
+    if (Object.prototype.hasOwnProperty.call(data?.url_gambar, key)) {
+      const element = data?.url_gambar[key];
+      if (element !== "") {
+        urlImage = element;
+        break;
+      }
+    }
+  }
   const goTo = (id: any) => {
     history.push("/product/" + id);
   };
@@ -18,7 +27,7 @@ const Product: React.FC<Props> = ({ data }) => {
         <img
           alt="gambar produk"
           className="peb-img-responsive"
-          src={data?.url_gambar || noImage}
+          src={urlImage || noImage}
         />
       </div>
       <div className="peb-card-2-body p-2">
