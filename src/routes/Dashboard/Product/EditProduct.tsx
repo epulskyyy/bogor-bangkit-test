@@ -18,7 +18,7 @@ import ImgCrop from "antd-img-crop";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { endPoint } from "../../../utils/env";
-import { xssValidBool } from "../../../utils/utils";
+import { xssValidBool, beforeUpload } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { editProductRequest, getProducRequest } from "../../../actions/product";
 import { AuthUser } from "../../../models/AuthUser";
@@ -130,7 +130,9 @@ const EditProduct: React.FC<Props> = ({
         setimageUploads((v: any) => ({ ...v, [key]: "" }));
       }
     }
-    setFileLists(newFileList);
+    if (file.status != null) {
+      setFileLists(newFileList);
+    }
   };
   const uploadMedia = (componentsData: any) => {
     let formData = new FormData();
@@ -385,8 +387,9 @@ const EditProduct: React.FC<Props> = ({
                   }),
                 ]}
               >
-                <ImgCrop rotate>
+                <ImgCrop rotate beforeCrop={beforeUpload}>
                   <Upload
+                    beforeUpload={beforeUpload}
                     customRequest={uploadMedia}
                     listType="picture-card"
                     fileList={fileLists}

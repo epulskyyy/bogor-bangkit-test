@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-escape */
 import jwtDecode from "jwt-decode";
 import { useLocation } from "react-router";
-
+import { message } from "antd";
 export const onlyAlpha = (text) =>
   text
     .replace(/[0-9\/]+/g, "")
@@ -147,3 +147,18 @@ export const convertDate = (item) => {
     yyyymmdd: `${year}-${String(newDate.getMonth()).padStart(2, "0")}-${date}`,
   };
 };
+
+export function beforeUpload(file) {
+  console.log(file);
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    console.log("You can only upload JPG/PNG file!");
+    message.error("Format Gambar Harus JPG/PNG");
+  }
+  const isLt5M = file.size / 1024 / 1024 < 5;
+  if (!isLt5M) {
+    console.log("Image must smaller than 5MB!");
+    message.error("Gambar Tidak Boleh Melebihi 5MB");
+  }
+  return isJpgOrPng && isLt5M;
+}
