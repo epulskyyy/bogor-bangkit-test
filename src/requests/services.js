@@ -5,8 +5,6 @@ class Service {
     let service = axios.create();
     service.interceptors.response.use(this.handleSuccess, this.handleError);
     this.service = service;
-    let token = localStorage.getItem("access_token");
-    this.token = token;
   }
 
   handleSuccess(response) {
@@ -16,7 +14,7 @@ class Service {
   handleError = (error) => {
     console.log("Service error: ", error);
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("access_token");
+      localStorage.removeItem("admin_access_token");
     } else if (error.response && error.response.status === 400) {
       const statusCode = error.response.data.responseCode;
       if (statusCode === 4002 || statusCode === 4003) {
@@ -48,11 +46,12 @@ class Service {
   }
 
   get(path, params, callback) {
+    let token = localStorage.getItem("admin_access_token");
     return this.service
       .get(path, {
         params,
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
@@ -88,6 +87,8 @@ class Service {
   }
 
   patch(path, payload, callback) {
+    let token = localStorage.getItem("admin_access_token");
+
     return this.service
       .request({
         method: "PATCH",
@@ -95,7 +96,7 @@ class Service {
         responseType: "json",
         data: payload,
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
@@ -104,6 +105,7 @@ class Service {
   }
 
   put(put, payload, callback) {
+    let token = localStorage.getItem("admin_access_token");
     return this.service
       .request({
         method: "PUT",
@@ -111,7 +113,7 @@ class Service {
         responseType: "json",
         data: payload,
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
@@ -119,6 +121,7 @@ class Service {
       );
   }
   postCM(path, payload, callback) {
+    let token = localStorage.getItem("admin_access_token");
     return this.service
       .request({
         method: "POST",
@@ -126,7 +129,7 @@ class Service {
         responseType: "json",
         data: payload,
         headers: {
-          Authorization: this.token,
+          Authorization: token,
         },
       })
       .then((response) =>
@@ -134,6 +137,7 @@ class Service {
       );
   }
   post(path, payload, callback) {
+    let token = localStorage.getItem("admin_access_token");
     return this.service
       .request({
         method: "POST",
@@ -141,7 +145,7 @@ class Service {
         responseType: "json",
         data: payload,
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
@@ -163,6 +167,7 @@ class Service {
   }
 
   delete(path, payload, callback) {
+    let token = localStorage.getItem("admin_access_token");
     return this.service
       .request({
         method: "DELETE",
@@ -170,7 +175,7 @@ class Service {
         responseType: "json",
         data: payload,
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
