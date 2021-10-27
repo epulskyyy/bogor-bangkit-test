@@ -26,7 +26,7 @@ export default function Product() {
   const detailUmkm = data?.data?.umkm_detail;
   const categories = useSelector((state: RootState) => state.categories);
   const category = categories?.data?.data?.data?.find(
-    (v: any, i: any) => v.id === dataId?.data?.id_kategori
+    (v: any, i: any) => v.id === dataId?.data?.id_klasifikasi
   );
 
   useEffect(() => {

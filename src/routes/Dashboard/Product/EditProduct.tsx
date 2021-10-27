@@ -242,7 +242,7 @@ const EditProduct: React.FC<Props> = ({
             },
             {
               name: "id_klasifikasi",
-              value: selectedObj.id_kategori,
+              value: selectedObj.id_klasifikasi,
             },
             {
               name: "harga_produk",

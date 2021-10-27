@@ -16,7 +16,7 @@ export default function BreadCrumb() {
       ))}
     </Menu>
   );
-  const category = categories?.data?.data?.data?.find((v: any, i: any) => ( v.id === dataId?.data?.id_kategori))
+  const category = categories?.data?.data?.data?.find((v: any, i: any) => ( v.id === dataId?.data?.id_klasifikasi))
   return (
     <div className="mb-2">
       <Breadcrumb>
