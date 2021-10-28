@@ -6,15 +6,21 @@ class Service {
     service.interceptors.response.use(this.handleSuccess, this.handleError);
     this.service = service;
   }
-
+  
   handleSuccess(response) {
     return response;
   }
 
   handleError = (error) => {
     console.log("Service error: ", error);
+    var currentLocation = window.location.pathname;
+
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("access_token");
+      if (currentLocation.includes("admin")) {
+        localStorage.removeItem("admin_access_token");
+      }else{
+        localStorage.removeItem("access_token");
+      }
     } else if (error.response && error.response.status === 400) {
       const statusCode = error.response.data.responseCode;
       if (statusCode === 4002 || statusCode === 4003) {
@@ -46,7 +52,11 @@ class Service {
   }
 
   get(path, params, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .get(path, {
         params,
@@ -60,7 +70,11 @@ class Service {
   }
 
   getCM(path, params, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .get(path, {
         params,
@@ -74,12 +88,17 @@ class Service {
   }
 
   getBlob(path, params, callback) {
+    var currentLocation = window.location.pathname;
+    let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .get(path, {
         params,
         responseType: "blob",
         headers: {
-          Authorization: `Bearer ` + this.token,
+          Authorization: `Bearer ` + token,
         },
       })
       .then((response) =>
@@ -88,8 +107,11 @@ class Service {
   }
 
   patch(path, payload, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
-
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .request({
         method: "PATCH",
@@ -106,7 +128,11 @@ class Service {
   }
 
   put(put, payload, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .request({
         method: "PUT",
@@ -122,7 +148,11 @@ class Service {
       );
   }
   postCM(path, payload, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .request({
         method: "POST",
@@ -138,7 +168,11 @@ class Service {
       );
   }
   post(path, payload, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .request({
         method: "POST",
@@ -168,7 +202,11 @@ class Service {
   }
 
   delete(path, payload, callback) {
+    var currentLocation = window.location.pathname;
     let token = localStorage.getItem("access_token");
+    if (currentLocation.includes("admin")) {
+      token = localStorage.getItem("admin_access_token");
+    }
     return this.service
       .request({
         method: "DELETE",

@@ -47,7 +47,6 @@ const ChatCollapse: React.FC<Props> = ({
     dispatch(getAllUserChatRequest());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(loc.state);
 
   useEffect(() => {
     if (loc.state) {
