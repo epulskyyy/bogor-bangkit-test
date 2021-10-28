@@ -198,13 +198,22 @@ const Umkm: React.FC<Props> = ({ authedData }) => {
             <Spin spinning={isLoading ?? false} tip="Memuat...">
               <List itemLayout="horizontal">
                 {datas?.data?.data.map((item: any) => (
-                  <List.Item
-                    className="peb-umkm"
-                    onClick={() => onClickUmkm(item)}
-                  >
+                  <List.Item>
                     <List.Item.Meta
-                      title={item?.nama_umkm ?? ""}
-                      description={item?.umkm_detail?.alamat_umkm}
+                      title={
+                        <>
+                          <Button onClick={() => onClickUmkm(item)} type="link">
+                            {item?.nama_umkm ?? ""}
+                          </Button>
+                        </>
+                      }
+                      description={
+                        <>
+                          <Button onClick={() => onClickUmkm(item)} type="text">
+                            {item?.umkm_detail?.alamat_umkm}{" "}
+                          </Button>
+                        </>
+                      }
                     />
                     {authedData != null && authedData.user_id !== item?.id ? (
                       <Button

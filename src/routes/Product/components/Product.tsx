@@ -57,7 +57,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
           Rp {formatMoney(dataId?.data?.harga_produk || "")}
         </h3>
         <div className="peb-">
-          {authedData != null && authedData.user_id !== data?.data?.id ? (
+          {authedData && authedData.user_id !== data?.data?.id ? (
             <Link
               to={{
                 pathname: "/chat",

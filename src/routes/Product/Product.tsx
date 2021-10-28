@@ -46,7 +46,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
           ) : dataId ? (
             <>
               <BreadCrumb />
-              <Content />
+              <Content authedData={authedData} />
             </>
           ) : (
             <Result

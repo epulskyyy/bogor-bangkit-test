@@ -8,6 +8,7 @@ import {
 import { Button, Col, Drawer, Dropdown, Menu, Row, Select } from "antd";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { AuthUser } from "../models/AuthUser";
 import { RootState } from "../models/RootState";
 import history from "../utils/history";
@@ -76,12 +77,13 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
         icon={<MenuUnfoldOutlined />}
       />
       <Drawer placement="right" onClose={onClose} visible={visible}>
+        <Link to="/">ADA UMKM</Link>
+        <br />
         <br />
         <Row gutter={[16, 16]}>
           {authedData ? (
             <Col xs={24}>
               <Dropdown.Button
-                className="pt-4"
                 style={{ width: "100%" }}
                 overlay={userMenu}
               >

@@ -50,3 +50,9 @@
     background-color: rgb(193, 232, 255);
   }
 }
+@media (max-width: 635px) {
+  .search-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

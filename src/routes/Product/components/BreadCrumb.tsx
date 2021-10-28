@@ -1,7 +1,9 @@
-import { Breadcrumb, Menu } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, Menu } from "antd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../models/RootState";
+import history from "../../../utils/history";
 
 export default function BreadCrumb() {
   const { dataId } = useSelector((state: RootState) => state.product);
@@ -27,9 +29,20 @@ export default function BreadCrumb() {
   const category = categories?.data?.data?.data?.find(
     (v: any, i: any) => v.id === dataId?.data?.id_klasifikasi
   );
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <div className="mb-2">
       <Breadcrumb>
+        <Breadcrumb.Item>
+          <Button
+            onClick={goBack}
+            size="small"
+            type="text"
+            icon={<ArrowLeftOutlined />}
+          />
+        </Breadcrumb.Item>
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
