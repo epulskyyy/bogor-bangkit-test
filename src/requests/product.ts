@@ -22,8 +22,11 @@ export const getProduct = (data: any) => {
   );
 };
 
-export const putProduct = (data: any, id:any) => {
-  return services.put(`${endPoint.pemulihanEkonomiUrl.v1}produk-umkm/${id}`, data);
+export const putProduct = (data: any, id: any) => {
+  return services.put(
+    `${endPoint.pemulihanEkonomiUrl.v1}produk-umkm/${id}`,
+    data
+  );
 };
 
 export const deleteProduct = (id: any) => {
