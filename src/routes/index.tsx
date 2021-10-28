@@ -81,7 +81,10 @@ const Routes = () => {
               )}
             />
           ))}
-          <Route path="*" component={PageNotFound} />
+          <Route path="*" 
+          render={() => (
+            <PageNotFound authedData={ProtectedRoute().data || undefined} authedDataAdmin={ProtectedRoute().dataAdmin || undefined} />
+          )} />
         </Switch>
       </Suspense>
     </IndexPage>

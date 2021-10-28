@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAdminRequest } from "../../../actions/auth";
 import { encryptText } from "../../../utils/crypto";
 import { RootState } from "../../../models/RootState";
+import ReCAPTCHA from "react-google-recaptcha";
+import { keys } from "../../../utils/env";
+import { useState } from "react";
 
 export const formItemLayout = {
   labelCol: {
@@ -20,6 +23,7 @@ export const formItemLayout = {
 };
 const Auth: React.FC = () => {
   const { isLoading } = useSelector((state: RootState) => state.auth);
+  const [isHuman, setHuman] = useState(false);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -77,10 +81,20 @@ const Auth: React.FC = () => {
                 placeholder="Ketik Kata Sandi"
               />
             </Form.Item>
-
+            <Form.Item>
+              {keys.recaptcha === "" ? null : (
+                <ReCAPTCHA
+                  sitekey={keys.recaptcha}
+                  onChange={() => setHuman(true)}
+                  onErrored={() => setHuman(false)}
+                  onExpired={() => setHuman(false)}
+                />
+              )}
+            </Form.Item>
             <Form.Item>
               <Button
                 loading={isLoading || false}
+                disabled={!isHuman}
                 type="primary"
                 htmlType="submit"
                 block

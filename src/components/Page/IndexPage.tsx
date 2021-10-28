@@ -74,12 +74,16 @@ const IndexPage: React.FC<Props> = ({
           <Header
             className="site-layout-background peb-dflex-between"
             style={{
+              paddingLeft: "24px",
+              paddingRight: "24px",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-            <h3 style={{ color: "white" }}>Dasbor Admin</h3>
+            <h3 style={{ color: "white" }}>
+              {widthScreen <= 416 && !collapsed ? "" : "Dasbor Admin"}
+            </h3>
             <Button shape="round" icon={<LogoutOutlined />} onClick={logout}>
               Keluar
             </Button>
