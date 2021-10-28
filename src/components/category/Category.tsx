@@ -49,7 +49,11 @@ const Category: React.FC<Props> = ({ title, icon, idCategory }) => {
     <div
       onClick={searchProduct}
       className="peb-category"
-      style={{ background: `url(${getImage(title)})` }}
+      style={{
+        background: `url(${getImage(title)})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <div className="peb-category-left">
         <div className="peb-category-icon"></div>
