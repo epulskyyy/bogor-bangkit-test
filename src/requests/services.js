@@ -60,11 +60,12 @@ class Service {
   }
 
   getCM(path, params, callback) {
+    let token = localStorage.getItem("access_token");
     return this.service
       .get(path, {
         params,
         headers: {
-          Authorization: this.token,
+          Authorization: token,
         },
       })
       .then((response) =>

@@ -2,8 +2,9 @@ import { CaretUpOutlined } from "@ant-design/icons";
 import { Spin, Input, List, Avatar, Button } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducRequest } from "../actions/product";
+import { getProducRequest, getProductSearchRequest } from "../actions/product";
 import { RootState } from "../models/RootState";
+import { getProductSearchF } from "../sagas/product";
 import history from "../utils/history";
 import { formatMoney, useQuery } from "../utils/utils";
 import "./styless/styless.scss";
@@ -24,7 +25,7 @@ const SearchComp = () => {
     page: query.get("page") || "1",
   };
   const searchProduct = (name: any) => {
-    dispatch(getProducRequest({ ...queryData, name }));
+    dispatch(getProductSearchRequest({ ...queryData, name }));
     history.push({
       search: `category=${queryData.category_id}&per_page=${
         queryData.perPage
@@ -56,14 +57,14 @@ const SearchComp = () => {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      dispatch(getProducRequest({ ...queryData, name: searchTerm }));
+      dispatch(getProductSearchRequest({ ...queryData, name: searchTerm }));
       setSearchLoading(false);
       // Send Axios request here
     }, 2000);
 
     return () => clearTimeout(delayDebounceFn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [searchTerm, !product.dataSearch]);
   const onChangeSearch = (e: any) => {
     setSearchTerm(e.target.value);
     setSearchLoading(true);
@@ -108,9 +109,9 @@ const SearchComp = () => {
             />
           </div>
           <div className="search-content-list">
-            <Spin spinning={searchLoading || product.isLoading} tip="Memuat...">
+            <Spin spinning={searchLoading || product.isLoadingSearch} tip="Memuat...">
               <List itemLayout="horizontal">
-                {product?.data?.data?.map((item: any, i: any) => (
+                {product?.dataSearch?.data?.map((item: any, i: any) => (
                   <List.Item
                     key={i}
                     className="search-list"

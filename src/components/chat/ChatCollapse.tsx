@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { List, Button } from "antd";
+import { List, Button, Typography } from "antd";
 import {
   CaretDownOutlined,
   FullscreenOutlined,
@@ -21,6 +21,7 @@ import history from "../../utils/history";
 import { useQuery } from "../../utils/utils";
 import { useLocation } from "react-router-dom";
 
+const { Paragraph } = Typography;
 type Props = {
   isOpen?: any;
   setIsOpen?: any;
@@ -34,8 +35,9 @@ const ChatCollapse: React.FC<Props> = ({
   isModal,
   authedData,
 }) => {
-  const { userList, dataMessage, selectedUserID, inputMessage } =
-    useSelector((state: RootState) => state.chat);
+  const { userList, dataMessage, selectedUserID, inputMessage } = useSelector(
+    (state: RootState) => state.chat
+  );
   const [collapseSide, setCollapseSide] = useState(true);
   const dispatch = useDispatch();
 
@@ -45,29 +47,27 @@ const ChatCollapse: React.FC<Props> = ({
     dispatch(getAllUserChatRequest());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(loc.state);
 
   useEffect(() => {
     if (loc.state) {
-      for (let index = 0; index < userList?.data?.response?.length; index++) {
-        console.log(loc.state);
-        if (authedData?.user_id !== loc.state?.id) {
-          let requestBody = {
-            content: "Hallo",
-            receiver: loc.state?.id,
-          };
-          let requestBodys = {
-            pageNumber: 0,
-            pageSize: 999999,
-            receiver: loc.state?.id,
-          };
-          dispatch(getHistoryChatRequest(requestBodys));
-          dispatch(changeStateChatRequest("selectedUserID", loc.state));
-          dispatch(sendChatRequest(requestBody));
-          history.push("chat");
-        }
+      if (authedData?.user_id !== loc.state?.id) {
+        let requestBody = {
+          content: "Hallo",
+          receiver: loc.state?.id,
+        };
+        let requestBodys = {
+          pageNumber: 0,
+          pageSize: 999999,
+          receiver: loc.state?.id,
+        };
+        dispatch(getHistoryChatRequest(requestBodys));
+        dispatch(changeStateChatRequest("selectedUserID", loc.state));
+        dispatch(sendChatRequest(requestBody));
+        history.push("chat");
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.get("sendto"), userList]);
   const pickUser = (userInfo: UserInfo) => {
     var availableWidth = window.innerWidth;
@@ -143,11 +143,15 @@ const ChatCollapse: React.FC<Props> = ({
                   onClick={() => pickUser(item.conversationWith)}
                 >
                   <List.Item.Meta
-                    title={(
-                      item.conversationWith.namaUmkm ||
-                      item.conversationWith.email
-                    ).substring(0, 20)}
-                    description={item.content.substring(0, 15) + "..."}
+                    title={
+                      <Paragraph ellipsis>
+                        {item.conversationWith.namaUmkm ||
+                          item.conversationWith.email}{" "}
+                      </Paragraph>
+                    }
+                    description={
+                      <Paragraph ellipsis>{item.content} </Paragraph>
+                    }
                   />
                 </List.Item>
               )}
