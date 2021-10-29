@@ -12,7 +12,7 @@ import { MoreOutlined } from "@ant-design/icons";
 
 export default function Umkm() {
   const { data } = useSelector((state: RootState) => state.user);
-  const detailUmkm = data?.data?.umkm_detail
+  const detailUmkm = data?.data?.umkm_detail;
   const menu = (
     <Menu>
       <Menu.Item icon={<img alt="" src={IcWhatsapp} />}>
@@ -49,19 +49,15 @@ export default function Umkm() {
       <div className="peb-user">
         <div className="peb-user-avatar"></div>
         <div className="peb-user-name">
-          <div>
-            <h3>
-              {data?.data?.nama_umkm}{" "}
-              <Dropdown
-                className="peb-dropdown-umkm"
-                overlay={menu}
-                placement="bottomRight"
-                arrow
-              >
-                <Button type="dashed" shape="circle" icon={<MoreOutlined />} />
-              </Dropdown>
-            </h3>
-          </div>
+          <h3 className="peb-text-bold ">{data?.data?.nama_umkm?.toUpperCase() || "-"}</h3>
+          <Dropdown
+            className="peb-dropdown-umkm ml-2"
+            overlay={menu}
+            placement="bottomRight"
+            arrow
+          >
+            <Button type="dashed" shape="circle" icon={<MoreOutlined />} />
+          </Dropdown>
         </div>
       </div>
       <div className="peb-whatsapp mb-1">

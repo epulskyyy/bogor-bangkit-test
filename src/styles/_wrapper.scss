@@ -25,6 +25,12 @@
   align-items: center;
 }
 
+.peb-dflex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .peb-list.peb-list-flex {
   list-style: none;
   display: flex;

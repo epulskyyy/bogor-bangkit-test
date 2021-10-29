@@ -18,7 +18,7 @@ import ImgCrop from "antd-img-crop";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { endPoint } from "../../../utils/env";
-import { xssValidBool, beforeUpload } from "../../../utils/utils";
+import { xssValidBool, beforeUpload, getBase64 } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { editProductRequest, getProducRequest } from "../../../actions/product";
 import { AuthUser } from "../../../models/AuthUser";
@@ -571,6 +571,3 @@ const EditProduct: React.FC<Props> = ({
 };
 
 export default EditProduct;
-function getBase64(originFileObj: any): any {
-  throw new Error("Function not implemented.");
-}

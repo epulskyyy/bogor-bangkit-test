@@ -2,7 +2,7 @@ import { Card, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getAdminRequest } from "../../../actions/admin";
+import { getAdminRequest } from "../../../actions/admin";
 import { Layout } from "../../../components";
 import { AuthUser } from "../../../models/AuthUser";
 import { RootState } from "../../../models/RootState";
@@ -56,7 +56,7 @@ const Admin: React.FC<Props> = () => {
       },
     },
     {
-      title: "Nama Lengkap",
+      title: "Nama Pelaku Usaha",
       dataIndex: "nama_lengkap",
       width: 200,
     },

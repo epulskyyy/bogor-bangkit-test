@@ -30,7 +30,7 @@ export default function ProfileUmkm() {
     },
     {
       path: "second",
-      breadcrumbName: "Nama UMKM",
+      breadcrumbName: "Nama Usaha",
     },
   ];
 
@@ -105,7 +105,7 @@ export default function ProfileUmkm() {
     <Container title="Profil UMKM">
       <div className="container ">
         <PageHeader
-          title="Nama UMKM"
+          title="Nama Usaha"
           className="site-page-header"
           //   subTitle="This is a subtitle"
           tags={

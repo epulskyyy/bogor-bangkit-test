@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 
 import { Button, Col, Form, Input, Row, Select } from "antd";
 
-import ReCAPTCHA from "react-google-recaptcha";
-
 import {
   formItemLayoutR,
   kecamatanBogor,
@@ -16,21 +14,41 @@ import {
 } from "../../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
-import { keys } from "../../../utils/env";
-import { xssValidBool } from "../../../utils/utils";
+import { generateCaptcha, xssValidBool } from "../../../utils/utils";
+import { ReloadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
 export default function FormStapTwo() {
   const [form] = Form.useForm();
   const [buttonDisabled, setbuttonDisabled] = useState(true);
-  const [isHuman, setHuman] = useState(false);
+
   const { getFieldsValue, getFieldValue } = form;
   const { formData, isLoading } = useSelector(
     (state: RootState) => state.register
   );
   const dispatch = useDispatch();
+  const [captchaAdditon, setCaptchaAdditon] = useState({
+    valueOne: 0,
+    valueTwo: 0,
+    results: 0,
+    inputResult: 0,
+    operator: "+",
+  });
 
+  useEffect(() => {
+    refreshCapctha();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const refreshCapctha = () => {
+    let value: any = generateCaptcha();
+    setCaptchaAdditon(value);
+  };
+
+  const validCaptch = () =>
+    Number(captchaAdditon.inputResult) !== 0
+      ? Number(captchaAdditon.inputResult) !== captchaAdditon.results
+      : true;
   useEffect(() => {
     if (formData?.password != null || formData?.password_confirmation != null) {
       form.validateFields(["password", "password_confirmation"]);
@@ -76,11 +94,9 @@ export default function FormStapTwo() {
         }
       }
     }
-    if (isHuman) {
-      setbuttonDisabled(formValidation);
-    }
+    setbuttonDisabled(formValidation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, isHuman]);
+  }, [formData, captchaAdditon.inputResult]);
 
   const onPrev = () => {
     dispatch(setFormStaps("current", 0));
@@ -261,6 +277,11 @@ export default function FormStapTwo() {
             value: el.id,
             id: el.id,
           }))}
+          filterOption={(input, option: any) => {
+            return option
+              ? option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              : false;
+          }}
           onSelect={(e, option) => {
             handleChange({ target: { name: "kecamatan", value: option } });
           }}
@@ -282,6 +303,11 @@ export default function FormStapTwo() {
               value: el.id,
               id: el.id,
             }))}
+          filterOption={(input, option: any) => {
+            return option
+              ? option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              : false;
+          }}
           disabled={formData?.kecamatan === undefined}
           onSelect={(e, option) => {
             handleChange({ target: { name: "kelurahan", value: option } });
@@ -358,18 +384,64 @@ export default function FormStapTwo() {
         />
       </Form.Item>
       <Form.Item>
-        <ReCAPTCHA
-          sitekey={keys.recaptcha}
-          onChange={() => setHuman(true)}
-          onErrored={() => {
-            setbuttonDisabled(true);
-            setHuman(false);
-          }}
-          onExpired={() => {
-            setbuttonDisabled(true);
-            setHuman(false);
-          }}
-        />
+        <Row>
+          <Col lg={12} md={12} sm={12} xs={12}>
+            <Input
+              // bordered={false}
+              addonBefore={
+                <Button
+                  type="text"
+                  onClick={refreshCapctha}
+                  icon={<ReloadOutlined />}
+                />
+              }
+              readOnly
+              value={`${captchaAdditon.valueOne} ${captchaAdditon.operator} ${captchaAdditon.valueTwo} =`}
+            />
+          </Col>
+          <Col lg={12} md={12} sm={12} xs={12}>
+            <Form.Item
+              name="captchaAdditon"
+              validateStatus={validCaptch() ? "" : "success"}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Tidak boleh kosong",
+                },
+                () => ({
+                  validator(role, value) {
+                    if (value) {
+                      if (validCaptch()) {
+                        return Promise.reject("Hasil salah");
+                      }
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <Input
+                onChange={(e) =>
+                  setCaptchaAdditon((v: any) => ({
+                    ...v,
+                    inputResult: e.target.value,
+                  }))
+                }
+                tabIndex={3}
+                allowClear
+                type="number"
+                placeholder=""
+                onKeyPress={(e) => {
+                  // eslint-disable-next-line no-useless-escape
+                  if (/[^0-9\/]+/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
       </Form.Item>
       <Form.Item>
         <Row gutter={[16, 0]}>
@@ -382,7 +454,7 @@ export default function FormStapTwo() {
             <Button
               type="primary"
               block
-              disabled={buttonDisabled}
+              disabled={validCaptch() || buttonDisabled}
               onClick={onRegist}
               loading={isLoading || false}
             >

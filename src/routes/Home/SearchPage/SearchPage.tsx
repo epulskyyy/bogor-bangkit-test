@@ -147,45 +147,60 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
               ))}
             </List>
           </Col>
-          <Col lg={18} md={18}>
-            <Dropdown
-              className="peb-dropdown-search-page mb-2"
-              overlay={menu}
-              placement="bottomLeft"
-              arrow
-            >
-              <Button
-                type="primary"
-                shape="circle"
-                icon={<AppstoreOutlined />}
-              />
-            </Dropdown>
+          <Col lg={18} md={18} sm={24} xs={24}>
+            <div className="peb-dropdown-search-page mb-2 peb-dflex-end ">
+              <Dropdown
+                className="page mb-1"
+                overlay={menu}
+                placement="bottomLeft"
+                arrow
+              >
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<AppstoreOutlined />}
+                >
+                  {data.map((item: any, k: any) => {
+                    if (item.id == queryData.category_id) {
+                      return item.nama_klasifikasi;
+                    }
+                  })}
+                </Button>
+              </Dropdown>
+            </div>
             <Card
-              title={queryData.name || ""}
+              title={
+                <Col lg={24} md={24} sm={0} xs={0}>
+                  {queryData.name || ""}
+                </Col>
+              }
               extra={
                 <>
-                  <label>Urutkan : </label>
-                  <Select
-                    onSelect={onChangeProductSort}
-                    size="small"
-                    defaultValue="terbaru"
-                    style={{ width: 100 }}
-                    className="mr-2"
-                  >
-                    <Option value="terbaru"> Terbaru </Option>
-                    <Option value="termurah"> Termurah </Option>
-                    <Option value="termahal"> Termahal </Option>
-                  </Select>
-
-                  <Select
-                    onSelect={onChangeProductPageSize}
-                    size="small"
-                    defaultValue={queryData.perPage || "10"}
-                    style={{ width: 100 }}
-                  >
-                    <Option value="20"> 20/page </Option>
-                    <Option value="10"> 10/page </Option>
-                  </Select>
+                  <Row gutter={[16, 16]}>
+                    <Col lg={12} md={24} sm={24} xs={24}>
+                      <Select
+                        onSelect={onChangeProductSort}
+                        size="small"
+                        defaultValue="terbaru"
+                        style={{ display: "block" }}
+                      >
+                        <Option value="terbaru"> Terbaru </Option>
+                        <Option value="termurah"> Termurah </Option>
+                        <Option value="termahal"> Termahal </Option>
+                      </Select>
+                    </Col>
+                    <Col lg={12} md={24} sm={24} xs={24}>
+                      <Select
+                        onSelect={onChangeProductPageSize}
+                        size="small"
+                        defaultValue={queryData.perPage || "10"}
+                        style={{ display: "block" }}
+                      >
+                        <Option value="20"> 20/page </Option>
+                        <Option value="10"> 10/page </Option>
+                      </Select>
+                    </Col>
+                  </Row>
                 </>
               }
             >

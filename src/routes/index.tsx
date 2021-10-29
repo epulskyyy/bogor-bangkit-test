@@ -28,6 +28,8 @@ const Routes = () => {
         if (msg.body) {
           let messageAdd2: ChatMessage[] = messageAdd;
           let jsonMessage: ChatMessage = JSON.parse(msg.body);
+          console.log(msg);
+          
           messageAdd2.push(jsonMessage);
           dispatch(changeStateChatRequest("selectedUserID", selectedUserID));
           dispatch(changeStateChatRequest("inputMessage", messageAdd2));
@@ -65,7 +67,7 @@ const Routes = () => {
 
   return (
     <IndexPage
-      title="ADA UMKM"
+      title="Bogor Bangkit"
       authedData={ProtectedRoute().data || undefined}
       routes={ProtectedRoute().routes}
     >
@@ -81,10 +83,15 @@ const Routes = () => {
               )}
             />
           ))}
-          <Route path="*" 
-          render={() => (
-            <PageNotFound authedData={ProtectedRoute().data || undefined} authedDataAdmin={ProtectedRoute().dataAdmin || undefined} />
-          )} />
+          <Route
+            path="*"
+            render={() => (
+              <PageNotFound
+                authedData={ProtectedRoute().data || undefined}
+                authedDataAdmin={ProtectedRoute().dataAdmin || undefined}
+              />
+            )}
+          />
         </Switch>
       </Suspense>
     </IndexPage>

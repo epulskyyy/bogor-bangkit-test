@@ -7,13 +7,16 @@ import axios from "axios";
 
 function App() {
   const getVisitCount = () => {
-    const visit = sessionStorage.getItem("visit_");
-    axios.get("https://geolocation-db.com/json/").then(async (res) => {
-      if (visit !== res?.data?.IPv4) {
-        await axios.get(`${endPoint.pemulihanEkonomiUrl.v1}index`);
-        sessionStorage.setItem("visit_", res.data.IPv4);
-      }
-    });
+    var currentLocation = window.location.pathname;
+    if (!currentLocation.includes("admin")) {
+      const visit = sessionStorage.getItem("visit_");
+      axios.get("https://api.ipify.org?format=json").then(async (res) => {
+        if (visit !== res?.data?.ip) {
+          await axios.get(`${endPoint.pemulihanEkonomiUrl.v1}index`);
+          sessionStorage.setItem("visit_", res.data.ip);
+        }
+      });
+    }
   };
   getVisitCount();
   return (

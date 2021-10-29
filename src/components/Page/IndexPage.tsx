@@ -82,7 +82,7 @@ const IndexPage: React.FC<Props> = ({
             }}
           >
             <h3 style={{ color: "white" }}>
-              {widthScreen <= 416 && !collapsed ? "" : "Dasbor Admin"}
+              {widthScreen <= 416 && !collapsed ? "" : "Dashboard Admin"}
             </h3>
             <Button shape="round" icon={<LogoutOutlined />} onClick={logout}>
               Keluar

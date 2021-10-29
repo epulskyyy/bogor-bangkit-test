@@ -18,7 +18,7 @@ import ImgCrop from "antd-img-crop";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { endPoint } from "../../../utils/env";
-import { beforeUpload, xssValidBool } from "../../../utils/utils";
+import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { getProducRequest, postProductRequest } from "../../../actions/product";
 import { AuthUser } from "../../../models/AuthUser";
@@ -475,6 +475,3 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
 };
 
 export default AddProduct;
-function getBase64(originFileObj: any): any {
-  throw new Error("Function not implemented.");
-}

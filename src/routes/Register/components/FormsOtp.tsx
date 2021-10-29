@@ -74,7 +74,7 @@ const FormsOtp: React.FC<Props> = () => {
     dispatch(registrationReset());
   };
   const subtitle =
-    "Masukkan kode khusus yang kami telah kirimkan ke alamat email Anda di " +
+    "Masukkan kode khusus yang kami telah kirimkan ke alamat email anda di " +
     emailOtp;
 
   return (

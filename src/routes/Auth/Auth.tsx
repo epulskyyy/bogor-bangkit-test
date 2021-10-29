@@ -1,15 +1,15 @@
 import "../../styles/base.scss";
 import "./components/styles.scss";
-import { Button, Form, Input, Typography } from "antd";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { Layout } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../models/RootState";
 import { loginRequest, setFormAuth } from "../../actions/auth";
-import { keys } from "../../utils/env";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { encryptText } from "../../utils/crypto";
+import { ReloadOutlined } from "@ant-design/icons";
+import { generateCaptcha } from "../../utils/utils";
 
 const { Text } = Typography;
 
@@ -34,7 +34,27 @@ export const tailFormItemLayout = {
 
 const Auth: React.FC = () => {
   const { isLoading, formData } = useSelector((state: RootState) => state.auth);
-  const [isHuman, setHuman] = useState(false);
+  const [captchaAdditon, setCaptchaAdditon] = useState({
+    valueOne: 0,
+    valueTwo: 0,
+    results: 0,
+    inputResult: 0,
+    operator: "+",
+  });
+
+  useEffect(() => {
+    refreshCapctha();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const refreshCapctha = () => {
+    let value: any = generateCaptcha();
+    setCaptchaAdditon(value);
+  };
+
+  const validCaptch = () =>
+    Number(captchaAdditon.inputResult) !== 0
+      ? Number(captchaAdditon.inputResult) !== captchaAdditon.results
+      : true;
   const dispatch = useDispatch();
 
   const handleOnChange = (e: any) => {
@@ -49,7 +69,7 @@ const Auth: React.FC = () => {
       <div className="peb-container-auth">
         <div className="peb-container-auth-background">
           <Link to="/">
-            <strong className="peb-login-title">ADA UMKM</strong>
+            <strong className="peb-login-title">Bogor Bangkit</strong>
           </Link>
           <br />
           <div className="peb-card peb-shadow">
@@ -86,6 +106,8 @@ const Auth: React.FC = () => {
                   label="Email"
                 >
                   <Input
+                    tabIndex={1}
+                    allowClear
                     onChange={handleOnChange}
                     name="email"
                     placeholder="Ketik Email"
@@ -99,6 +121,8 @@ const Auth: React.FC = () => {
                   ]}
                 >
                   <Input.Password
+                    tabIndex={2}
+                    allowClear
                     onChange={handleOnChange}
                     name="password"
                     type="password"
@@ -106,29 +130,82 @@ const Auth: React.FC = () => {
                   />
                 </Form.Item>
                 <Form.Item>
-                  {keys.recaptcha === "" ? null : (
-                    <ReCAPTCHA
-                      sitekey={keys.recaptcha}
-                      onChange={() => setHuman(true)}
-                      onErrored={() => setHuman(false)}
-                      onExpired={() => setHuman(false)}
-                    />
-                  )}
+                  <Row>
+                    <Col lg={12} md={12} sm={12} xs={12}>
+                      <Input
+                        // bordered={false}
+                        addonBefore={
+                          <Button
+                            type="text"
+                            onClick={refreshCapctha}
+                            icon={<ReloadOutlined />}
+                          />
+                        }
+                        readOnly
+                        value={`${captchaAdditon.valueOne} ${captchaAdditon.operator} ${captchaAdditon.valueTwo} =`}
+                      />
+                    </Col>
+                    <Col lg={12} md={12} sm={12} xs={12}>
+                      <Form.Item
+                        name="captchaAdditon"
+                        validateStatus={validCaptch() ? "" : "success"}
+                        hasFeedback
+                        rules={[
+                          {
+                            required: true,
+                            message: "Tidak boleh kosong",
+                          },
+                          () => ({
+                            validator(role, value) {
+                              if (value) {
+                                if (validCaptch()) {
+                                  return Promise.reject("Hasil salah");
+                                }
+                              }
+                              return Promise.resolve();
+                            },
+                          }),
+                        ]}
+                      >
+                        <Input
+                          onChange={(e) =>
+                            setCaptchaAdditon((v: any) => ({
+                              ...v,
+                              inputResult: e.target.value,
+                            }))
+                          }
+                          tabIndex={3}
+                          allowClear
+                          type="number"
+                          placeholder=""
+                          onKeyPress={(e) => {
+                            // eslint-disable-next-line no-useless-escape
+                            if (/[^0-9\/]+/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
                 </Form.Item>
 
                 <Form.Item>
                   <Button
                     type="default"
+                    htmlType="submit"
                     disabled={
-                      !isHuman ||
+                      validCaptch() ||
+                      formData?.email == null ||
                       formData?.email?.length === 0 ||
+                      formData?.password == null ||
                       formData?.password?.length === 0
                     }
                     loading={isLoading || false}
                     block
                     onClick={handleSubmit}
                   >
-                    LOGIN
+                    Masuk
                   </Button>
                   {/* <div className="peb-text-center">
                     <Link to="/forgot-password">Lupa Kata Sandi?</Link>

@@ -108,16 +108,16 @@ const EditAdmin: React.FC<Props> = ({ obj }) => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_lengkap"
-                label="Nama Lengkap"
+                label="Nama Pelaku Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama Lengkap"),
+                    message: messageValidate("required", "Nama Pelaku Usaha"),
                   },
                 ]}
               >
                 <Input
-                  placeholder="Ketik Nama Lengkap"
+                  placeholder="Ketik Nama Pelaku Usaha"
                   onKeyPress={(e) => {
                     // eslint-disable-next-line no-useless-escape
                     /[^A-Za-z ]/g.test(e.key) && e.preventDefault();

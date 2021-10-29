@@ -47,7 +47,13 @@ const Header: React.FC<Props> = ({ authedData }) => {
     <Menu>
       {categories?.data?.data?.data?.map((v: any, i: any) => (
         <Menu.Item key={v}>
-          <Link to={`search?category=${v.id}&per_page=${10}&sort=&product_name=&umkm=&page=${1}`}>{capitalize(v.nama_klasifikasi, true)}</Link>
+          <Link
+            to={`search?category=${
+              v.id
+            }&per_page=${10}&sort=&product_name=&umkm=&page=${1}`}
+          >
+            {capitalize(v.nama_klasifikasi, true)}
+          </Link>
         </Menu.Item>
       ))}
     </Menu>
@@ -60,7 +66,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
           type="link"
           onClick={() => onGo("/profile/" + authedData?.user_id)}
         >
-          Data Diri
+          Data Pengguna
         </Button>
       </Menu.Item>
       <Menu.Item>
@@ -69,22 +75,22 @@ const Header: React.FC<Props> = ({ authedData }) => {
           type="link"
           onClick={() => onGo("/dashboard")}
         >
-          Dasbor
+          Dashboard
         </Button>
       </Menu.Item>
       <Menu.Item>
         <Button icon={<LogoutOutlined />} type="link" onClick={logout}>
-          Logout
+          Keluar
         </Button>
       </Menu.Item>
     </Menu>
   );
- 
+
   return (
     <div className="peb-navbar">
       <div className="peb-navbar-top">
         <div className="peb-navbar-top-logo">
-          <Link to="/">ADA UMKM</Link>
+          <Link to="/">Bogor Bangkit</Link>
         </div>
         <div className="peb-navbar-top-wrap">
           <SearchComp />
@@ -104,7 +110,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
               <>
                 <li>
                   <Tooltip placement="bottom" title="Pesan">
-                    <Button type="link" onClick={()=> history.push("/chat") }>
+                    <Button type="link" onClick={() => history.push("/chat")}>
                       <MailOutlined />
                     </Button>
                   </Tooltip>

@@ -112,13 +112,13 @@ export default function FormStapOne() {
         </Form.Item>
         <Form.Item
           name="no_hp"
-          label="Nomor HP"
-          rules={[{ required: true, message: "Tolong masukan Nomor HP!" }]}
+          label="Nomor WA"
+          rules={[{ required: true, message: "Tolong masukan Nomor WA!" }]}
         >
           <Input
             name="no_hp"
             type="text"
-            placeholder="Ketik Nomor HP"
+            placeholder="Ketik Nomor WA"
             onChange={handleChange}
             onKeyPress={(e) => {
               // eslint-disable-next-line no-useless-escape
@@ -130,14 +130,16 @@ export default function FormStapOne() {
         </Form.Item>
         <Form.Item
           name="nama_lengkap"
-          label="Nama Lengkap"
-          rules={[{ required: true, message: "Tolong masukan Nama Lengkap!" }]}
+          label="Nama Pelaku Usaha"
+          rules={[
+            { required: true, message: "Tolong masukan Nama Pelaku Usaha!" },
+          ]}
         >
           <Input
             name="nama_lengkap"
             onChange={handleChange}
             type="nama_lengkap"
-            placeholder="Ketik Nama Lengkap"
+            placeholder="Ketik Nama Pelaku Usaha"
           />
         </Form.Item>
         <Form.Item

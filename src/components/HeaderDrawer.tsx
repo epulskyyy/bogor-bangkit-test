@@ -58,7 +58,7 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
           type="link"
           onClick={() => goTo("/dashboard")}
         >
-          Dasbor
+          dashboard
         </Button>
       </Menu.Item>
       <Menu.Item>
@@ -77,16 +77,13 @@ const HeaderDrawer: React.FC<Props> = ({ authedData, logout }) => {
         icon={<MenuUnfoldOutlined />}
       />
       <Drawer placement="right" onClose={onClose} visible={visible}>
-        <Link to="/">ADA UMKM</Link>
+        <Link to="/">Bogor Bangkit</Link>
         <br />
         <br />
         <Row gutter={[16, 16]}>
           {authedData ? (
             <Col xs={24}>
-              <Dropdown.Button
-                style={{ width: "100%" }}
-                overlay={userMenu}
-              >
+              <Dropdown.Button style={{ width: "100%" }} overlay={userMenu}>
                 {authedData?.username}
               </Dropdown.Button>
             </Col>

@@ -109,16 +109,16 @@ const AddAdmin: React.FC<Props> = () => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_lengkap"
-                label="Nama Lengkap"
+                label="Nama Pelaku Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama Lengkap"),
+                    message: messageValidate("required", "Nama Pelaku Usaha"),
                   },
                 ]}
               >
                 <Input
-                  placeholder="Ketik Nama Lengkap"
+                  placeholder="Ketik Nama Pelaku Usaha"
                   onKeyPress={(e) => {
                     // eslint-disable-next-line no-useless-escape
                     /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
@@ -279,6 +279,13 @@ const AddAdmin: React.FC<Props> = () => {
                     value: el.id,
                     id: el.id,
                   }))}
+                  filterOption={(input, option: any) => {
+                    return option
+                      ? option.label
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      : false;
+                  }}
                   onSelect={(e, option) => {
                     handleChange({
                       target: { name: "kecamatan", value: option },
@@ -303,12 +310,20 @@ const AddAdmin: React.FC<Props> = () => {
                   placeholder="Ketik Kelurahan Anda"
                   options={kelurahanBogor
                     // eslint-disable-next-line eqeqeq
+
                     .filter((v) => v.id_kecamatan == myLoc.kecamatan?.id)
                     .map((el: any) => ({
                       label: el.nama,
                       value: el.id,
                       id: el.id,
                     }))}
+                  filterOption={(input, option: any) => {
+                    return option
+                      ? option.label
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      : false;
+                  }}
                   disabled={myLoc.kecamatan === undefined}
                   onSelect={(e, option) => {
                     handleChange({

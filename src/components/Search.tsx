@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducRequest, getProductSearchRequest } from "../actions/product";
 import { RootState } from "../models/RootState";
-import { getProductSearchF } from "../sagas/product";
 import history from "../utils/history";
 import { formatMoney, useQuery } from "../utils/utils";
 import "./styless/styless.scss";
@@ -25,7 +24,7 @@ const SearchComp = () => {
     page: query.get("page") || "1",
   };
   const searchProduct = (name: any) => {
-    dispatch(getProductSearchRequest({ ...queryData, name }));
+    dispatch(getProducRequest({ ...queryData, name }));
     history.push({
       search: `category=${queryData.category_id}&per_page=${
         queryData.perPage
@@ -91,7 +90,7 @@ const SearchComp = () => {
       <div className="peb-navbar-search">
         <Search
           defaultValue={query.get("product_name")}
-          placeholder="input search text"
+          placeholder="Cari Produk"
           onChange={onChangeSearch}
           onSearch={searchProduct}
           style={{ display: "block" }}

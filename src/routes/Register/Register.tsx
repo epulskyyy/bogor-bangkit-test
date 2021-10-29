@@ -11,7 +11,7 @@ const Register = () => {
   return (
     <Layout title="Register">
       <div className="register-layout">
-        <h3 className="peb-logo-mobile"> Ada UMKM </h3>
+        <h3 className="peb-logo-mobile"> Bogor Bangkit </h3>
         <Row className="register-bac">
           <Col className="register-bac-left p-6" xs={0} lg={12} md={0}>
             <SideBanner />

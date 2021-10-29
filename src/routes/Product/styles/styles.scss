@@ -11,6 +11,11 @@
     font-weight: bold;
     font-size: 12px;
   }
+  &-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .peb-dropdown-umkm {
   display: none;

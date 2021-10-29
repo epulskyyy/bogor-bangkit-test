@@ -15,8 +15,20 @@
     overflow: hidden;
     background: gray;
   }
+  &-product-discount {
+    position: absolute;
+    background-color: #ff824d;
+    padding: 5px 5px;
+    font-weight: bold;
+    border-bottom-right-radius: 10px;
+    color: white;
+    top: 0;
+    left: 0;
+    width: auto;
+  }
   &-body {
     background: white;
+    height: 120px;
   }
 }
 .peb-card-2.product {
@@ -35,6 +47,7 @@
   }
 }
 .product-card {
+  border-radius: 10px;
   .ant-card-body {
     padding: 0 !important;
   }

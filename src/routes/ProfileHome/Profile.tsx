@@ -37,7 +37,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
           <Header authedData={authedData} />
         </Affix>
         <div className="container mt-2 mb-2">
-          <h2>Data Diri</h2>
+          <h2>Data Pengguna</h2>
           <Row gutter={[16, 16]}>
             <Col xl={6}>
               <Card className="peb-card-profile" title="NIK">
@@ -45,7 +45,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
               </Card>
             </Col>
             <Col xl={6}>
-              <Card className="peb-card-profile" title="Nama Lengkap">
+              <Card className="peb-card-profile" title="Nama Pelaku Usaha">
                 {data.data?.nama_lengkap}
               </Card>
             </Col>
@@ -65,7 +65,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
               </Card>
             </Col>
             <Col xl={6}>
-              <Card className="peb-card-profile" title="Nama UMKM">
+              <Card className="peb-card-profile" title="Nama Usaha">
                 {data.data?.nama_umkm}
               </Card>
             </Col>

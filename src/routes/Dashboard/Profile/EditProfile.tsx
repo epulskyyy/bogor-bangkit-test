@@ -161,11 +161,11 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_lengkap"
-                label="Nama Lengkap"
+                label="Nama Pelaku Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama Lengkap"),
+                    message: messageValidate("required", "Nama Pelaku Usaha"),
                   },
                 ]}
               >
@@ -217,11 +217,11 @@ const EditProfile: React.FC<Props> = ({ authedData }) => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_umkm"
-                label="Nama UMKM"
+                label="Nama Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama UMKM "),
+                    message: messageValidate("required", "Nama Usaha "),
                   },
                   (value) => ({
                     validator(rule, value) {
