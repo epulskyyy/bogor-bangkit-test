@@ -13,13 +13,10 @@ import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { messageValidate, regexTest } from "../../../utils/constants";
 import { useForm } from "antd/lib/form/Form";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { xssValidBool } from "../../../utils/utils";
-import {
-  editProfileRequest,
-  getAllUserRequest,
-} from "../../../actions/user";
+import { editProfileRequest, getAllUserRequest } from "../../../actions/user";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 
 const { Option } = Select;
@@ -95,7 +92,7 @@ const EditUser: React.FC<Props> = ({ obj }) => {
     <>
       <Button onClick={showDrawer} icon={<EditOutlined />} />
       <Drawer
-        title={"Ubah data profil | " + obj.id}
+        title={"Ubah Data Pengguna | " + obj.id}
         placement="right"
         onClose={onClose}
         visible={visible}
@@ -159,11 +156,11 @@ const EditUser: React.FC<Props> = ({ obj }) => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_lengkap"
-                label="Nama Lengkap"
+                label="Nama Pelaku Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama Lengkap"),
+                    message: messageValidate("required", "Nama Pelaku Usaha"),
                   },
                 ]}
               >
@@ -215,11 +212,11 @@ const EditUser: React.FC<Props> = ({ obj }) => {
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
               <Form.Item
                 name="nama_umkm"
-                label="Nama UMKM"
+                label="Nama Usaha"
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Nama UMKM "),
+                    message: messageValidate("required", "Nama Usaha "),
                   },
                   (value) => ({
                     validator(rule, value) {
@@ -271,7 +268,7 @@ const EditUser: React.FC<Props> = ({ obj }) => {
               </Form.Item>
             </Col>
             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-              <Form.Item name="alamat" label="Info Alamat">
+              <Form.Item name="alamat" label="Info Alamat Pelaku Usaha">
                 <Row gutter={16}>
                   <Col xl={24} lg={24} md={24} sm={24} xs={24}>
                     <Form.Item
@@ -382,7 +379,7 @@ const EditUser: React.FC<Props> = ({ obj }) => {
               </Form.Item>
             </Col>
             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-              <Form.Item name="umkm_detail" label="Info UMKM">
+              <Form.Item name="umkm_detail" label="Info Alamat Usaha">
                 <Row gutter={16}>
                   <Col xl={12} lg={12} md={12} sm={12} xs={24}>
                     <Form.Item

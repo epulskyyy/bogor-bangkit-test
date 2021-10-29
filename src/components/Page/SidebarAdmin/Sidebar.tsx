@@ -22,7 +22,7 @@ const SideBar: React.FC<Props> = () => {
     {
       key: "/dashboard-admin",
       icon: <AppstoreOutlined />,
-      name: "Dasbor",
+      name: "Dashboard",
       subMenu: [],
     },
     {

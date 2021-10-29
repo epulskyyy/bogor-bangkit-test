@@ -20,7 +20,7 @@ const SideBanner = () => {
           src={BackImgReg}
         />
       </div>
-      <h3 className="peb-logo">Ada UMKM</h3>
+      <h3 className="peb-logo">Bogor Bangkit</h3>
     </>
   );
 };

@@ -34,7 +34,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
             </Card>
           </Col>
           <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-            <Card title="Nama Lengkap" bordered={false}>
+            <Card title="Nama Pelaku Usaha" bordered={false}>
               <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
               {!isLoading ? <strong>{data?.data?.nama_lengkap}</strong> : null}
             </Card>
@@ -143,7 +143,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
                   ) : null}
                 </Col>
                 <Col xl={6} lg={6} md={8} sm={12} xs={24}>
-                  Nama UMKM :
+                  Nama Usaha :
                 </Col>
                 <Col xl={18} lg={18} md={16} sm={12} xs={24}>
                   <Skeleton

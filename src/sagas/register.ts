@@ -55,7 +55,7 @@ export function* postRegisterVerifyOtp(action: any) {
     notificationMessage(
       "success",
       `Berhasi`,
-      `Akun tervirifikasi silahkan login`
+      `Akun terverifikasi silahkan login`
     );
     history.push("/login");
   } catch (e: any) {

@@ -69,12 +69,11 @@ export const getDataAdminSession = () => {
       return undefined;
     }
     return data;
-  } catch (e){
+  } catch (e) {
     localStorage.removeItem("admin_access_token");
     return undefined;
   }
 };
-
 
 export const xssValid = (value) =>
   value.match(/(<[^>]*>)/g) != null ||
@@ -187,6 +186,36 @@ export function getBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 }
+
+export const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
+
+export const generateCaptcha = () => {
+  let v1 = getRandomInt(9) + 1;
+  let v2 = getRandomInt(9) + 1;
+  if (v1 === v2) {
+    v1 += 1;
+  }
+  let operator = "";
+  let result = 0;
+  const operatorOption = getRandomInt(6) + 1;
+  if (operatorOption >= 1 && operatorOption <= 3) {
+    result = v1 + v2;
+    operator = "+";
+  } else {
+    result = v1 <= v2 ? v2 - v1 : v1 - v2;
+    console.log(result);
+    operator = "-";
+  }
+  return {
+    valueOne: v1 <= v2 ? v2 : v1,
+    valueTwo: v1 <= v2 ? v1 : v2,
+    results: result,
+    inputResult: 0,
+    operator: operator,
+  };
+};

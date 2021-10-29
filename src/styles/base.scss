@@ -45,6 +45,16 @@ ul.peb-list {
     line-height: 39px;
     color: #8c8c8c;
   }
+  &-discount {
+    font-size: 12px;
+    margin: 0;
+    font-weight: bold;
+    color: rgb(184, 184, 184);
+    text-decoration: line-through !important;
+    span {
+      text-decoration: line-through !important;
+    }
+  }
 }
 
 .peb-navbar-top-auth {

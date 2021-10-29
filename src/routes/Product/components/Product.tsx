@@ -69,7 +69,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
               }}
             >
               <Button type="link" icon={<WechatOutlined />} size="middle">
-                Chat
+                Pesan
               </Button>
             </Link>
           ) : null}

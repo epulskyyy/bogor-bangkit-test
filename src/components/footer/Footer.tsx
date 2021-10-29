@@ -14,13 +14,13 @@ const Footer: React.FC<Props> = ({ authedData }) => {
     <div className="container mt-3 peb-footer pt-3 pb-3">
       <Row gutter={[16, 16]}>
         <Col lg={14} xl={14}>
-          <Text strong>ADA UMKM</Text>
+          <Text strong>Bogor Bangkit</Text>
           <p className="">
             Website ini di peruntukan untuk marketing dan branding produk-produk
             dari UMKM Kota Bogor
           </p>
           <div className="mt-3">
-            <p>© 2021 • Ada UMKM</p>
+            <p>© 2021 • Bogor Bangkit</p>
           </div>
         </Col>
         <Col lg={8} xl={8}>

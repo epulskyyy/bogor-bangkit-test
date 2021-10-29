@@ -42,7 +42,7 @@ const User: React.FC<Props> = ({ authedData }) => {
       width: 300,
     },
     {
-      title: "Nama Lengkap",
+      title: "Nama Pelaku Usaha",
       dataIndex: "nama_lengkap",
       width: 200,
     },

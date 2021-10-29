@@ -3,14 +3,14 @@ import { Helmet } from "react-helmet-async";
 
 type Props = {
   title: string;
-  color?: string
+  color?: string;
 };
 
 export const Layout: React.FC<Props> = ({ title, children, color }) => {
   return (
     <>
       <Helmet>
-        <title>ADA UMKM - {title}</title>
+        <title>Bogor Bangkit - {title}</title>
       </Helmet>
       <div
         id="peb-layout"
