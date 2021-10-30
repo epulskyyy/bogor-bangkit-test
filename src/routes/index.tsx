@@ -14,7 +14,7 @@ import IndexPage from "../components/Page/IndexPage";
 const Routes = () => {
   const dispatch = useDispatch();
   let stompClients: any = null;
-  const { dataMessage, selectedUserID } = useSelector(
+  const { dataMessage, selectedUserID, notificationCount } = useSelector(
     (state: RootState) => state.chat
   );
   let onConnected = () => {
@@ -27,9 +27,12 @@ const Routes = () => {
       function (msg: any) {
         if (msg.body) {
           let messageAdd2: ChatMessage[] = messageAdd;
-          let jsonMessage: ChatMessage = JSON.parse(msg.body);
-          console.log(msg);
-          
+          let jsonMessage: any = JSON.parse(msg.body);
+          console.log(msg.body);
+          dispatch(
+            changeStateChatRequest("notificationCount", notificationCount + 1)
+          );
+
           messageAdd2.push(jsonMessage);
           dispatch(changeStateChatRequest("selectedUserID", selectedUserID));
           dispatch(changeStateChatRequest("inputMessage", messageAdd2));

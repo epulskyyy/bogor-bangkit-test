@@ -18,7 +18,11 @@ import {
 } from "../../actions/chat";
 import { RootState } from "../../models/RootState";
 import history from "../../utils/history";
-import { useQuery } from "../../utils/utils";
+import {
+  scrollToBottomChat,
+  scrollToTopChat,
+  useQuery,
+} from "../../utils/utils";
 import { useLocation } from "react-router-dom";
 
 const { Paragraph } = Typography;
@@ -57,12 +61,15 @@ const ChatCollapse: React.FC<Props> = ({
         };
         let requestBodys = {
           pageNumber: 0,
-          pageSize: 999999,
+          pageSize: 10,
           receiver: loc.state?.id,
         };
-        dispatch(getHistoryChatRequest(requestBodys));
+        dispatch(
+          getHistoryChatRequest(requestBodys, () => scrollToBottomChat())
+        );
         dispatch(changeStateChatRequest("selectedUserID", loc.state));
         dispatch(sendChatRequest(requestBody));
+
         history.push("chat");
       }
     }
@@ -75,10 +82,11 @@ const ChatCollapse: React.FC<Props> = ({
     dispatch(changeStateChatRequest("inputMessage", ""));
     let requestBody = {
       pageNumber: 0,
-      pageSize: 999999,
+      pageSize: 10,
       receiver: userInfo.id,
     };
-    dispatch(getHistoryChatRequest(requestBody));
+    dispatch(getHistoryChatRequest(requestBody, () => scrollToBottomChat()));
+
     if (availableWidth <= 471) {
       setCollapseSide(false);
     }
@@ -91,7 +99,14 @@ const ChatCollapse: React.FC<Props> = ({
     };
     dispatch(sendChatRequest(requestBody));
   };
-
+  const showMore = (pageSize: any) => {
+    let requestBody = {
+      pageNumber: 0,
+      pageSize,
+      receiver: selectedUserID.id,
+    };
+    dispatch(getHistoryChatRequest(requestBody, () => scrollToTopChat()));
+  };
   useEffect(() => {}, []);
   return (
     <div
@@ -197,6 +212,17 @@ const ChatCollapse: React.FC<Props> = ({
               className="peb-chat-content-discus"
               id="content-discus"
             >
+              <div className="peb-dflex-center">
+                <Button
+                  shape="round"
+                  type="primary"
+                  onClick={() =>
+                    showMore(dataMessage?.data.response.totalDataOnPage + 10)
+                  }
+                >
+                  Tampilkan lebih...
+                </Button>
+              </div>
               {dataMessage?.data.response.data?.map((item: any) =>
                 selectedUserID.id !== item.sender ? (
                   <div className="peb-chat-content-discus-sender mt-1 mb-1">

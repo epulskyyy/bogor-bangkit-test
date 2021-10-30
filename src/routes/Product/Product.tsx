@@ -13,7 +13,7 @@ import { useParams } from "react-router";
 import { AuthUser } from "../../models/AuthUser";
 import { getUserByIdRequest } from "../../actions/user";
 import { RootState } from "../../models/RootState";
-import { Result, Spin } from "antd";
+import { Affix, Result, Spin } from "antd";
 
 type Props = {
   authedData?: AuthUser;
@@ -38,7 +38,9 @@ const Product: React.FC<Props> = ({ authedData }) => {
 
   return (
     <Layout title="Detail Product">
-      <Header authedData={authedData} />
+      <Affix offsetTop={0}>
+        <Header authedData={authedData} />
+      </Affix>
       <div className="container mt-2 mb-2">
         <Spin spinning={isLoading} tip="Memuat...">
           {isLoading ? (

@@ -1,18 +1,28 @@
 .peb-chat {
+  position: fixed;
+  bottom: 0;
+  left: 30px;
+
   &-btn.hide {
     display: none;
   }
   &-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    padding: 8px 20px;
+    padding: 5px 20px;
     background: #1890ff;
     color: white;
     border: none;
-    border-radius: 50px 0px 0px 0px;
+    border-radius: 30px 30px 0px 0px;
     box-shadow: none;
     font-weight: bold;
     font-size: 16px;
     line-height: 20px;
+    span {
+      margin-right: 10px;
+    }
   }
   &-collapse.hide {
     -webkit-transition: all 0.5s 0s ease;
@@ -174,72 +184,6 @@
   top: 0px;
   left: 0px;
 }
-#peb-chat-btn {
-  position: fixed;
-  transform: translate(-50%, -50%);
-  background-color: black;
-  bottom: 330px;
-  left: 35px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  z-index: 99;
-  .peb-chat-btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: white;
-    box-shadow: 0px 2px 17px -1px rgba(0, 0, 0, 0.3);
-  }
-  .peb-chat-btn.hide {
-    display: none;
-  }
-  &.fab-active {
-    li:hover {
-      background-color: #f8e487;
-    }
-    &.left {
-      li:nth-child(1) {
-        top: 0%;
-        left: 300%;
-        transition-delay: 0s;
-      }
-      li:nth-child(2) {
-        top: 0%;
-        left: 200%;
-        transition-delay: 0.2s;
-      }
-      li:nth-child(3) {
-        top: 0%;
-        left: 100%;
-        transition-delay: 0.4s;
-      }
-    }
-    &.right {
-      li:nth-child(1) {
-        top: 0%;
-        left: -300%;
-        transition-delay: 0s;
-      }
-      li:nth-child(2) {
-        top: 0%;
-        left: -200%;
-        transition-delay: 0.2s;
-      }
-      li:nth-child(3) {
-        top: 0%;
-        left: -100%;
-        transition-delay: 0.4s;
-      }
-    }
-  }
-}
 @media (max-width: 471px) {
   .peb-chat-collapse.page-view {
     .peb-chat-sidebar {
@@ -261,4 +205,11 @@
   #peb-chat-btn {
     display: none;
   }
+}
+
+#content-discus {
+  transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
 }

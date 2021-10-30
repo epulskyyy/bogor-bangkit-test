@@ -94,7 +94,8 @@ export const formatMoney = (num) => {
 };
 
 export const capitalize = (str, allWord) => {
-  const cap = (text) => `${text[0].toUpperCase()}${text.slice(1)}`;
+  str = str ? str : "";
+  const cap = (text) => `${text[0]?.toUpperCase()}${text?.slice(1)}`;
   return allWord
     ? str
         .split(" ")
@@ -110,6 +111,11 @@ export const scrollToBottomChat = () => {
   var chatWindow = document.getElementById("content-discus");
   var xH = chatWindow.scrollHeight;
   chatWindow.scrollTo(0, xH);
+};
+export const scrollToTopChat = () => {
+  var chatWindow = document.getElementById("content-discus");
+  var xH = chatWindow.scrollHeight;
+  chatWindow.scrollTo(xH, 0);
 };
 
 export const monthName = [

@@ -47,6 +47,7 @@ export interface ProductRoot {
 export interface ChatRoot {
   dataMessage: any;
   inputMessage: any;
+  notificationCount: any;
   userList: any;
   users: any;
   selectedUserID: any;

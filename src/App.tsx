@@ -18,6 +18,7 @@ function App() {
       });
     }
   };
+  
   getVisitCount();
   return (
     <Router history={history}>
