@@ -4,7 +4,11 @@ import Banner from "../../components/Banner/Banner";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 
-import { getProductByCountRequest } from "../../actions/product";
+import {
+  getProductByCountRequest,
+  getProductByHitsRequest,
+  getProductByDiscountRequest,
+} from "../../actions/product";
 import { getBannerRequest } from "../../actions/banner";
 import Container from "./components/Container";
 import { RootState } from "../../models/RootState";
@@ -19,6 +23,8 @@ const Home: React.FC<Props> = ({ authedData }) => {
 
   useEffect(() => {
     dispatch(getProductByCountRequest(8));
+    dispatch(getProductByHitsRequest(8));
+    dispatch(getProductByDiscountRequest(8));
     dispatch(getBannerRequest());
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);

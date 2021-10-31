@@ -25,7 +25,9 @@ const Product: React.FC<Props> = ({ data }) => {
   return (
     <Card hoverable className="product-card" onClick={() => goTo(data.id)}>
       <div className="peb-card-2 product peb-shadow">
-        <div className="peb-card-2-product-discount">50%</div>
+        {data.diskon ? (
+          <div className="peb-card-2-product-discount">{data.diskon}%</div>
+        ) : null}
         <div className="peb-card-2-product-image">
           <img
             alt="gambar produk"
@@ -43,9 +45,13 @@ const Product: React.FC<Props> = ({ data }) => {
             value={Number(data.harga_produk)}
             valueRender={(text) => (
               <>
-                <h3 className="peb-product-price-discount">Rp. {text}</h3>
+                {data.diskon ? (
+                  <h3 className="peb-product-price-discount">Rp. {text}</h3>
+                ) : null}
 
-                <h3 className="peb-product-price-text">RP.{text}</h3>
+                <h3 className="peb-product-price-text">
+                  RP.{data.diskon ? data.harga_setelah_diskon : text}
+                </h3>
               </>
             )}
           />

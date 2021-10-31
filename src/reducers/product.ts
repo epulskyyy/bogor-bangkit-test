@@ -5,6 +5,7 @@ const initialState = {
   dataCount: null,
   dataId: {},
   dataHits: [],
+  dataDiscount:[],
   isLoading: null,
   isError: null,
   message: null,
@@ -58,7 +59,7 @@ export default function reducer(state = initialState, action: any) {
     case productAction.GET_PRODUCT_BY_HITS_REQUEST:
       return {
         ...state,
-        dataCount: null,
+        dataHits: null,
         isLoading: true,
       };
     case productAction.GET_PRODUCT_BY_HITS_SUCCESS:
@@ -66,7 +67,21 @@ export default function reducer(state = initialState, action: any) {
     case productAction.GET_PRODUCT_BY_HITS_ERROR:
       return {
         ...state,
-        dataCount: null,
+        dataHits: null,
+        isLoading: false,
+      };
+      case productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST:
+      return {
+        ...state,
+        dataDiscount: null,
+        isLoading: true,
+      };
+    case productAction.GET_PRODUCT_BY_DISCOUNT_SUCCESS:
+      return { ...state, dataDiscount: action.data, isLoading: true };
+    case productAction.GET_PRODUCT_BY_DISCOUNT_ERROR:
+      return {
+        ...state,
+        dataDiscount: null,
         isLoading: false,
       };
     case productAction.GET_PRODUCT_BY_ID_REQUEST:

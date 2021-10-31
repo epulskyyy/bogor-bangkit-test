@@ -4,9 +4,16 @@ import services from "./services";
 export const postProduct = (data: any) => {
   return services.post(`${endPoint.pemulihanEkonomiUrl.v1}produk-umkm`, data);
 };
+
 export const getProductCount = (perPage: any) => {
   return services.get(
     `${endPoint.pemulihanEkonomiUrl.v1}produk-umkm-landings/visit?perPage=${perPage}`
+  );
+};
+
+export const getProductDiscount = (perPage: any) => {
+  return services.get(
+    `${endPoint.pemulihanEkonomiUrl.v1}produk-diskons?perPage=${perPage}`
   );
 };
 

@@ -8,9 +8,10 @@ import { RootState } from "../../../models/RootState";
 type Props = {
   title: string;
   titleHits:string;
+  titleDiscount:string;
 };
 
-const HomeProducts: React.FC<Props> = ({ title , titleHits }) => {
+const HomeProducts: React.FC<Props> = ({ title , titleHits , titleDiscount }) => {
   const product = useSelector((state: RootState) => state.product);
   return (
     <>
@@ -27,9 +28,24 @@ const HomeProducts: React.FC<Props> = ({ title , titleHits }) => {
           Lihat Semua
         </Link>
       </div>
+
     <Divider orientation="left" className="peb-text-bold">{title}</Divider>
       <Row gutter={[16, 16]}>
         {product?.dataCount?.data?.data?.map((v: any, i: any) => (
+          <Col xl={4} lg={6} md={6} sm={6} xs={12} key={i}>
+            <Product data={v}/>
+          </Col>
+        ))}
+      </Row>
+      <div className="mt-3 mb-3 peb-text-center">
+        <Link className="" to="/search">
+          Lihat Semua
+        </Link>
+      </div>
+
+      <Divider orientation="left" className="peb-text-bold">{titleDiscount}</Divider>
+      <Row gutter={[16, 16]}>
+        {product?.dataDiscount?.data?.data?.map((v: any, i: any) => (
           <Col xl={4} lg={6} md={6} sm={6} xs={12} key={i}>
             <Product data={v}/>
           </Col>

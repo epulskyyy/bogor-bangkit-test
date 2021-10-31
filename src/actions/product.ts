@@ -28,6 +28,13 @@ export const getProductByHitsSuccess = defaultActionCreator(GET_PRODUCT_BY_HITS_
 export const GET_PRODUCT_BY_HITS_ERROR = 'GET_PRODUCT_BY_HITS_ERROR'
 export const getProductByHitsError = defaultActionCreator(GET_PRODUCT_BY_HITS_ERROR, 'data')
 
+export const GET_PRODUCT_BY_DISCOUNT_REQUEST = 'GET_PRODUCT_BY_DISCOUNT_REQUEST'
+export const getProductByDiscountRequest = defaultActionCreator(GET_PRODUCT_BY_DISCOUNT_REQUEST, 'data')
+export const GET_PRODUCT_BY_DISCOUNT_SUCCESS = 'GET_PRODUCT_BY_DISCOUNT_SUCCESS'
+export const getProductByDiscountSuccess = defaultActionCreator(GET_PRODUCT_BY_DISCOUNT_SUCCESS, 'data')
+export const GET_PRODUCT_BY_DISCOUNT_ERROR = 'GET_PRODUCT_BY_DISCOUNT_ERROR'
+export const getProductByDiscountError = defaultActionCreator(GET_PRODUCT_BY_DISCOUNT_ERROR, 'data')
+
 export const GET_PRODUCT_BY_ID_REQUEST = 'GET_PRODUCT_BY_ID_REQUEST'
 export const getProductByIDRequest = defaultActionCreator(GET_PRODUCT_BY_ID_REQUEST, 'data')
 export const GET_PRODUCT_BY_ID_SUCCESS = 'GET_PRODUCT_BY_ID_SUCCESS'

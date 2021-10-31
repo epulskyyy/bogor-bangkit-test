@@ -9,6 +9,7 @@ import {
   postProduct,
   putProduct,
   getProductHits,
+  getProductDiscount
 } from "../requests/product";
 import { notificationMessage } from "../utils/notifications";
 
@@ -66,6 +67,22 @@ export function* getProductHitsF(action: any) {
   } catch (e: any) {
     yield put({
       type: productAction.GET_PRODUCT_BY_HITS_ERROR,
+      data: e,
+    });
+  }
+}
+
+export function* getProductDiscountF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(getProductDiscount, action.data);
+    let data = response.data;
+    yield put({
+      type: productAction.GET_PRODUCT_BY_DISCOUNT_SUCCESS,
+      data,
+    });
+  } catch (e: any) {
+    yield put({
+      type: productAction.GET_PRODUCT_BY_DISCOUNT_ERROR,
       data: e,
     });
   }
@@ -176,4 +193,6 @@ export default all([
   takeLatest(productAction.GET_PRODUCT_REQUEST, getProductF),
   takeLatest(productAction.GET_PRODUCT_BY_COUNT_REQUEST, getProductCountF),
   takeLatest(productAction.GET_PRODUCT_BY_ID_REQUEST, getProductIdF),
+  takeLatest(productAction.GET_PRODUCT_BY_HITS_REQUEST, getProductHitsF),
+  takeLatest(productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST, getProductDiscountF)
 ]);
