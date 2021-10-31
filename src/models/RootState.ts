@@ -38,6 +38,7 @@ export interface ProductRoot {
   data: any;
   dataSearch: any;
   dataCount: any;
+  dataHits:any;
   dataId: any;
   isLoading: any;
   isLoadingSearch: any;

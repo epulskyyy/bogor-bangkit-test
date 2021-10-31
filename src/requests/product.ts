@@ -10,6 +10,12 @@ export const getProductCount = (perPage: any) => {
   );
 };
 
+export const getProductHits = (perPage: any) => {
+  return services.get(
+    `${endPoint.pemulihanEkonomiUrl.v1}get-produk-hits-landing?per_page=${perPage}`
+  );
+};
+
 export const getProductId = (id: any) => {
   return services.get(
     `${endPoint.pemulihanEkonomiUrl.v1}produk-umkm-landing/${id}`

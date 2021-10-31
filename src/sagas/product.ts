@@ -8,6 +8,7 @@ import {
   getProductId,
   postProduct,
   putProduct,
+  getProductHits,
 } from "../requests/product";
 import { notificationMessage } from "../utils/notifications";
 
@@ -49,6 +50,22 @@ export function* getProductCountF(action: any) {
   } catch (e: any) {
     yield put({
       type: productAction.GET_PRODUCT_BY_COUNT_ERROR,
+      data: e,
+    });
+  }
+}
+
+export function* getProductHitsF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(getProductHits, action.data);
+    let data = response.data;
+    yield put({
+      type: productAction.GET_PRODUCT_BY_HITS_SUCCESS,
+      data,
+    });
+  } catch (e: any) {
+    yield put({
+      type: productAction.GET_PRODUCT_BY_HITS_ERROR,
       data: e,
     });
   }
