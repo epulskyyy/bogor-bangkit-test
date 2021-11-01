@@ -210,7 +210,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
           selectedObj={selectedObj}
         />
         <Row gutter={[16, 16]}>
-          <Col lg={6}>
+          <Col lg={6} md={6} sm={12} xs={24}>
             <Search
               className="search-header "
               placeholder="Cari produk"
@@ -218,7 +218,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
               onSearch={onChangeSearch}
             />
           </Col>
-          <Col lg={6}>
+          <Col lg={6} md={6} sm={12} xs={24}>
             <Select
               showSearch
               placeholder="Pilih Kategori"
@@ -232,7 +232,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
               ))}
             </Select>
           </Col>
-          <Col lg={6}>
+          <Col lg={6} md={6} sm={12} xs={24}>
             <Select
               onSelect={onChangeProductSort}
               placeholder="Urutkan"
@@ -243,7 +243,7 @@ const Product: React.FC<Props> = ({ authedData }) => {
               <Option value="termahal"> Termahal </Option>
             </Select>
           </Col>
-          <Col lg={6}>
+          <Col lg={6} md={6} sm={12} xs={24}>
             <AddProduct authedData={authedData} />
           </Col>
         </Row>

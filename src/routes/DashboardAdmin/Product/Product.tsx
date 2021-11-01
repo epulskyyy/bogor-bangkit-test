@@ -1,5 +1,5 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Card, Popconfirm, Select, Table, Tag } from "antd";
+import { Button, Card, Col, Popconfirm, Row, Select, Table, Tag } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect, useState } from "react";
@@ -170,39 +170,45 @@ const Product: React.FC<Props> = () => {
   return (
     <Layout title="Produk">
       <h3>Data Produk</h3>
-      <AddProduct />
-      <div className="mb-2 mt-2">
-        <Search
-          className="search-header mr-2"
-          placeholder="Cari produk"
-          // value={queryData.name}
-          style={{ maxWidth: 250 }}
-          onSearch={onChangeSearch}
-        />
-        <Select
-          showSearch
-          className="mr-2"
-          placeholder="Pilih Kategori"
-          style={{ width: 150 }}
-          // value={queryData.category_id}
-          onSelect={onChangeProductCategory}
-        >
-          <Option value="">- Pilih Kategori -</Option>
+      <div style={{ marginBottom: "20px" }}>
+        <Row gutter={[16, 16]}>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <Search
+              className="search-header "
+              placeholder="Cari produk"
+              style={{ maxWidth: 250 }}
+              onSearch={onChangeSearch}
+            />
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <Select
+              showSearch
+              placeholder="Pilih Kategori"
+              style={{ width: "100%" }}
+              onSelect={onChangeProductCategory}
+            >
+              <Option value="">- Pilih Kategori -</Option>
 
-          {categories?.data?.data?.data?.map((v: any, i: any) => (
-            <Option value={v.id}>{v.nama_klasifikasi}</Option>
-          ))}
-        </Select>
-        <Select
-          onSelect={onChangeProductSort}
-          placeholder="Urutkan"
-          // value={queryData.sort}
-          className="mr-2"
-        >
-          <Option value="terbaru"> Terbaru </Option>
-          <Option value="termurah"> Termurah </Option>
-          <Option value="termahal"> Termahal </Option>
-        </Select>
+              {categories?.data?.data?.data?.map((v: any, i: any) => (
+                <Option value={v.id}>{v.nama_klasifikasi}</Option>
+              ))}
+            </Select>
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <Select
+              onSelect={onChangeProductSort}
+              placeholder="Urutkan"
+              style={{ width: "100%" }}
+            >
+              <Option value="terbaru"> Terbaru </Option>
+              <Option value="termurah"> Termurah </Option>
+              <Option value="termahal"> Termahal </Option>
+            </Select>
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <AddProduct />
+          </Col>
+        </Row>
       </div>
       <Card>
         <Table

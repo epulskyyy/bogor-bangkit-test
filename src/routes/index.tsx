@@ -15,6 +15,8 @@ import { RootState } from "../models/RootState";
 import IndexPage from "../components/Page/IndexPage";
 
 const Routes = () => {
+  const { userList, dataMessage, selectedUserID, inputMessage, isLoadingWs } =
+    useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
   let stompClients: any = null;
   let onConnected = () => {
@@ -28,10 +30,15 @@ const Routes = () => {
         if (msg.body) {
           try {
             let jsonMessage: any = JSON.parse(msg.body || "{}");
-            dispatch(
-              changeStateChatRequest("selectedUserID", jsonMessage.sender)
-            );
-            dispatch(sendChatSuccess(jsonMessage));
+            let bodyMessage = {
+              id: 0,
+              content: jsonMessage.content,
+              status: "SENT",
+              sender: jsonMessage.sender,
+              receiver: jsonMessage.receiver,
+              createdDate: "",
+            };
+            dispatch(sendChatSuccess(bodyMessage));
           } catch (error) {}
 
           dispatch(notificationCount());
@@ -62,14 +69,17 @@ const Routes = () => {
   useEffect(() => {
     var currentLocation = window.location.pathname;
     if (ProtectedRoute().wsChat) {
-      if (!currentLocation.includes("admin") && !currentLocation.includes("dashboard")) {
+      if (
+        !currentLocation.includes("admin") &&
+        !currentLocation.includes("dashboard")
+      ) {
         dispatch(changeStateChatRequest("isLoadingWs", true));
         connectWs();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.clear();
+  // console.clear();
   return (
     <IndexPage
       title="Bogor Bangkit"

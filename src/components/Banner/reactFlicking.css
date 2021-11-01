@@ -2811,8 +2811,6 @@ a.cmm_pg_prev {
   }
 }
 .content-banner {
-  padding-left: 120px;
-  padding-right: 120px;
 }
 @media (max-width: 1720px) {
   .flicking-viewport {
@@ -2834,7 +2832,8 @@ a.cmm_pg_prev {
   .flicking-viewport {
     height: 280px !important;
   }
-}@media (max-width: 1223px) {
+}
+@media (max-width: 1223px) {
   .flicking-viewport {
     height: 260px !important;
   }
@@ -2850,7 +2849,7 @@ a.cmm_pg_prev {
     padding: 0;
   }
   .flicking-viewport {
-    height: 260px !important;
+    height: 200px !important;
   }
   .flicking-panel {
     width: 100% !important;
@@ -2862,10 +2861,15 @@ a.cmm_pg_prev {
     height: 240px !important;
   }
 }
-
-@media (max-width: 768px) {
+@media (max-width: 905px) {
   .flicking-viewport {
-    height: 200px !important;
+    height: 180px !important;
+  }
+}
+
+@media (max-width: 771px) {
+  .flicking-viewport {
+    height: 180px !important;
   }
 }
 @media (max-width: 631px) {
