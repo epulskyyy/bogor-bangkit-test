@@ -49,9 +49,18 @@ const AddCategory: React.FC<Props> = () => {
   };
   return (
     <>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-        Tambah Klasifikasi
-      </Button>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1em",
+        }}
+      >
+        <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
+          Tambah Klasifikasi
+        </Button>
+      </div>
       <Drawer
         title="Tambah Klasifikasi"
         placement="right"
@@ -82,11 +91,13 @@ const AddCategory: React.FC<Props> = () => {
                   }),
                 ]}
               >
-                <Input placeholder="Ketik nama klasifikasi" 
+                <Input
+                  placeholder="Ketik nama klasifikasi"
                   onKeyPress={(e) => {
                     // eslint-disable-next-line no-useless-escape
                     /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
-                  }}/>
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>

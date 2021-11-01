@@ -86,9 +86,18 @@ const AddAdmin: React.FC<Props> = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-        Tambah Admin
-      </Button>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1em",
+        }}
+      >
+        <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
+          Tambah Admin
+        </Button>
+      </div>
       <Drawer
         title="Tambah Admin"
         placement="right"
