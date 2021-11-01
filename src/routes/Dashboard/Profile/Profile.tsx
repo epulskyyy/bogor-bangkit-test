@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card, Col, Row, Skeleton } from "antd";
+import "../../../styles/base.scss";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { Breadcrumb, Card, Col, Row, Skeleton, Image } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesRequest } from "../../../actions/categories";
@@ -25,17 +27,22 @@ const Profile: React.FC<Props> = ({ authedData }) => {
   return (
     <Page title="">
       <div>
+        <Breadcrumb className="mb-2">
+          <Breadcrumb.Item href="/dashboard">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <UserOutlined />
+            <span>Data Profil</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <EditProfile authedData={authedData} />
         <Row gutter={[16, 16]}>
           <Col xl={8} lg={8} md={12} sm={24} xs={24}>
             <Card title="Foto" bordered={false}>
               <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
               {!isLoading ? (
-                <img
-                  alt="foto profil"
-                  height="90px"
-                  src={data.data?.profil_gambar}
-                />
+                <Image alt="foto profil" src={data.data?.profil_gambar} />
               ) : null}
             </Card>
           </Col>

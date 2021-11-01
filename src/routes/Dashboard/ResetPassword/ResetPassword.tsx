@@ -1,12 +1,10 @@
-import { Input, Form, Button } from "antd";
+import { HomeOutlined, LockOutlined } from "@ant-design/icons";
+import { Input, Form, Button, Breadcrumb } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { forgotPasswordRequest } from "../../../actions/auth";
 import Page from "../../../components/Page/Page";
 import { AuthUser } from "../../../models/AuthUser";
-import { notificationLoadingMessage } from "../../../utils/notifications";
 import ComfirmPassword from "./ComfirmPassword";
 
 type Props = {
@@ -15,57 +13,18 @@ type Props = {
 const ResetPassword: React.FC<Props> = ({ authedData }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  const loc = useLocation();
-  const onResetpassword = () => {
-    const data = {
-      email: form.getFieldValue("email"),
-    };
-    notificationLoadingMessage("Tunggu sebentar");
-    dispatch(forgotPasswordRequest(data));
-  };
   return (
     <Page title="">
-      <div>
-        {loc.state ? (
-          <ComfirmPassword authedData={authedData} />
-        ) : (
-          <Form
-            layout="vertical"
-            hideRequiredMark
-            form={form}
-            onFinish={onResetpassword}
-          >
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  type: "email",
-                  message: "Alamat email tidak valid",
-                },
-                {
-                  required: true,
-                  message: "Mohon masukkan email yang terdaftar",
-                },
-              ]}
-              label="Email"
-            >
-              <Input
-                style={{ maxWidth: "350px" }}
-                name="email"
-                placeholder="Ketik Email"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button htmlType="submit" type="primary">
-                Kirim
-              </Button>
-            </Form.Item>
-            <Link to={{ pathname: "reset-password", state: true }}>
-              Sudah punya otp?
-            </Link>
-          </Form>
-        )}
-      </div>
+      <Breadcrumb style={{ marginBottom: "20px" }}>
+        <Breadcrumb.Item href="/dashboard">
+          <HomeOutlined />
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <LockOutlined />
+          <span>Ubah Kata Sandi</span>
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <ComfirmPassword authedData={authedData} />
     </Page>
   );
 };

@@ -75,17 +75,6 @@ const Admin: React.FC<Props> = () => {
       width: 100,
       dataIndex: "jenis_kelamin",
     },
-
-    {
-      title: "Alamat",
-      width: 400,
-      dataIndex: "alamat",
-      render: (text) => {
-        // const newText = JSON.parse(text || "{}");
-        // const str = newText.alamat_user;
-        return text;
-      },
-    },
     {
       title: "Role",
       width: 100,

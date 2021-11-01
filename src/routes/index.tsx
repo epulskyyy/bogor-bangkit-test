@@ -28,8 +28,6 @@ const Routes = () => {
         if (msg.body) {
           try {
             let jsonMessage: any = JSON.parse(msg.body || "{}");
-            console.log(jsonMessage);
-            console.log("====================================");
             dispatch(
               changeStateChatRequest("selectedUserID", jsonMessage.sender)
             );
@@ -64,7 +62,7 @@ const Routes = () => {
   useEffect(() => {
     var currentLocation = window.location.pathname;
     if (ProtectedRoute().wsChat) {
-      if (!currentLocation.includes("admin")) {
+      if (!currentLocation.includes("admin") && !currentLocation.includes("dashboard")) {
         dispatch(changeStateChatRequest("isLoadingWs", true));
         connectWs();
       }

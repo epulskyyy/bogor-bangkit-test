@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as authAction from "../actions/auth";
 import { ResponseGenerator } from "../models/RootState";
-import { forgotPassword, login, loginAdmin, logout, logoutAdmin, resetPassword } from "../requests/auth";
+import { changePassword, forgotPassword, login, loginAdmin, logout, logoutAdmin, resetPassword } from "../requests/auth";
 import history from "../utils/history";
 import { notificationMessage } from "../utils/notifications";
 
@@ -95,6 +95,25 @@ export function* resetPasswordF(action: any) {
   }
 }
 
+export function* changePasswordF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(
+      changePassword,
+      action.data,
+    );
+    let data = response.data;
+    notificationMessage("success", `Berhasil`, `diubah`);
+    history.push({ pathname: "reset-password", state: true });
+  } catch (e: any) {
+    notificationMessage(
+      "error",
+      e?.response?.data?.message || `Gagal`,
+      e?.response?.data?.responseDescription ||
+        `Mohon periksa kembali data yang anda masukan`
+    );
+  }
+}
+
 export function* postLoginAdmin(action: any) {
   try {
     const response: ResponseGenerator = yield call(loginAdmin, action.data);
@@ -148,6 +167,7 @@ export function* postLogoutAdmin(action: any) {
   }
 }
 export default all([
+  takeLatest(authAction.CHANGE_PASSWORD_REQUEST, changePasswordF),
   takeLatest(authAction.RESET_PASSWORD_REQUEST, resetPasswordF),
   takeLatest(authAction.FORGOT_PASSWORD_REQUEST, forgotPasswordF),
   takeLatest(authAction.LOGOUT_REQUEST, postLogout),

@@ -22,6 +22,7 @@ import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { getProducRequest, postProductRequest } from "../../../actions/product";
 import { AuthUser } from "../../../models/AuthUser";
+import axios from "axios";
 
 const { Option } = Select;
 const { confirm } = Modal;
@@ -46,8 +47,23 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
 
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      const im = imageUploads.filter((v: any) => v !== file.response);
-      setimageUploads(im);
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);
@@ -151,6 +167,7 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
         className="mb-2"
         onClick={showDrawer}
         icon={<PlusOutlined />}
+        block
       >
         Tambah Produk
       </Button>

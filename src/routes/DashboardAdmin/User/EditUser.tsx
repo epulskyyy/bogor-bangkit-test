@@ -26,6 +26,7 @@ import { editProfileRequest, getAllUserRequest } from "../../../actions/user";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import ImgCrop from "antd-img-crop";
 import { endPoint } from "../../../utils/env";
+import axios from "axios";
 const { Option } = Select;
 const { confirm } = Modal;
 type Props = {
@@ -73,7 +74,7 @@ const EditUser: React.FC<Props> = ({ obj }) => {
         response: obj?.profil_gambar,
         url: obj?.profil_gambar,
       });
-      arr.push(obj?.profil_gambar)
+      arr.push(obj?.profil_gambar);
       setimageUploads(arr);
       setFileLists(arrTemp);
     }
@@ -133,8 +134,23 @@ const EditUser: React.FC<Props> = ({ obj }) => {
 
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      const im = imageUploads.filter((v: any) => v !== file.response);
-      setimageUploads(im);
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);

@@ -1,4 +1,13 @@
-import { Button, Popconfirm, Select, Table, Tag } from "antd";
+import {
+  Breadcrumb,
+  Button,
+  Col,
+  Popconfirm,
+  Row,
+  Select,
+  Table,
+  Tag,
+} from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnsType } from "antd/lib/table";
 import "../../../styles/base.scss";
@@ -12,7 +21,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../models/AuthUser";
 import { RootState } from "../../../models/RootState";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  TagsOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 import { convertDate, formatMoney } from "../../../utils/utils";
 import { getCategoriesRequest } from "../../../actions/categories";
 import EditProduct from "./EditProduct";
@@ -180,46 +194,59 @@ const Product: React.FC<Props> = ({ authedData }) => {
   return (
     <Page title="">
       <>
-        <AddProduct authedData={authedData} />
+        <Breadcrumb className="mb-2">
+          <Breadcrumb.Item href="/dashboard">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <TagsOutlined />
+            <span>Data Product</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <EditProduct
           authedData={authedData}
           setEditVisible={setEditVisible}
           editVisible={editVisible}
           selectedObj={selectedObj}
         />
-        <div className="mb-2">
-          <Search
-            className="search-header mr-2"
-            placeholder="Cari produk"
-            // value={queryData.name}
-            style={{ maxWidth: 250 }}
-            onSearch={onChangeSearch}
-          />
-          <Select
-            showSearch
-            className="mr-2"
-            placeholder="Pilih Kategori"
-            style={{ width: 150 }}
-            // value={queryData.category_id}
-            onSelect={onChangeProductCategory}
-          >
-            <Option value="">- Pilih Kategori -</Option>
+        <Row gutter={[16, 16]}>
+          <Col lg={6}>
+            <Search
+              className="search-header "
+              placeholder="Cari produk"
+              style={{ maxWidth: 250 }}
+              onSearch={onChangeSearch}
+            />
+          </Col>
+          <Col lg={6}>
+            <Select
+              showSearch
+              placeholder="Pilih Kategori"
+              style={{ width: "100%" }}
+              onSelect={onChangeProductCategory}
+            >
+              <Option value="">- Pilih Kategori -</Option>
 
-            {categories?.data?.data?.data?.map((v: any, i: any) => (
-              <Option value={v.id}>{v.nama_klasifikasi}</Option>
-            ))}
-          </Select>
-          <Select
-            onSelect={onChangeProductSort}
-            placeholder="Urutkan"
-            // value={queryData.sort}
-            className="mr-2"
-          >
-            <Option value="terbaru"> Terbaru </Option>
-            <Option value="termurah"> Termurah </Option>
-            <Option value="termahal"> Termahal </Option>
-          </Select>
-        </div>
+              {categories?.data?.data?.data?.map((v: any, i: any) => (
+                <Option value={v.id}>{v.nama_klasifikasi}</Option>
+              ))}
+            </Select>
+          </Col>
+          <Col lg={6}>
+            <Select
+              onSelect={onChangeProductSort}
+              placeholder="Urutkan"
+              style={{ width: "100%" }}
+            >
+              <Option value="terbaru"> Terbaru </Option>
+              <Option value="termurah"> Termurah </Option>
+              <Option value="termahal"> Termahal </Option>
+            </Select>
+          </Col>
+          <Col lg={6}>
+            <AddProduct authedData={authedData} />
+          </Col>
+        </Row>
         <div>
           <Table
             onChange={onChangeProduct}

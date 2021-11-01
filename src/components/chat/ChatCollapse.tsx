@@ -182,8 +182,7 @@ const ChatCollapse: React.FC<Props> = ({
                   <List.Item.Meta
                     title={
                       <Paragraph ellipsis>
-                        {item.conversationWith.namaUmkm ||
-                          item.conversationWith.email}{" "}
+                        {item.conversationWith.namaUmkm}{" "}
                       </Paragraph>
                     }
                   />

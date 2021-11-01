@@ -37,8 +37,8 @@ const Home: React.FC<Props> = ({ authedData }) => {
   };
   return (
     <Container title="Beranda" authedData={authedData}>
-      <div>{banner.isLoading ? null : <Banner data={imageFlicking} />}</div>
       <div className="container mt-2 mb-2">
+        <div>{banner.isLoading ? null : <Banner data={imageFlicking} />}</div>
         <ContentHome />
       </div>
     </Container>
