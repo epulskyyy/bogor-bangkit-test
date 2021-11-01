@@ -4,17 +4,25 @@ import services from "./services";
 export const postProduct = (data: any) => {
   return services.post(`${endPoint.pemulihanEkonomiUrl.v1}produk-umkm`, data);
 };
+
 export const getProductCount = (perPage: any) => {
   return services.get(
     `${endPoint.pemulihanEkonomiUrl.v1}produk-umkm-landings/visit?perPage=${perPage}`
   );
 };
 
-export const getProductHits = (perPage: any) => {
+export const getProductDiscount = (perPage: any) => {
   return services.get(
-    `${endPoint.pemulihanEkonomiUrl.v1}get-produk-hits-landing?perPage=${perPage}`
+    `${endPoint.pemulihanEkonomiUrl.v1}produk-diskons?perPage=${perPage}`
   );
 };
+
+export const getProductHits = (perPage: any) => {
+  return services.get(
+    `${endPoint.pemulihanEkonomiUrl.v1}get-produk-hits-landing?per_page=${perPage}`
+  );
+};
+
 export const getProductId = (id: any) => {
   return services.get(
     `${endPoint.pemulihanEkonomiUrl.v1}produk-umkm-landing/${id}`

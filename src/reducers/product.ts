@@ -6,6 +6,7 @@ const initialState = {
   dataCount: null,
   dataHits: null,
   dataId: {},
+  dataDiscount: [],
   isLoading: null,
   isLoadingId: null,
   isLoading2: null,
@@ -57,34 +58,48 @@ export default function reducer(state = initialState, action: any) {
         isLoadingSerach: null,
       };
 
-      case productAction.GET_PRODUCT_BY_COUNT_REQUEST:
-        return {
-          ...state,
-          dataCount: null,
-          isLoading: true,
-        };
-      case productAction.GET_PRODUCT_BY_COUNT_SUCCESS:
-        return { ...state, dataCount: action.data, isLoading: true };
-      case productAction.GET_PRODUCT_BY_COUNT_ERROR:
-        return {
-          ...state,
-          dataCount: null,
-          isLoading: false,
-        };
-        case productAction.GET_PRODUCT_BY_HITS_REQUEST:
-          return {
-            ...state,
-            dataHits: null,
-            isLoading: true,
-          };
-        case productAction.GET_PRODUCT_BY_HITS_SUCCESS:
-          return { ...state, dataHits: action.data, isLoading: true };
-        case productAction.GET_PRODUCT_BY_HITS_ERROR:
-          return {
-            ...state,
-            dataHits: null,
-            isLoading: false,
-          };
+    case productAction.GET_PRODUCT_BY_COUNT_REQUEST:
+      return {
+        ...state,
+        dataCount: null,
+        isLoading: true,
+      };
+    case productAction.GET_PRODUCT_BY_COUNT_SUCCESS:
+      return { ...state, dataCount: action.data, isLoading: true };
+    case productAction.GET_PRODUCT_BY_COUNT_ERROR:
+      return {
+        ...state,
+        dataCount: null,
+        isLoading: false,
+      };
+    case productAction.GET_PRODUCT_BY_HITS_REQUEST:
+      return {
+        ...state,
+        dataHits: null,
+        isLoading: true,
+      };
+    case productAction.GET_PRODUCT_BY_HITS_SUCCESS:
+      return { ...state, dataHits: action.data, isLoading: true };
+    case productAction.GET_PRODUCT_BY_HITS_ERROR:
+      return {
+        ...state,
+        dataHits: null,
+        isLoading: false,
+      };
+    case productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST:
+      return {
+        ...state,
+        dataDiscount: null,
+        isLoading: true,
+      };
+    case productAction.GET_PRODUCT_BY_DISCOUNT_SUCCESS:
+      return { ...state, dataDiscount: action.data, isLoading: true };
+    case productAction.GET_PRODUCT_BY_DISCOUNT_ERROR:
+      return {
+        ...state,
+        dataDiscount: null,
+        isLoading: false,
+      };
     case productAction.GET_PRODUCT_BY_ID_REQUEST:
       return {
         ...state,

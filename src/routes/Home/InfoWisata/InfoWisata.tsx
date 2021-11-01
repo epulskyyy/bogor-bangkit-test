@@ -96,7 +96,9 @@ const InfoWisata: React.FC<Props> = ({ authedData }) => {
                       <Card
                         onClick={() => goToDetail(v.id)}
                         hoverable
-                        cover={<img alt="example" src={images[0]} />}
+                        cover={
+                          <img alt="example" src={images[0]} height={"250px"} />
+                        }
                       >
                         <Meta
                           title={capitalize(v.nama_wisata || "")}

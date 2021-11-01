@@ -40,6 +40,7 @@ export interface ProductRoot {
   dataSearch: any;
   dataCount: any;
   dataHits: any;
+  dataDiscount: any;
   dataId: any;
   isLoading: any;
   isLoadingId: any;

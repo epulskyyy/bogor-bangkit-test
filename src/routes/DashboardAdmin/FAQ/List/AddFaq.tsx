@@ -54,9 +54,18 @@ const AddFaq: React.FC<Props> = () => {
   };
   return (
     <>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-        Tambah FAQ
-      </Button>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1em",
+        }}
+      >
+        <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
+          Tambah FAQ
+        </Button>
+      </div>
       <Drawer
         title="Tambah FAQ"
         placement="right"

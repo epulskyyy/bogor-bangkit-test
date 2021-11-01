@@ -5,17 +5,19 @@ import Product from "../../../components/Product";
 
 type Props = {
   title: string;
-  data: any
+  data: any;
 };
 
-const HomeProducts: React.FC<Props> = ({ title,data }) => {
+const HomeProducts: React.FC<Props> = ({ title, data }) => {
   return (
     <>
-    <Divider orientation="left" className="peb-text-bold">{title}</Divider>
+      <Divider orientation="left" className="peb-text-bold">
+        {title}
+      </Divider>
       <Row gutter={[16, 16]}>
         {data?.data?.data?.map((v: any, i: any) => (
           <Col xl={4} lg={6} md={6} sm={6} xs={12} key={i}>
-            <Product data={v}/>
+            <Product data={v} />
           </Col>
         ))}
       </Row>
