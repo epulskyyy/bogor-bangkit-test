@@ -9,6 +9,7 @@ import { notificationLoadingMessage } from "../../../utils/notifications";
 import { getBannerRequest, updateBannerRequest } from "../../../actions/banner";
 import { endPoint } from "../../../utils/env";
 import ImgCrop from "antd-img-crop";
+import axios from "axios";
 
 const { confirm } = Modal;
 type Props = {
@@ -84,11 +85,23 @@ const EditCategory: React.FC<Props> = ({ obj }) => {
   }, [obj?.id]);
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      const im = imageUploads.filter((v: any) => v !== file.response);
-      console.log("====================================");
-      console.log(im);
-      console.log("====================================");
-      setimageUploads(im);
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);

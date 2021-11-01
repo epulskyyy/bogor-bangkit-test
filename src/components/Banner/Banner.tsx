@@ -10,19 +10,17 @@ import "./reactFlicking.css";
  */
 
 type Props = {
-  data:any
+  data: any;
 };
 
-const Banner: React.FC<Props> = ({data}) => {
-
+const Banner: React.FC<Props> = ({ data }) => {
   const _plugins = [
-    new Fade(),
     new AutoPlay({ duration: 3000, direction: "NEXT", stopOnHover: true }),
     new Pagination({ type: "bullet" }),
   ];
- 
+
   return (
-    <>
+    <div className="content-banner">
       <Flicking
         circular={true}
         plugins={_plugins}
@@ -44,7 +42,7 @@ const Banner: React.FC<Props> = ({data}) => {
           <div className="flicking-pagination "></div>
         </ViewportSlot>
       </Flicking>
-    </>
+    </div>
   );
 };
 

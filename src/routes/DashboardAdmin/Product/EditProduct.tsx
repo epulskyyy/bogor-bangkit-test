@@ -21,6 +21,7 @@ import { endPoint } from "../../../utils/env";
 import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { editProductRequest, getProducRequest } from "../../../actions/product";
+import axios from "axios";
 
 const { Option } = Select;
 const { confirm } = Modal;
@@ -80,8 +81,23 @@ const EditProduct: React.FC<Props> = ({ obj }) => {
   }, [obj?.id]);
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      const im = imageUploads.filter((v: any) => v !== file.response);
-      setimageUploads(im);
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);

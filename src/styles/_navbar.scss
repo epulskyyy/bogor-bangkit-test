@@ -87,13 +87,15 @@
   }
   &-bottom {
     @include padding70();
-    height: 25px;
+    height: 40px;
     background: $blue;
     color: white;
     ul {
       list-style: none;
       display: flex;
       justify-content: flex-end;
+      height: 100%;
+      align-items: center;
       padding: 0;
       margin: 0;
       li {
@@ -123,6 +125,6 @@
     display: none !important;
   }
   .peb-navbar-top-btn-drawer {
-    display: flex;
+    display: flex !important;
   }
 }

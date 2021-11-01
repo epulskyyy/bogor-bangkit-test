@@ -1,9 +1,10 @@
 import { Menu } from "antd";
 import {
   TagsOutlined,
-  ProfileFilled,
+  UserOutlined,
   ArrowLeftOutlined,
   LockOutlined,
+  DashboardFilled,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 
@@ -23,8 +24,14 @@ const SideBar: React.FC<Props> = () => {
       subMenu: [],
     },
     {
+      key: "/dashboard",
+      icon: <DashboardFilled />,
+      name: "Dahboard",
+      subMenu: [],
+    },
+    {
       key: "/dashboard/profile",
-      icon: <ProfileFilled />,
+      icon: <UserOutlined />,
       name: "Profil",
       subMenu: [],
     },
@@ -37,7 +44,7 @@ const SideBar: React.FC<Props> = () => {
     {
       key: "/dashboard/reset-password",
       icon: <LockOutlined />,
-      name: "Reset Kata Sandi",
+      name: "Ubah Kata Sandi",
       subMenu: [],
     },
   ];

@@ -18,6 +18,11 @@ export const resetPassword = (data: any, id :any) => {
 };
 
 
+export const changePassword = (data: any) => {
+  return services.post(`${endPoint.pemulihanEkonomiUrl.v1}user/changePassword`, data);
+};
+
+
 export const loginAdmin = (data: any) => {
   return services.extPost(`${endPoint.pemulihanEkonomiUrl.v1}login-admin`, data);
 };

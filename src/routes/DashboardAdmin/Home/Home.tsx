@@ -1,4 +1,6 @@
-import { Card, Col, Row, Statistic } from "antd";
+import "../../../styles/base.scss";
+
+import { Alert, Card, Col, Row, Statistic } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { RootState } from "../../../models/RootState";
 import { useDispatch, useSelector } from "react-redux";
@@ -124,7 +126,7 @@ export default function Home() {
             />
           </Card>
         </Col>
-        <Col lg={12} md={12} sm={24} xs={24}>
+        <Col lg={24} md={24} sm={24} xs={24}>
           <Card>
             <Statistic
               title="Jumlah Pengguna"
@@ -134,6 +136,7 @@ export default function Home() {
         </Col>
         <Col lg={12} md={24} sm={24} xs={24}>
           <Card>
+            <h3>Jumlah Produk Per Klasifikasi UMKM</h3>
             <Doughnut
               data={{
                 labels: dahsboard.chart?.produk?.map(
@@ -142,7 +145,7 @@ export default function Home() {
                 datasets: [
                   {
                     data: dahsboard.chart?.produk?.map(
-                      ({ id_klasifikasi }: any) => id_klasifikasi
+                      ({ count }: any) => count
                     ),
                     backgroundColor: dahsboard.chart?.produk?.map(() =>
                       randomRGB()
@@ -153,25 +156,38 @@ export default function Home() {
               options={{
                 responsive: true,
                 plugins: {
-                  tooltip: {
-                    callbacks: {
-                      label: function (context) {
-                        const v: any = dahsboard.chart?.produk?.find(
-                          (x: any) => x?.nama_klasifikasi === context.label
-                        );
-                        return (
-                          "Pengguna : " +
-                          v?.jumlah_user +
-                          "\n" +
-                          "Produk :" +
-                          v?.count
-                        );
-                      },
-                      title: function (tooltipItems) {
-                        let item = { ...tooltipItems[0] };
-                        return item.label;
-                      },
-                    },
+                  legend: {
+                    position: "bottom",
+                  },
+                },
+              }}
+            />
+          </Card>
+        </Col>
+        <Col lg={12} md={24} sm={24} xs={24}>
+          <Card>
+            <h3>Jumlah User Per Klasifikasi UMKM</h3>
+            <Doughnut
+              data={{
+                labels: dahsboard.chart?.produk?.map(
+                  ({ nama_klasifikasi }: any) => nama_klasifikasi
+                ),
+                datasets: [
+                  {
+                    data: dahsboard.chart?.produk?.map(
+                      ({ jumlah_user }: any) => jumlah_user
+                    ),
+                    backgroundColor: dahsboard.chart?.produk?.map(() =>
+                      randomRGB()
+                    ),
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: "bottom",
                   },
                 },
               }}

@@ -39,67 +39,76 @@ const Profile: React.FC<Props> = ({ authedData }) => {
         <div className="container mt-2 mb-2">
           <h2>Data Pengguna</h2>
           <Row gutter={[16, 16]}>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
+              <Card className="peb-card-profile" title="Foto">
+                <img
+                  alt="foto profil"
+                  height="90px"
+                  src={data.data?.profil_gambar}
+                />
+              </Card>
+            </Col>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="NIK">
                 {data.data?.nik}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Nama Pelaku Usaha">
                 {data.data?.nama_lengkap}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Email">
                 {data.data?.email}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Nomor Hp">
                 {data.data?.no_hp}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Jenis Kelamin">
                 {data.data?.jenis_kelamin}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Nama Usaha">
                 {data.data?.nama_umkm}
               </Card>
             </Col>
-            <Col xl={6}>
+            <Col xl={6} lg={6} md={6} sm={12} xs={24}>
               <Card className="peb-card-profile" title="Legalitas">
-                {data.data?.legalitas}
+                {data.data?.legalitas.join(", ")}
               </Card>
             </Col>
-            <Col xl={12}>
-              <Card className="peb-card-profile" title="Alamat">
+            <Col span={24}>
+              <Card className="peb-card-profile" title="Alamat Pelaku Usaha">
                 {data.data?.alamat.alamat_user} RT {data.data?.alamat.rt} RW{" "}
                 {data.data?.alamat.rw} Kec. {data.data?.alamat.kecamatan} Kel.{" "}
                 {data.data?.alamat.kelurahan}
               </Card>
             </Col>
-            <Col xl={12}>
-              <Card className="peb-card-profile" title="Detail UMKM">
+            <Col span={24}>
+              <Card className="peb-card-profile" title="Info Alamat Usaha">
                 <List itemLayout="horizontal">
                   <List.Item>
                     <List.Item.Meta
-                      title="Nomor UMKM :"
-                      description={data.data?.no_regis_umkm}
+                      title="Nomor Usaha :"
+                      description={data.data?.umkm_detail?.no_regis_umkm}
                     />
                   </List.Item>
                   <List.Item>
                     <List.Item.Meta
-                      title="Alamat UMKM :"
-                      description={data.data?.alamat_umkm}
+                      title="Alamat Usaha :"
+                      description={data.data?.umkm_detail?.alamat_umkm}
                     />
                   </List.Item>
                   <List.Item>
                     <List.Item.Meta
-                      title="Klasifikasi UMKM :"
-                      description={data.data?.klasifikasi_umkm}
+                      title="Klasifikasi Usaha :"
+                      description={data.data?.umkm_detail?.klasifikasi_umkm}
                     />
                   </List.Item>
                 </List>
