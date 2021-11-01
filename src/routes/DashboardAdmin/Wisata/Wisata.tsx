@@ -44,7 +44,7 @@ const Wisata: React.FC<Props> = () => {
       })
     );
   };
-  const datas = data?.data?.data?.map((v: any, i: any) => ({ ...v, key: i }));
+  const datas = data?.data?.map((v: any, i: any) => ({ ...v, key: i }));
   const columns: ColumnsType<any> = [
     {
       key: "operation",

@@ -2,6 +2,7 @@ import { Card, Layout, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesRequest } from "../../../actions/categories";
 import { getAllUserRequest } from "../../../actions/user";
 import { AuthUser } from "../../../models/AuthUser";
 import { RootState } from "../../../models/RootState";
@@ -16,6 +17,7 @@ const User: React.FC<Props> = ({ authedData }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUserRequest(10, "any", 1));
+    dispatch(getCategoriesRequest({ perPage: 99, page: 1 }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

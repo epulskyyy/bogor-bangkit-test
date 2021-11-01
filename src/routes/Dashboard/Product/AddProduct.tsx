@@ -31,23 +31,7 @@ type Props = {
 };
 
 const AddProduct: React.FC<Props> = ({ authedData }) => {
-  const [imageUploads, setimageUploads] = useState<any>({
-    imageOne: "",
-    imageTwo: "",
-    imageThree: "",
-    imageFour: "",
-    imageFive: "",
-    imageSix: "",
-    imageSeven: "",
-    imageEight: "",
-    imageNine: "",
-    imageTen: "",
-    imageEleven: "",
-    imageTwelve: "",
-    imageThirteen: "",
-    imageFourteen: "",
-    imageFifteen: "",
-  });
+  const [imageUploads, setimageUploads] = useState<any>([]);
   const [visible, setvisible] = useState(false);
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -62,10 +46,8 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
 
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      console.log("removed");
-      for (const key in file.response) {
-        setimageUploads((v: any) => ({ ...v, [key]: "" }));
-      }
+      const im = imageUploads.filter((v: any) => v !== file.response);
+      setimageUploads(im);
     }
     if (file.status != null) {
       setFileLists(newFileList);
@@ -83,16 +65,8 @@ const AddProduct: React.FC<Props> = ({ authedData }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        for (const key in imageUploads) {
-          if (imageUploads[key] === "") {
-            setimageUploads((v: any) => ({
-              ...v,
-              [key]: data.Response_Data.image_one,
-            }));
-            componentsData.onSuccess({ [key]: data.Response_Data.image_one });
-            break;
-          }
-        }
+        setimageUploads((v: any) => [...v, data.Response_Data[0]]);
+        componentsData.onSuccess(data.Response_Data[0]);
       })
       .catch((error) => {
         console.log("Error fetching profile " + error);

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { encryptText } from "../../utils/crypto";
 import { ReloadOutlined } from "@ant-design/icons";
 import { generateCaptcha } from "../../utils/utils";
+import Logo from "../../components/Logo/Logo";
 
 const { Text } = Typography;
 
@@ -68,14 +69,24 @@ const Auth: React.FC = () => {
     <Layout title="Login">
       <div className="peb-container-auth">
         <div className="peb-container-auth-background">
-          <Link to="/">
-            <strong className="peb-login-title">Bogor Bangkit</strong>
-          </Link>
-          <br />
-          <div className="peb-card peb-shadow">
+          <div className="peb-card auth peb-shadow">
             <div className="peb-card-body">
               <div className="peb-dflex-between peb-mb-2">
-                <h3 className="peb-text-bold">Masuk</h3>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Logo size="small" />
+                  <div className="peb-dflex-center ml-1">
+                    <h4
+                      className="peb-text-bold mr-1 peb-text-blue"
+                      style={{ margin: "0px" }}
+                    >
+                      Bogor Bangkit
+                    </h4>
+
+                    <h3 className="peb-text-bold" style={{ margin: "0px" }}>
+                      Masuk
+                    </h3>
+                  </div>
+                </div>
                 <Link to="/register">Daftar</Link>
               </div>
               <Form

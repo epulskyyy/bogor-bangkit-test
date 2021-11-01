@@ -2,6 +2,7 @@ import React from "react";
 
 import BackImgRegCloud from "../../../assets/peb-bac-reg-cloud.svg";
 import BackImgReg from "../../../assets/peb-bac-reg-child.svg";
+import Logo from "../../../components/Logo/Logo";
 
 const SideBanner = () => {
   return (
@@ -15,12 +16,20 @@ const SideBanner = () => {
         />
         <img
           alt=""
-          className="register-bac-icon-reg"
+          className="register-bac-icon-reg mt-2"
           height="352.12px"
           src={BackImgReg}
         />
       </div>
-      <h3 className="peb-logo">Bogor Bangkit</h3>
+      <div className="peb-dflex-align-center ">
+        <Logo size="small" />
+        <h4
+          className="peb-text-bold ml-1 peb-text-white"
+          style={{ margin: "0px" }}
+        >
+          Bogor Bangkit
+        </h4>
+      </div>
     </>
   );
 };

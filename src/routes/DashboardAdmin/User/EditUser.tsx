@@ -8,17 +8,24 @@ import {
   Select,
   Modal,
   Radio,
+  Upload,
 } from "antd";
-import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import {
+  EditOutlined,
+  ExclamationCircleOutlined,
+  MinusCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 import { messageValidate, regexTest } from "../../../utils/constants";
 import { useForm } from "antd/lib/form/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
-import { xssValidBool } from "../../../utils/utils";
+import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { editProfileRequest, getAllUserRequest } from "../../../actions/user";
 import { notificationLoadingMessage } from "../../../utils/notifications";
-
+import ImgCrop from "antd-img-crop";
+import { endPoint } from "../../../utils/env";
 const { Option } = Select;
 const { confirm } = Modal;
 type Props = {
@@ -32,7 +39,14 @@ const EditUser: React.FC<Props> = ({ obj }) => {
   const detailUmkm = obj?.umkm_detail;
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const [previewImages, setpreviewImages] = useState<any>({
+    previewVisible: false,
+    previewImage: "",
+    previewTitle: "",
+  });
 
+  const [imageUploads, setimageUploads] = useState<any>([]);
+  const [fileLists, setFileLists] = useState<any>([]);
   const showDrawer = () => {
     setVisible(true);
   };
@@ -40,6 +54,32 @@ const EditUser: React.FC<Props> = ({ obj }) => {
   const onClose = () => {
     setVisible(false);
   };
+  useEffect(() => {
+    const temp = {
+      uid: "1",
+      name: "xxx.png",
+      status: "done",
+      response: "Server Error 500", // custom error message to show
+      url: "http://www.baidu.com/xxx.png",
+    };
+    let arrTemp = [];
+    let arr = [];
+
+    if (obj?.profil_gambar) {
+      arrTemp.push({
+        ...temp,
+        uid: 1,
+        name: obj?.profil_gambar,
+        response: obj?.profil_gambar,
+        url: obj?.profil_gambar,
+      });
+      arr.push(obj?.profil_gambar)
+      setimageUploads(arr);
+      setFileLists(arrTemp);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [obj?.id]);
   const onSubmit = () => {
     validateFields().then(() => {
       const dataForm = {
@@ -69,7 +109,9 @@ const EditUser: React.FC<Props> = ({ obj }) => {
           no_regis_umkm: "",
         },
         legalitas: getFieldValue("legalitas"),
+        profil_gambar: imageUploads[0],
       };
+
       confirm({
         title: "Anda yakin?",
         icon: <ExclamationCircleOutlined />,
@@ -88,6 +130,51 @@ const EditUser: React.FC<Props> = ({ obj }) => {
       });
     });
   };
+
+  const onChange = ({ file, fileList: newFileList }: any) => {
+    if (file.status === "removed") {
+      const im = imageUploads.filter((v: any) => v !== file.response);
+      setimageUploads(im);
+    }
+    if (file.status != null) {
+      setFileLists(newFileList);
+    }
+  };
+  const uploadMedia = (componentsData: any) => {
+    let formData = new FormData();
+    formData.append("imageOne", componentsData.file);
+    fetch(endPoint.uploadFile.v1 + "uploadFile", {
+      method: "POST",
+      headers: {
+        contentType: "multipart/form-data",
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setimageUploads((v: any) => [...v, data.Response_Data[0]]);
+        componentsData.onSuccess(data.Response_Data[0]);
+      })
+      .catch((error) => {
+        console.log("Error fetching profile " + error);
+        componentsData.onError("Error uploading image");
+      });
+  };
+
+  const handlePreview = async (file: any) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    setpreviewImages({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+    });
+  };
+  const handleCancel = () => setpreviewImages({ previewVisible: false });
+
   return (
     <>
       <Button onClick={showDrawer} icon={<EditOutlined />} />
@@ -239,19 +326,99 @@ const EditUser: React.FC<Props> = ({ obj }) => {
               </Form.Item>
             </Col>
             <Col xl={8} lg={8} md={12} sm={12} xs={24}>
-              <Form.Item
+              <Form.List
                 name="legalitas"
-                label="Legalitas"
                 rules={[
                   {
-                    required: true,
-                    message: messageValidate("required", "Legalitas "),
+                    validator: async (_, names) => {
+                      if (!names || names.length < 0) {
+                        return Promise.reject(
+                          new Error("Minimal satu legalitas")
+                        );
+                      }
+                    },
                   },
+                ]}
+              >
+                {(fields, { add, remove }, { errors }) => (
+                  <>
+                    {fields.map((field, index) => (
+                      <Form.Item
+                        label={index === 0 ? "Legalitas" : ""}
+                        required={false}
+                        key={field.key}
+                      >
+                        <Form.Item
+                          {...field}
+                          validateTrigger={["onChange", "onBlur"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: messageValidate(
+                                "required",
+                                "Legalitas "
+                              ),
+                            },
+                            (value) => ({
+                              validator(rule, value) {
+                                if (value != null) {
+                                  if (!xssValidBool(value)) {
+                                    return Promise.reject(
+                                      "Masukan tidak valid"
+                                    );
+                                  }
+                                }
+                                return Promise.resolve();
+                              },
+                            }),
+                          ]}
+                          noStyle
+                        >
+                          <Input
+                            placeholder="Ketik Legalitas"
+                            style={{ width: "60%" }}
+                          />
+                        </Form.Item>
+                        {fields.length > 1 ? (
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(field.name)}
+                          />
+                        ) : null}
+                      </Form.Item>
+                    ))}
+                    <Form.Item>
+                      <Button
+                        type="dashed"
+                        onClick={() => add()}
+                        style={{ width: "60%" }}
+                        icon={<PlusOutlined />}
+                      >
+                        Tambah Legalitas
+                      </Button>
+                      <Form.ErrorList errors={errors} />
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+            </Col>
+            <Col xl={8} lg={8} md={12} sm={12} xs={24}>
+              <Form.Item
+                name="url_gambar"
+                label="Gambar"
+                rules={[
                   (value) => ({
                     validator(rule, value) {
-                      if (value != null) {
-                        if (!xssValidBool(value)) {
-                          return Promise.reject("Masukan tidak valid");
+                      if (fileLists.length === 0) {
+                        return Promise.reject("Gambar harus di isi");
+                      } else {
+                        for (let index = 0; index < fileLists.length; index++) {
+                          const element = fileLists[index];
+                          if (element.status === "error") {
+                            return Promise.reject(
+                              "Terdapat gambar tidak valid"
+                            );
+                          }
                         }
                       }
                       return Promise.resolve();
@@ -259,12 +426,30 @@ const EditUser: React.FC<Props> = ({ obj }) => {
                   }),
                 ]}
               >
-                <Input
-                  onKeyPress={(e) => {
-                    // eslint-disable-next-line no-useless-escape
-                    /[^A-Za-z ]/g.test(e.key) && e.preventDefault();
-                  }}
-                />
+                <ImgCrop rotate beforeCrop={beforeUpload}>
+                  <Upload
+                    beforeUpload={beforeUpload}
+                    customRequest={uploadMedia}
+                    listType="picture-card"
+                    fileList={fileLists}
+                    onChange={onChange}
+                    onPreview={handlePreview}
+                  >
+                    {fileLists.length < 1 && "+ Unduh"}
+                  </Upload>
+                </ImgCrop>
+                <Modal
+                  visible={previewImages.previewVisible}
+                  title={previewImages.previewTitle}
+                  footer={null}
+                  onCancel={handleCancel}
+                >
+                  <img
+                    alt="example"
+                    style={{ width: "100%" }}
+                    src={previewImages.previewImage}
+                  />
+                </Modal>
               </Form.Item>
             </Col>
             <Col xl={24} lg={24} md={24} sm={24} xs={24}>

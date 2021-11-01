@@ -143,7 +143,7 @@ export function* postLogoutAdmin(action: any) {
     });
     
     localStorage.removeItem("admin_access_token");
-    history.push("/admin-login");
+    history.push("/b0g0r-84nk1t-admin-login");
     // notificationMessage("error",`Gagal keluar`,``)
   }
 }

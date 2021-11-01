@@ -35,7 +35,7 @@ routes:
 "/"
 
 routes admin:
-"/admin-login"
+"/b0g0r-84nk1t-admin-login"
 "/dashboard-admin/admin"
 "/dashboard-admin/user"
 "/dashboard-admin/category"

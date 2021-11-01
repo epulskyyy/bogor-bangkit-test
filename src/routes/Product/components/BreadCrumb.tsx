@@ -12,7 +12,7 @@ export default function BreadCrumb() {
   const menu = (
     <Menu>
       {categories?.data?.data?.data?.map((v: any, i: any) => (
-        <Menu.Item key={i}>
+        <Menu.Item key={v.nama_klasifikasi}>
           <Link
             to={{
               search: `category=${

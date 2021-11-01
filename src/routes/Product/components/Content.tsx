@@ -4,6 +4,7 @@ import { AuthUser } from "../../../models/AuthUser";
 import Images from "./Images";
 import OtherProduct from "./OtherProduct";
 import Product from "./Product";
+import ProductImages from "./ProductImages";
 import Umkm from "./Umkm";
 type Props = {
   authedData?: AuthUser;
@@ -34,7 +35,7 @@ const Content: React.FC<Props> = ({ authedData }) => {
           md={{ order: 3, span: 10 }}
           lg={{ order: 3, span: 8 }}
         >
-          <Images />
+          <ProductImages />
         </Col>
       </Row>
       <OtherProduct />
