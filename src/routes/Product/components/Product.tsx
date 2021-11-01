@@ -167,12 +167,15 @@ const Product: React.FC<Props> = ({ authedData }) => {
             </div>
           </TabPane>
           <TabPane tab="Info Penting" key="2">
-            {data?.data?.legalitas || data?.data?.legalitas == null ? (
+            {data?.data?.legalitas != null &&
+            Array.isArray(data?.data?.legalitas) ? (
               <Steps progressDot current={1} direction="vertical">
                 {data?.data?.legalitas?.map((v: any, k: any) => (
                   <Step key={k} title={v} />
                 ))}
               </Steps>
+            ) : data?.data?.legalitas != null ? (
+              <p>{data?.data?.legalitas}</p>
             ) : (
               <p>Tidak ada informasi</p>
             )}

@@ -8,6 +8,7 @@ const initialState = {
   users: null,
   selectedUserID: null,
   isLoading: null,
+  isLoadingWs: null,
   isMessageLoading: null,
   isSendLoading: null,
   isError: null,
@@ -34,20 +35,20 @@ export default function reducer(state = initialState, action: any) {
         isError: false,
         userList: action.data,
       };
-      
+
     case chatAction.GET_ALL_USER_CHAT_ERROR:
       return {
         ...state,
         isLoading: false,
         isError: false,
       };
-      
-      case chatAction.GET_ALL_USERS_CHAT_SUCCESS:
-        return {
-          ...state,
-          users: action.data,
-        };
-        
+
+    case chatAction.GET_ALL_USERS_CHAT_SUCCESS:
+      return {
+        ...state,
+        users: action.data,
+      };
+
     case chatAction.GET_HISTORY_CHAT_REQUEST:
       return {
         ...state,
@@ -74,21 +75,34 @@ export default function reducer(state = initialState, action: any) {
         isSendLoading: true,
       };
     case chatAction.SEND_CHAT_SUCCESS:
-      let dataChat: any = state.dataMessage;
-      dataChat?.data.response.data.push(action.data)
-
+      const dt: any = state.dataMessage;
+      let dataChat: any = {
+        ...dt,
+        data: {
+          ...dt.data,
+          response: {
+            ...dt.data.response,
+            data: [action.data, ...dt?.data.response.data],
+          },
+        },
+      };
       return {
         ...state,
         isSendLoading: false,
         isError: false,
         dataMessage: dataChat,
-        inputMessage:""
+        inputMessage: "",
       };
     case chatAction.SEND_CHAT_ERROR:
       return {
         ...state,
         isSendLoading: false,
         isError: true,
+      };
+    case chatAction.NOTIFICATION_COUNT:
+      return {
+        ...state,
+        notificationCount: state.notificationCount + 1,
       };
     default:
       return state;
