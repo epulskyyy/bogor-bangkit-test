@@ -145,8 +145,8 @@ const Header: React.FC<Props> = ({ authedData }) => {
         ) : (
           <div className="peb-navbar-top-auth">
             <div className="peb-navbar-top-auth-not">
-              <Link to="/login">MASUK</Link>
-              <Link to="/register">DAFTAR</Link>
+              <Link className="left" to="/login">MASUK</Link>
+              <Link className="right" to="/register">DAFTAR</Link>
             </div>
           </div>
         )}
