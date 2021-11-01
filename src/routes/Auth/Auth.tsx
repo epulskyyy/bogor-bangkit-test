@@ -218,9 +218,9 @@ const Auth: React.FC = () => {
                   >
                     Masuk
                   </Button>
-                  {/* <div className="peb-text-center">
+                  <div className="peb-text-center mt-2">
                     <Link to="/forgot-password">Lupa Kata Sandi?</Link>
-                  </div> */}
+                  </div>
                 </Form.Item>
                 <Form.Item>
                   <div className="peb_cont_t_wf">

@@ -39,6 +39,7 @@ export const resetPasswordRequest = defaultActionCreator(
   RESET_PASSWORD_REQUEST,
   "data",
   "id",
+  "func",
 );
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const resetPasswordSuccess = defaultActionCreator(

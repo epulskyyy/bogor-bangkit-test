@@ -14,7 +14,7 @@ export const forgotPassword = (data: any) => {
 };
 
 export const resetPassword = (data: any, id :any) => {
-  return services.post(`${endPoint.pemulihanEkonomiUrl.v1}user/resetPassword?user_id=${id}`, data);
+  return services.extPost(`${endPoint.pemulihanEkonomiUrl.v1}user/resetPassword?user_id=${id}`, data);
 };
 
 
