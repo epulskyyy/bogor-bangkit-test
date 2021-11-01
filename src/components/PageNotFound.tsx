@@ -12,7 +12,7 @@ const PageNotFound: React.FC<Props> = ({ authedData, authedDataAdmin }) => {
   const loc = useLocation();
 
   if (authedDataAdmin !== undefined || authedData !== undefined) {
-    if (loc.pathname.includes("/admin-login")) {
+    if (loc.pathname.includes("/b0g0r-84nk1t-admin-login")) {
       history.push("/dashboard-admin");
     }
     if (loc.pathname.includes("/login") || loc.pathname.includes("/register")) {

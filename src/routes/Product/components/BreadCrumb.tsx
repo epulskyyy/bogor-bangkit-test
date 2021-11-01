@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../models/RootState";
 import history from "../../../utils/history";
+import { capitalize } from "../../../utils/utils";
 
 export default function BreadCrumb() {
   const { dataId } = useSelector((state: RootState) => state.product);
@@ -11,7 +12,7 @@ export default function BreadCrumb() {
   const menu = (
     <Menu>
       {categories?.data?.data?.data?.map((v: any, i: any) => (
-        <Menu.Item key={i}>
+        <Menu.Item key={v.nama_klasifikasi}>
           <Link
             to={{
               search: `category=${
@@ -20,7 +21,7 @@ export default function BreadCrumb() {
               pathname: "/search",
             }}
           >
-            {v.nama_klasifikasi}
+            {capitalize(v.nama_klasifikasi)}
           </Link>
         </Menu.Item>
       ))}
@@ -44,12 +45,14 @@ export default function BreadCrumb() {
           />
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to="/">Beranda</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item overlay={menu}>
-          {category?.nama_klasifikasi}
+          {capitalize(category?.nama_klasifikasi || "")}
         </Breadcrumb.Item>
-        <Breadcrumb.Item>{dataId?.data?.nama_produk}</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          {capitalize(dataId?.data?.nama_produk || "")}
+        </Breadcrumb.Item>
       </Breadcrumb>
     </div>
   );

@@ -10,6 +10,7 @@ import { RootState } from "../../../models/RootState";
 import { useEffect, useState } from "react";
 import { generateCaptcha } from "../../../utils/utils";
 import { ReloadOutlined } from "@ant-design/icons";
+import Logo from "../../../components/Logo/Logo";
 
 export const formItemLayout = {
   labelCol: {
@@ -57,11 +58,13 @@ const Auth: React.FC = () => {
   return (
     <Layout title="Login" color="#ebf7ff">
       <div className="peb-container-auth" style={{ margin: "auto" }}>
-        <Card
-          className="mt-5"
-          title="LOGIN DASHBOARD ADMIN"
-          style={{ maxWidth: 500 }}
-        >
+        <Card className="mt-5" style={{ maxWidth: 500 }}>
+          <div className="peb-dflex-column-center">
+            <Logo path="/dashboard-admin" size="medium" />
+            <h3 className="peb-text-bold mt-2 mb-2" style={{ margin: "0px" }}>
+              Masuk Dashboard Admin
+            </h3>
+          </div>
           <Form
             initialValues={{
               prefix: "86",

@@ -196,8 +196,8 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
                         defaultValue={queryData.perPage || "10"}
                         style={{ display: "block" }}
                       >
-                        <Option value="20"> 20/page </Option>
-                        <Option value="10"> 10/page </Option>
+                        <Option value="20"> 20/halaman </Option>
+                        <Option value="10"> 10/halaman </Option>
                       </Select>
                     </Col>
                   </Row>

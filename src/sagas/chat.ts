@@ -1,7 +1,12 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as chatAction from "../actions/chat";
 import { ResponseGenerator } from "../models/RootState";
-import { getAllUserChat, getHistoryChat, sendMessage , getAllUsersChat} from "../requests/chat";
+import {
+  getAllUserChat,
+  getHistoryChat,
+  sendMessage,
+  getAllUsersChat,
+} from "../requests/chat";
 import { notificationMessage } from "../utils/notifications";
 import { scrollToBottomChat } from "../utils/utils";
 
@@ -49,7 +54,7 @@ export function* getHistoryChatF(action: any) {
       type: chatAction.GET_HISTORY_CHAT_SUCCESS,
       data,
     });
-    yield scrollToBottomChat()
+    yield action.func();
   } catch (e: any) {
     yield put({
       type: chatAction.GET_HISTORY_CHAT_ERROR,
@@ -75,11 +80,10 @@ export function* sendMessageF(action: any) {
       type: chatAction.SEND_CHAT_SUCCESS,
       data: bodyMessage,
     });
-    yield scrollToBottomChat()
-
+    yield scrollToBottomChat();
   } catch (e: any) {
-      console.log(e);
-      
+    console.log(e);
+
     yield put({
       type: chatAction.SEND_CHAT_ERROR,
       error: e,

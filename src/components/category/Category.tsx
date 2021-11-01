@@ -59,7 +59,7 @@ const Category: React.FC<Props> = ({ title, icon, idCategory }) => {
         <div className="peb-category-icon"></div>
       </div>
       <div className="peb-category-right">
-        <label className="peb-category-label">{title}</label>
+        <h3 className="peb-category-label">{title}</h3>
       </div>
     </div>
   );

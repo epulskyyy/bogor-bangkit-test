@@ -188,8 +188,8 @@ const Umkm: React.FC<Props> = ({ authedData }) => {
                 value={perPage}
                 style={{ width: 100 }}
               >
-                <Option value={10}> 10/page </Option>
-                <Option value={20}> 20/page </Option>
+                <Option value={10}> 10/halaman </Option>
+                <Option value={20}> 20/halaman </Option>
               </Select>
             </>
           }

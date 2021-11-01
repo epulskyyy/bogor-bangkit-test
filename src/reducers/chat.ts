@@ -2,6 +2,7 @@ import * as chatAction from "../actions/chat";
 
 const initialState = {
   dataMessage: null,
+  notificationCount: 0,
   inputMessage: null,
   userList: null,
   users: null,

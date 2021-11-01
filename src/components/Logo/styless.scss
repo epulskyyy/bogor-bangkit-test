@@ -1,0 +1,35 @@
+.logo-bogor-bangkit {
+  height: inherit !important;
+  position: relative;
+  font-weight: bold;
+
+  span {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+  &.small {
+    font-size: 15px;
+    span {
+      bottom: -5px;
+    }
+  }
+  &.medium {
+    font-size: 25px;
+    span {
+      bottom: -10px;
+    }
+  }
+
+  &.large {
+    font-size: 30px;
+    span {
+      bottom: -15px;
+    }
+  }
+}

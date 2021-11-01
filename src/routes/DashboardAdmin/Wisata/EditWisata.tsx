@@ -24,23 +24,7 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
     previewTitle: "",
   });
 
-  const [imageUploads, setimageUploads] = useState<any>({
-    imageOne: "",
-    imageTwo: "",
-    imageThree: "",
-    imageFour: "",
-    imageFive: "",
-    imageSix: "",
-    imageSeven: "",
-    imageEight: "",
-    imageNine: "",
-    imageTen: "",
-    imageEleven: "",
-    imageTwelve: "",
-    imageThirteen: "",
-    imageFourteen: "",
-    imageFifteen: "",
-  });
+  const [imageUploads, setimageUploads] = useState<any>([]);
   const [form] = useForm();
   const { validateFields, getFieldValue, resetFields } = form;
   const [visible, setVisible] = useState(false);
@@ -65,50 +49,19 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
     let arrTemp = [];
     if (obj?.url_gambar) {
       const arr = [];
-      for (const key in obj?.url_gambar) {
-        const element = obj?.url_gambar[key];
-        if (element !== "") {
-          arr.push(element);
-        }
+      for (let index = 0; index < obj?.url_gambar.length; index++) {
+        const element = obj?.url_gambar[index];
+        arrTemp.push({
+          ...temp,
+          uid: index,
+          name: element,
+          response: element,
+          url: element,
+        });
+        arr.push(element);
       }
-      if (arr.length === 0) {
-      } else {
-        let imgTemp: any = {
-          imageOne: "",
-          imageTwo: "",
-          imageThree: "",
-          imageFour: "",
-          imageFive: "",
-          imageSix: "",
-          imageSeven: "",
-          imageEight: "",
-          imageNine: "",
-          imageTen: "",
-          imageEleven: "",
-          imageTwelve: "",
-          imageThirteen: "",
-          imageFourteen: "",
-          imageFifteen: "",
-        };
-        for (let index = 0; index < arr.length; index++) {
-          const element = arr[index];
-          for (const key in imgTemp) {
-            if (imgTemp[key] === "") {
-              imgTemp = { ...imgTemp, [key]: element };
-              arrTemp.push({
-                ...temp,
-                uid: index,
-                name: element,
-                response: { [key]: element },
-                url: element,
-              });
-              break;
-            }
-          }
-        }
-        setimageUploads(imgTemp);
-        setFileLists(arrTemp);
-      }
+      setimageUploads(arr);
+      setFileLists(arrTemp);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

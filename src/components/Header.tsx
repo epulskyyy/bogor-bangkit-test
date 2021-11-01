@@ -18,6 +18,7 @@ import { getCategoriesRequest } from "../actions/categories";
 import { RootState } from "../models/RootState";
 import { capitalize } from "../utils/utils";
 import history from "../utils/history";
+import Logo from "./Logo/Logo";
 
 type Props = {
   authedData?: AuthUser;
@@ -90,7 +91,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
     <div className="peb-navbar">
       <div className="peb-navbar-top">
         <div className="peb-navbar-top-logo">
-          <Link to="/">Bogor Bangkit</Link>
+          <Logo size="small" />
         </div>
         <div className="peb-navbar-top-wrap">
           <SearchComp />

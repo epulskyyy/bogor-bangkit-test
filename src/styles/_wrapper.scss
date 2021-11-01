@@ -31,6 +31,15 @@
   align-items: center;
 }
 
+.peb-dflex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.peb-dflex-align-center {
+  display: flex;
+  align-items: center;
+}
 .peb-list.peb-list-flex {
   list-style: none;
   display: flex;
@@ -45,6 +54,7 @@
   width: 100%;
   height: auto;
 }
+
 @media (max-width: 722px) {
   .container {
     padding-left: 28px;
