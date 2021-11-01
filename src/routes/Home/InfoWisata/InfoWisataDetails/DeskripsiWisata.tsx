@@ -1,8 +1,10 @@
-import { Card, Col, Image, Row } from "antd";
+import { Card, Col, Image, Row, Tabs } from "antd";
 import Text from "antd/lib/typography/Text";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../models/RootState";
+
+const { TabPane } = Tabs;
 
 export default function DeskripsiWisata() {
   const { dataId } = useSelector((state: RootState) => state.infoWisata);
@@ -13,6 +15,9 @@ export default function DeskripsiWisata() {
       uri.split("=").slice(uri.split("=").length - 1)
     );
   };
+  function callback(key: any) {
+    console.log(key);
+  }
   return (
     <Card className="mr-2">
       <div className="iframe-container">
@@ -28,25 +33,33 @@ export default function DeskripsiWisata() {
           allowFullScreen={true}
         ></iframe>
       </div>
-      <div className="deskripsi-container mt-3">
-        <Text>{dataId.data.deskripsi_wisata}</Text>
-      </div>
-      <Card title={"Galeri wisata"} className="mt-5">
-        <Row gutter={[16, 16]}>
-          {dataId?.data.url_gambar?.map((gambar: string) => {
-            return (
-              <Col
-                xs={{ span: 12 }}
-                sm={{ span: 12 }}
-                md={{ span: 8 }}
-                lg={{ span: 8 }}
-              >
-                <Image src={gambar} alt="galeri wisata" width={"100%"} />
-              </Col>
-            );
-          })}
-        </Row>
-      </Card>
+      <Tabs
+        defaultActiveKey="deskripsi-wisata"
+        onChange={callback}
+        className="mt-5"
+      >
+        <TabPane tab="Deskripsi Wisata" key="deskripsi-wisata">
+          <div className="deskripsi-container ">
+            <Text>{dataId.data.deskripsi_wisata}</Text>
+          </div>
+        </TabPane>
+        <TabPane tab="Galeri Gambar">
+          <Row gutter={[16, 16]}>
+            {dataId?.data.url_gambar?.map((gambar: string) => {
+              return (
+                <Col
+                  xs={{ span: 12 }}
+                  sm={{ span: 12 }}
+                  md={{ span: 8 }}
+                  lg={{ span: 8 }}
+                >
+                  <Image src={gambar} alt="galeri wisata" width={"100%"} />
+                </Col>
+              );
+            })}
+          </Row>
+        </TabPane>
+      </Tabs>
     </Card>
   );
 }
