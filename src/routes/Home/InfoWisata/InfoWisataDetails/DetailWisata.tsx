@@ -25,7 +25,7 @@ export default function DetailWisata() {
           {dataId?.data?.no_hp}
         </a>
       </Menu.Item>
-      <Menu.Item icon={<img alt="" src={IcFb} />}>
+      <Menu.Item icon={<img alt="" src={IcIg} />}>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -34,7 +34,7 @@ export default function DetailWisata() {
           Instagram
         </a>
       </Menu.Item>
-      <Menu.Item icon={<img alt="" src={IcIg} />}>
+      <Menu.Item icon={<img alt="" src={IcFb} />}>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -52,7 +52,7 @@ export default function DetailWisata() {
           <img
             src={dataId.data.url_gambar[0] || UserImage}
             alt=""
-            height='250px'
+            height="250px"
           />
         </div>
         <div className="peb-user-name">
