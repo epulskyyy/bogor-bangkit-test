@@ -196,38 +196,112 @@ const Umkm: React.FC<Props> = ({ authedData }) => {
         >
           <div className="site-card-wrapper">
             <Spin spinning={isLoading ?? false} tip="Memuat...">
-              <List itemLayout="horizontal">
-                {datas?.data?.data.map((item: any) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      title={
-                        <>
-                          <Button onClick={() => onClickUmkm(item)} type="link">
-                            {item?.nama_umkm ?? ""}
-                          </Button>
-                        </>
-                      }
-                      description={
-                        <>
-                          <Button onClick={() => onClickUmkm(item)} type="text">
-                            {item?.umkm_detail?.alamat_umkm}{" "}
-                          </Button>
-                        </>
-                      }
-                    />
-                    {authedData != null && authedData.user_id !== item?.id ? (
-                      <Button
-                        onClick={() => goTo(item)}
-                        type="link"
-                        icon={<WechatOutlined />}
-                        size="middle"
-                      >
-                        Chat
-                      </Button>
-                    ) : null}
-                  </List.Item>
-                ))}
-              </List>
+              {datas?.data?.data.map((item: any) => (
+                <Card.Grid style={{ width: "25%",marginRight:'10px' }}>
+                  <div className="peb-umkm-modal-header-one">
+                    <h3>{item?.nama_umkm}</h3>
+                    <div className="peb-umkm-modal-header-one-chat">
+                      {item?.no_hp ? (
+                        <Tooltip placement="left" title={item?.no_hp}>
+                          <Button
+                            type="link"
+                            icon={<img alt="" src={IcWhatsapp} />}
+                            size="middle"
+                            onClick={() => openWhatsapp(item?.no_hp)}
+                          ></Button>
+                        </Tooltip>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="peb-umkm-modal-detail">
+                    <Tag color="cyan">
+                      {item?.umkm_detail?.klasifikasi_umkm}
+                    </Tag>
+                    <p>{item?.umkm_detail?.alamat_umkm}</p>
+                  </div>
+                  <Divider plain>Sosial Media</Divider>
+                  {item?.umkm_detail ? (
+                    <div className="peb-umkm-modal-social">
+                      {item?.umkm_detail?.instagram !== "" ? (
+                        <Tooltip placement="top" title={"instagrem"}>
+                          <a
+                            href={`${item?.umkm_detail?.instagram}`}
+                            target="_blank"
+                            className="peb-link-social mr-1"
+                          >
+                            {" "}
+                            <img alt="" src={IcIg} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+                      {item?.umkm_detail?.facebook !== "" ? (
+                        <Tooltip placement="top" title={"facebook"}>
+                          <a
+                            href={`${item?.umkm_detail?.facebook}`}
+                            target="_blank"
+                            className="peb-link-social mr-1"
+                          >
+                            {" "}
+                            <img alt="" src={IcFb} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                  <Divider plain>E-commerce</Divider>
+                  {item?.umkm_detail ? (
+                    <div className="peb-umkm-modal-social">
+                      {item?.umkm_detail?.shopee_url !== "" ? (
+                        <Tooltip placement="top" title={"shopee"}>
+                          <a
+                            href={item?.umkm_detail?.shopee_url}
+                            className="peb-link-social mr-1"
+                          >
+                            <img alt="" src={IcShopee} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+
+                      {item?.umkm_detail?.tokped_url !== "" ? (
+                        <Tooltip placement="top" title={"tokopedia"}>
+                          <a
+                            href={item?.umkm_detail?.tokped_url}
+                            className="peb-link-social mr-1"
+                          >
+                            <img alt="" src={IcTokped} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+
+                      {item?.umkm_detail?.lazada_url !== "" ? (
+                        <Tooltip placement="top" title={"lazada"}>
+                          <a
+                            href={item?.umkm_detail?.lazada_url}
+                            className="peb-link-social mr-1"
+                          >
+                            <img alt="" src={IcLazada} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+
+                      {item?.umkm_detail?.bukalapak_url !== "" ? (
+                        <Tooltip placement="top" title={"bukalapak"}>
+                          <a
+                            href={item?.umkm_detail?.bukalapak_url}
+                            className="peb-link-social mr-1"
+                          >
+                            <img alt="" src={IcBukalapak} />
+                          </a>
+                        </Tooltip>
+                      ) : null}
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                </Card.Grid>
+              ))}
             </Spin>
           </div>
 
