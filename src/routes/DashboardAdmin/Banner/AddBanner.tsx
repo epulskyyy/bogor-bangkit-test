@@ -9,6 +9,7 @@ import { notificationLoadingMessage } from "../../../utils/notifications";
 import { endPoint } from "../../../utils/env";
 import ImgCrop from "antd-img-crop";
 import { getBannerRequest, insertBannerRequest } from "../../../actions/banner";
+import axios from "axios";
 
 const { confirm } = Modal;
 type Props = {};
@@ -36,8 +37,23 @@ const AddCategory: React.FC<Props> = () => {
   };
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      const im = imageUploads.filter((v: any) => v !== file.response);
-      setimageUploads(im);
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);
@@ -95,6 +111,8 @@ const AddCategory: React.FC<Props> = () => {
             insertBannerRequest(dataForm, () => {
               setVisible(false);
               resetFields();
+              setimageUploads([]);
+              setFileLists([]);
               dispatch(getBannerRequest());
             })
           );
@@ -174,7 +192,7 @@ const AddCategory: React.FC<Props> = () => {
                   }),
                 ]}
               >
-                <ImgCrop rotate beforeCrop={beforeUpload} aspect={2}>
+                <ImgCrop rotate beforeCrop={beforeUpload} aspect={4}>
                   <Upload
                     beforeUpload={beforeUpload}
                     customRequest={uploadMedia}

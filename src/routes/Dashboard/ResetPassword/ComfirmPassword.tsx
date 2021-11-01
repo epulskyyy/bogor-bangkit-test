@@ -3,7 +3,10 @@ import { useForm } from "antd/lib/form/Form";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetPasswordRequest } from "../../../actions/auth";
+import {
+  changePasswordRequest,
+  resetPasswordRequest,
+} from "../../../actions/auth";
 import { AuthUser } from "../../../models/AuthUser";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { xssValidBool } from "../../../utils/utils";
@@ -16,12 +19,12 @@ const Comfirmassword: React.FC<Props> = ({ authedData }) => {
   const dispatch = useDispatch();
   const onResetpassword = () => {
     const data = {
-      otp: form.getFieldValue("otp"),
+      email: authedData?.username,
       password: form.getFieldValue("password"),
       password_confirmation: form.getFieldValue("password_confirmation"),
     };
     notificationLoadingMessage("Tunggu sebentar");
-    dispatch(resetPasswordRequest(data, authedData?.user_id));
+    dispatch(changePasswordRequest(data));
   };
   return (
     <Form
@@ -30,14 +33,6 @@ const Comfirmassword: React.FC<Props> = ({ authedData }) => {
       form={form}
       onFinish={onResetpassword}
     >
-      <Form.Item name="otp" rules={[]} label="OTP">
-        <Input
-          type="number"
-          style={{ maxWidth: "350px" }}
-          name="otp"
-          placeholder="Ketik OTP"
-        />
-      </Form.Item>
       <Form.Item
         name="password"
         rules={[
@@ -54,7 +49,7 @@ const Comfirmassword: React.FC<Props> = ({ authedData }) => {
             },
           }),
         ]}
-        label="Kata Sandi"
+        label="Kata Sandi Baru"
       >
         <Input.Password
           style={{ maxWidth: "350px" }}
@@ -88,7 +83,6 @@ const Comfirmassword: React.FC<Props> = ({ authedData }) => {
           Kirim
         </Button>
       </Form.Item>
-      <Link to={{ pathname: "reset-password", state: false }}>Kembali</Link>
     </Form>
   );
 };

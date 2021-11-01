@@ -7,7 +7,7 @@ import {
   MailOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
-import "../styles/_navbar.scss";
+import "../styles/base.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutRequest } from "../actions/auth";
 import SearchComp from "./Search";

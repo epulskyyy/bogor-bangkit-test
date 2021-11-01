@@ -50,6 +50,21 @@ export const resetPasswordError = defaultActionCreator(
   RESET_PASSWORD_ERROR,
   "data"
 );
+export const CHANGE_PASSWORD_REQUEST = "CHANGE_PASSWORD_REQUEST";
+export const changePasswordRequest = defaultActionCreator(
+  CHANGE_PASSWORD_REQUEST,
+  "data",
+);
+export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
+export const changePasswordSuccess = defaultActionCreator(
+  CHANGE_PASSWORD_SUCCESS,
+  "data"
+);
+export const CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR";
+export const changePasswordError = defaultActionCreator(
+  RESET_PASSWORD_ERROR,
+  "data"
+);
 
 
 export const LOGIN_ADMIN_REQUEST = "LOGIN_ADMIN_REQUEST";

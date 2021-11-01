@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card, Col, Row, Skeleton } from "antd";
+import "../../../styles/base.scss";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { Breadcrumb, Card, Col, Row, Skeleton, Image } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesRequest } from "../../../actions/categories";
@@ -25,14 +27,32 @@ const Profile: React.FC<Props> = ({ authedData }) => {
   return (
     <Page title="">
       <div>
+        <Breadcrumb className="mb-2">
+          <Breadcrumb.Item href="/dashboard">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <UserOutlined />
+            <span>Data Profil</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <EditProfile authedData={authedData} />
         <Row gutter={[16, 16]}>
+          <Col xl={8} lg={8} md={12} sm={24} xs={24}>
+            <Card title="Foto" bordered={false}>
+              <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
+              {!isLoading ? (
+                <Image alt="foto profil" src={data.data?.profil_gambar} />
+              ) : null}
+            </Card>
+          </Col>
           <Col xl={8} lg={8} md={12} sm={24} xs={24}>
             <Card title="NIK" bordered={false}>
               <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
               {!isLoading ? <strong>{data?.data?.nik}</strong> : null}
             </Card>
           </Col>
+
           <Col xl={8} lg={8} md={12} sm={24} xs={24}>
             <Card title="Nama Pelaku Usaha" bordered={false}>
               <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
@@ -60,11 +80,13 @@ const Profile: React.FC<Props> = ({ authedData }) => {
           <Col xl={8} lg={8} md={12} sm={24} xs={24}>
             <Card title="Legalitas" bordered={false}>
               <Skeleton active loading={isLoading} paragraph={{ rows: 0 }} />{" "}
-              {!isLoading ? <strong>{data?.data?.legalitas}</strong> : null}
+              {!isLoading ? (
+                <strong>{data?.data?.legalitas.join(", ")}</strong>
+              ) : null}
             </Card>
           </Col>
           <Col xl={24}>
-            <Card title="Info Pengguna" bordered={false}>
+            <Card title="Info Alamat Pelaku Usaha" bordered={false}>
               <Row gutter={[16, 16]}>
                 <Col xl={6} lg={6} md={8} sm={12} xs={24}>
                   Alamat Lengkap :
@@ -127,7 +149,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
             </Card>
           </Col>
           <Col xl={24}>
-            <Card title="Info UMKM" bordered={false}>
+            <Card title="Info Alamat Usaha" bordered={false}>
               <Row gutter={[16, 16]}>
                 <Col xl={6} lg={6} md={8} sm={12} xs={24}>
                   ID :
@@ -154,7 +176,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
                   {!isLoading ? <strong>{data?.data?.nama_umkm}</strong> : null}
                 </Col>
                 <Col xl={6} lg={6} md={8} sm={12} xs={24}>
-                  Alamat UMKM :
+                  Alamat Usaha :
                 </Col>
                 <Col xl={18} lg={18} md={16} sm={12} xs={24}>
                   <Skeleton
@@ -167,7 +189,7 @@ const Profile: React.FC<Props> = ({ authedData }) => {
                   ) : null}
                 </Col>
                 <Col xl={6} lg={6} md={8} sm={12} xs={24}>
-                  Klasifikasi UMKM :
+                  Klasifikasi Usaha :
                 </Col>
                 <Col xl={18} lg={18} md={16} sm={12} xs={24}>
                   <Skeleton

@@ -12,6 +12,7 @@ import {
   getInfoWisataRequest,
   updateInfoWisataRequest,
 } from "../../../actions/infoWisata";
+import axios from "axios";
 
 const { confirm } = Modal;
 type Props = {
@@ -68,9 +69,23 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
   }, [obj?.id]);
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      for (const key in file.response) {
-        setimageUploads((v: any) => ({ ...v, [key]: "" }));
-      }
+      const dtRm: any = { url_gambar: [file.response] };
+      let token: any = localStorage.getItem("access_token") || "";
+      axios
+        .post(endPoint.pemulihanEkonomiUrl.v1 + "delete-gambar", dtRm, {
+          headers: {
+            contentType: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((data) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        })
+        .catch((error) => {
+          const im = imageUploads.filter((v: any) => v !== file.response);
+          setimageUploads(im);
+        });
     }
     if (file.status != null) {
       setFileLists(newFileList);

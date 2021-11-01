@@ -87,7 +87,7 @@ const InfoWisata: React.FC<Props> = ({ authedData }) => {
           <Spin spinning={infoWisata.isLoading} tip="Memuat...">
             {infoWisata.data?.data.length !== 0 ? (
               <Row gutter={[16, 16]}>
-                {infoWisata.data?.data.map((v: any, i: any) => {
+                {infoWisata.data?.data?.map((v: any, i: any) => {
                   const images: any = Object.values(v?.url_gambar)?.filter(
                     (v) => v !== ""
                   );
