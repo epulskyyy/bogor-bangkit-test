@@ -2,11 +2,14 @@ import * as productAction from "../actions/product";
 
 const initialState = {
   data: null,
+  data2: null,
   dataCount: null,
+  dataHits: null,
   dataId: {},
-  dataHits: [],
-  dataDiscount:[],
+  dataDiscount: [],
   isLoading: null,
+  isLoadingId: null,
+  isLoading2: null,
   isError: null,
   message: null,
   dataSearch: null,
@@ -27,6 +30,19 @@ export default function reducer(state = initialState, action: any) {
         ...state,
         data: null,
         isLoading: null,
+      };
+    case productAction.GET_PRODUCT2_REQUEST:
+      return {
+        ...state,
+        isLoading2: true,
+      };
+    case productAction.GET_PRODUCT2_SUCCESS:
+      return { ...state, data2: action.data, isLoading2: null };
+    case productAction.GET_PRODUCT2_ERROR:
+      return {
+        ...state,
+        data2: null,
+        isLoading2: null,
       };
     case productAction.GET_PRODUCT_SEARCH_REQUEST:
       return {
@@ -70,7 +86,7 @@ export default function reducer(state = initialState, action: any) {
         dataHits: null,
         isLoading: false,
       };
-      case productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST:
+    case productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST:
       return {
         ...state,
         dataDiscount: null,
@@ -88,15 +104,15 @@ export default function reducer(state = initialState, action: any) {
       return {
         ...state,
         dataId: null,
-        isLoading: true,
+        isLoadingId: true,
       };
     case productAction.GET_PRODUCT_BY_ID_SUCCESS:
-      return { ...state, dataId: action.data, isLoading: false };
+      return { ...state, dataId: action.data, isLoadingId: false };
     case productAction.GET_PRODUCT_BY_ID_ERROR:
       return {
         ...state,
         dataId: null,
-        isLoading: false,
+        isLoadingId: false,
       };
     case productAction.POST_PRODUCT_REQUEST:
       return {

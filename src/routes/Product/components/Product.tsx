@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { LinkOutlined, WechatOutlined } from "@ant-design/icons";
-import { Button, List, Tabs, Tooltip } from "antd";
+import { Button, List, Steps, Tabs, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import IcShopee from "../../../assets/peb-shopee.svg";
 import IcTokped from "../../../assets/peb-tokped.svg";
@@ -14,6 +14,7 @@ import { AuthUser } from "../../../models/AuthUser";
 
 const { TabPane } = Tabs;
 
+const { Step } = Steps;
 function callback(key: any) {
   console.log(key);
 }
@@ -53,9 +54,24 @@ const Product: React.FC<Props> = ({ authedData }) => {
         {dataId?.data?.nama_produk.toUpperCase()}
       </h3>
       <div className="peb-product-price">
-        <h3 className="peb-product-price-">
-          Rp {formatMoney(dataId?.data?.harga_produk || "")}
-        </h3>
+        {dataId?.data?.diskon ? (
+          <div>
+            <label className="peb-product-discount-">
+              Rp {formatMoney(dataId?.data?.harga_produk || "")}
+            </label>
+            <span className="peb-product-discount-percent">
+              {dataId?.data?.diskon}%
+            </span>
+            <h3 className="peb-product-price- peb-text-orange">
+              Rp {formatMoney(dataId?.data?.harga_setelah_diskon || "")}
+            </h3>
+          </div>
+        ) : (
+          <h3 className="peb-product-price- peb-text-orange">
+            Rp {formatMoney(dataId?.data?.harga_produk || "")}
+          </h3>
+        )}
+
         <div className="peb-">
           {authedData && authedData.user_id !== data?.data?.id ? (
             <Link
@@ -151,10 +167,18 @@ const Product: React.FC<Props> = ({ authedData }) => {
             </div>
           </TabPane>
           <TabPane tab="Info Penting" key="2">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-            modi assumenda maxime voluptatum ipsam blanditiis. Perspiciatis
-            temporibus ratione adipisci numquam tempora officia a, laboriosam
-            voluptatem quasi eligendi rem cum ipsum!
+            {data?.data?.legalitas != null &&
+            Array.isArray(data?.data?.legalitas) ? (
+              <Steps progressDot current={1} direction="vertical">
+                {data?.data?.legalitas?.map((v: any, k: any) => (
+                  <Step key={k} title={v} />
+                ))}
+              </Steps>
+            ) : data?.data?.legalitas != null ? (
+              <p>{data?.data?.legalitas}</p>
+            ) : (
+              <p>Tidak ada informasi</p>
+            )}
           </TabPane>
         </Tabs>
       </div>

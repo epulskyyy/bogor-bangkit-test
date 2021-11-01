@@ -15,3 +15,16 @@ export const visitCountSuccess = defaultActionCreator(
 );
 export const VISIT_COUNT_ERROR = "VISIT_COUNT_ERROR";
 export const visitCountError = defaultActionCreator(VISIT_COUNT_ERROR, "data");
+
+export const CHART_DASHBOARD_REQUEST = "CHART_DASHBOARD_REQUEST";
+export const chartDashboardRequest = defaultActionCreator(
+  CHART_DASHBOARD_REQUEST,
+  "data"
+);
+export const CHART_DASHBOARD_SUCCESS = "CHART_DASHBOARD_SUCCESS";
+export const chartDashboardSuccess = defaultActionCreator(
+  CHART_DASHBOARD_SUCCESS,
+  "data"
+);
+export const CHART_DASHBOARD_ERROR = "CHART_DASHBOARD_ERROR";
+export const chartDashboardError = defaultActionCreator(VISIT_COUNT_ERROR, "data");

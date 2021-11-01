@@ -62,3 +62,10 @@ export const getAllUsersChatError = defaultActionCreator(
   GET_ALL_USERS_CHAT_ERROR,
   "data"
 );
+
+export const NOTIFICATION_COUNT = "NOTIFICATION_COUNT";
+export const notificationCount = defaultActionCreator(
+    NOTIFICATION_COUNT,
+    "count"
+  );
+  

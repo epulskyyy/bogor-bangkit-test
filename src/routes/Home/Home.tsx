@@ -30,13 +30,12 @@ const Home: React.FC<Props> = ({ authedData }) => {
 
   const imageFlicking = () => {
     let tempArr = [];
-    for (const key in banner?.data?.data) {
-      if (Object.prototype.hasOwnProperty.call(banner?.data?.data, key)) {
-        const element = banner?.data?.data[key];
-        const images = Object.values(element?.url_gambar)?.filter(
-          (v) => v !== ""
-        );
-        tempArr.push(...images);
+    for (let index = 0; index < banner?.data?.data?.length; index++) {
+      for (const key in banner?.data?.data[index].url_gambar) {
+        const element = banner?.data?.data[index].url_gambar[key];
+        if (element !== "") {
+          tempArr.push(element);
+        }
       }
     }
     return tempArr;

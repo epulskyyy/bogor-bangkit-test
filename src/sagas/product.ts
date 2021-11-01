@@ -43,10 +43,19 @@ export function* getProductCountF(action: any) {
       getProductCount,
       action.data
     );
+    const response2: ResponseGenerator = yield call(
+      getProductHits,
+      action.data
+    );
     let data = response.data;
+    let data2 = response2.data;
     yield put({
       type: productAction.GET_PRODUCT_BY_COUNT_SUCCESS,
       data,
+    });
+    yield put({
+      type: productAction.GET_PRODUCT_BY_HITS_SUCCESS,
+      data: data2,
     });
   } catch (e: any) {
     yield put({
@@ -99,6 +108,21 @@ export function* getProductF(action: any) {
   } catch (e: any) {
     yield put({
       type: productAction.GET_PRODUCT_ERROR,
+      data: e,
+    });
+  }
+}
+export function* getProduct2F(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(getProduct, action.data);
+    let data = response.data;
+    yield put({
+      type: productAction.GET_PRODUCT2_SUCCESS,
+      data,
+    });
+  } catch (e: any) {
+    yield put({
+      type: productAction.GET_PRODUCT2_ERROR,
       data: e,
     });
   }
@@ -190,6 +214,7 @@ export default all([
   takeLatest(productAction.EDIT_PRODUCT_REQUEST, editProductF),
   takeLatest(productAction.POST_PRODUCT_REQUEST, postProductF),
   takeLatest(productAction.GET_PRODUCT_SEARCH_REQUEST, getProductSearchF),
+  takeLatest(productAction.GET_PRODUCT2_REQUEST, getProduct2F),
   takeLatest(productAction.GET_PRODUCT_REQUEST, getProductF),
   takeLatest(productAction.GET_PRODUCT_BY_COUNT_REQUEST, getProductCountF),
   takeLatest(productAction.GET_PRODUCT_BY_ID_REQUEST, getProductIdF),

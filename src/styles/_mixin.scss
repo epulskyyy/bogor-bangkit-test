@@ -55,3 +55,8 @@
   padding-left: 70px;
   padding-right: 70px;
 }
+@mixin dflexCenter(){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

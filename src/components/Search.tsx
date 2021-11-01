@@ -95,6 +95,8 @@ const SearchComp = () => {
           onSearch={searchProduct}
           style={{ display: "block" }}
           onClick={clickSearchhandler}
+          enterButton
+          allowClear
         />
       </div>
       <div className={"search-content " + (clickSearch ? "" : "hide")}>
@@ -108,7 +110,10 @@ const SearchComp = () => {
             />
           </div>
           <div className="search-content-list">
-            <Spin spinning={searchLoading || product.isLoadingSearch} tip="Memuat...">
+            <Spin
+              spinning={searchLoading || product.isLoadingSearch}
+              tip="Memuat..."
+            >
               <List itemLayout="horizontal">
                 {product?.dataSearch?.data?.map((item: any, i: any) => (
                   <List.Item

@@ -7,6 +7,13 @@ export const getProducSuccess = defaultActionCreator(GET_PRODUCT_SUCCESS, 'data'
 export const GET_PRODUCT_ERROR = 'GET_PRODUCT_ERROR'
 export const getProducError = defaultActionCreator(GET_PRODUCT_ERROR, 'data')
 
+export const GET_PRODUCT2_REQUEST = 'GET_PRODUCT2_REQUEST'
+export const getProduct2Request = defaultActionCreator(GET_PRODUCT2_REQUEST, 'data')
+export const GET_PRODUCT2_SUCCESS = 'GET_PRODUCT2_SUCCESS'
+export const getProduct2Success = defaultActionCreator(GET_PRODUCT2_SUCCESS, 'data')
+export const GET_PRODUCT2_ERROR = 'GET_PRODUCT2_ERROR'
+export const getProduct2Error = defaultActionCreator(GET_PRODUCT2_ERROR, 'data')
+
 export const GET_PRODUCT_SEARCH_REQUEST = 'GET_PRODUCT_SEARCH_REQUEST'
 export const getProductSearchRequest = defaultActionCreator(GET_PRODUCT_SEARCH_REQUEST, 'data')
 export const GET_PRODUCT_SEARCH_SUCCESS = 'GET_PRODUCT_SEARCH_SUCCESS'

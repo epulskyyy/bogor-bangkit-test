@@ -27,33 +27,31 @@
       top: 70px;
     }
   }
- 
 }
-.register-layout{
+.register-layout {
   @include breakpoint(md-down) {
-    .register-content{
+    .register-content {
       margin: 20px;
       padding-left: 20px !important;
       padding-right: 20px !important;
       padding-top: 20px !important;
-      @include card(100%) ;
-      @include shadow() ;
+      @include card(100%);
+      @include shadow();
     }
-    &-icon{
+    &-icon {
       display: none;
     }
-    @include headMobile()
+    @include headMobile();
   }
 }
-.peb-logo-mobile{
-  display:none;
+.peb-logo-mobile {
+  display: none;
   @include breakpoint(md-down) {
-  display: block;
-  margin-top: 40px;
-  text-align: center;
-  color: #fff;
-  font-weight: bold;
-  z-index: 999;
+    @include dflexCenter();
+    margin-top: 40px;
+    color: #fff;
+    font-weight: bold;
+    z-index: 999;
   }
 }
 .peb-logo {

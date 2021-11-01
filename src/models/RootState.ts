@@ -36,12 +36,14 @@ export interface AuthRoot {
 }
 export interface ProductRoot {
   data: any;
+  data2: any;
   dataSearch: any;
   dataCount: any;
   dataHits: any;
   dataDiscount: any;
   dataId: any;
   isLoading: any;
+  isLoadingId: any;
   isLoadingSearch: any;
   isError: any;
   message: any;
@@ -53,6 +55,7 @@ export interface ChatRoot {
   userList: any;
   users: any;
   selectedUserID: any;
+  isLoadingWs:any
   isLoading: any;
   isMessageLoading: any;
   isSendLoading: any;
@@ -68,7 +71,9 @@ export interface UserRoot {
 }
 export interface DashboardRoot {
   visitCount: any;
+  chart: any;
   isLoading: any;
+  isLoadingChart: any;
   isError: any;
   message: any;
 }

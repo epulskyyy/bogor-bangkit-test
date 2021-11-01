@@ -35,23 +35,7 @@ const EditProduct: React.FC<Props> = ({ obj }) => {
     previewImage: "",
     previewTitle: "",
   });
-  const [imageUploads, setimageUploads] = useState<any>({
-    imageOne: "",
-    imageTwo: "",
-    imageThree: "",
-    imageFour: "",
-    imageFive: "",
-    imageSix: "",
-    imageSeven: "",
-    imageEight: "",
-    imageNine: "",
-    imageTen: "",
-    imageEleven: "",
-    imageTwelve: "",
-    imageThirteen: "",
-    imageFourteen: "",
-    imageFifteen: "",
-  });
+  const [imageUploads, setimageUploads] = useState<any>([]);
   const [form] = useForm();
   const dispatch = useDispatch();
   const { getFieldValue, validateFields } = form;
@@ -80,55 +64,24 @@ const EditProduct: React.FC<Props> = ({ obj }) => {
         const element = obj?.url_gambar[key];
         if (element !== "") {
           arr.push(element);
+          arrTemp.push({
+            ...temp,
+            uid: key,
+            name: element,
+            response: element,
+            url: element,
+          });
         }
       }
-      if (arr.length === 0) {
-      } else {
-        let imgTemp: any = {
-          imageOne: "",
-          imageTwo: "",
-          imageThree: "",
-          imageFour: "",
-          imageFive: "",
-          imageSix: "",
-          imageSeven: "",
-          imageEight: "",
-          imageNine: "",
-          imageTen: "",
-          imageEleven: "",
-          imageTwelve: "",
-          imageThirteen: "",
-          imageFourteen: "",
-          imageFifteen: "",
-        };
-        for (let index = 0; index < arr.length; index++) {
-          const element = arr[index];
-          for (const key in imgTemp) {
-            if (imgTemp[key] === "") {
-              imgTemp = { ...imgTemp, [key]: element };
-              arrTemp.push({
-                ...temp,
-                uid: index,
-                name: element,
-                response: { [key]: element },
-                url: element,
-              });
-              break;
-            }
-          }
-        }
-        setimageUploads(imgTemp);
-        setFileLists(arrTemp);
-      }
+      setimageUploads(arr);
+      setFileLists(arrTemp);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obj?.id]);
   const onChange = ({ file, fileList: newFileList }: any) => {
     if (file.status === "removed") {
-      for (const key in file.response) {
-        setimageUploads((v: any) => ({ ...v, [key]: "" }));
-      }
+      const im = imageUploads.filter((v: any) => v !== file.response);
+      setimageUploads(im);
     }
     if (file.status != null) {
       setFileLists(newFileList);
@@ -146,16 +99,8 @@ const EditProduct: React.FC<Props> = ({ obj }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        for (const key in imageUploads) {
-          if (imageUploads[key] === "") {
-            setimageUploads((v: any) => ({
-              ...v,
-              [key]: data.Response_Data.image_one,
-            }));
-            componentsData.onSuccess({ [key]: data.Response_Data.image_one });
-            break;
-          }
-        }
+        setimageUploads((v: any) => [...v, data.Response_Data[0]]);
+        componentsData.onSuccess(data.Response_Data[0]);
       })
       .catch((error) => {
         console.log("Error fetching profile " + error);

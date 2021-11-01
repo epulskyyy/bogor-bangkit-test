@@ -9,6 +9,7 @@ import IcIg from "../../../assets/peb-ig.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { MoreOutlined } from "@ant-design/icons";
+import UserImage from "../../../assets/peb-user.svg";
 
 export default function Umkm() {
   const { data } = useSelector((state: RootState) => state.user);
@@ -47,9 +48,13 @@ export default function Umkm() {
   return (
     <div>
       <div className="peb-user">
-        <div className="peb-user-avatar"></div>
+        <div className="peb-user-avatar">
+          <img src={data?.data?.profil_gambar||UserImage} alt="" />
+        </div>
         <div className="peb-user-name">
-          <h3 className="peb-text-bold ">{data?.data?.nama_umkm?.toUpperCase() || "-"}</h3>
+          <h3 className="peb-text-bold ">
+            {data?.data?.nama_umkm?.toUpperCase() || "-"}
+          </h3>
           <Dropdown
             className="peb-dropdown-umkm ml-2"
             overlay={menu}

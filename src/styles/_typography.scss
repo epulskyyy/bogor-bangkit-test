@@ -79,15 +79,26 @@
   margin-right: auto;
 }
 
-.peb-text-center{
+.peb-text-center {
   align-items: center;
   text-align: center;
 }
-.peb-text-left{
+.peb-text-left {
   align-items: left;
   text-align: left;
 }
-.peb-text-right{
+.peb-text-right {
   align-items: right;
   text-align: right;
+}
+.peb-text-blue {
+  color: #1890ff !important;
+}
+
+.peb-text-white {
+  color: #fff !important;
+}
+
+.peb-text-orange{
+  color: #ff824d !important;
 }
