@@ -1,5 +1,5 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Card, Popconfirm, Table, Tag } from "antd";
+import { Button, Card, Col, Popconfirm, Row, Table, Tag } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect, useState } from "react";
@@ -155,20 +155,28 @@ const Wisata: React.FC<Props> = () => {
   return (
     <Layout title="Info Wisata">
       <h3>Data Wisata</h3>
-      <AddWisata />
-      <div className="mb-2 mt-2">
-        <Search
-          className="search-header mr-2"
-          placeholder="Cari Wisata"
-          style={{ maxWidth: 250 }}
-          onSearch={onChangeName}
-        />
-        <Search
-          className="search-header mr-2"
-          placeholder="Cari Lokasi"
-          style={{ maxWidth: 250 }}
-          onSearch={onChangeLocation}
-        />
+      <div style={{ marginBottom: "20px" }}>
+        <Row gutter={[16, 16]}>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <Search
+              className="search-header mr-2"
+              placeholder="Cari Wisata"
+              style={{ maxWidth: "100%" }}
+              onSearch={onChangeName}
+            />
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <Search
+              className="search-header mr-2"
+              placeholder="Cari Lokasi"
+              style={{ maxWidth: "100%" }}
+              onSearch={onChangeLocation}
+            />
+          </Col>
+          <Col lg={6} md={6} sm={12} xs={24}>
+            <AddWisata />
+          </Col>
+        </Row>
       </div>
       <Card>
         <Table

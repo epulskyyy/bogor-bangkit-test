@@ -12,7 +12,7 @@ const HomeCategory = () => {
     <Divider orientation="left" className="peb-text-bold">KATEGORI PRODUK</Divider>
       <Row gutter={[32, 32]}>
         {categories?.data?.data?.data?.map((v: any, i: any) => (
-          <Col xl={6} lg={6} md={6} sm={8} xs={12}>
+          <Col xl={6} lg={6} md={8} sm={8} xs={12}>
             <Category title={v.nama_klasifikasi} key={i} idCategory={v.id}/>
           </Col>
         ))}

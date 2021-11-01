@@ -159,7 +159,7 @@ const AddProduct: React.FC<Props> = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
+      <Button block type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
         Tambah Produk
       </Button>
       <Drawer

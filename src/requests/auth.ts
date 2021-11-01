@@ -6,7 +6,7 @@ export const login = (data: any) => {
 };
 
 export const logout = (data: any) => {
-  return services.getLogout(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
+  return services.post(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
 };
 
 export const forgotPassword = (data: any) => {
@@ -28,5 +28,5 @@ export const loginAdmin = (data: any) => {
 };
 
 export const logoutAdmin = (data: any) => {
-  return services.getLogout(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
+  return services.post(`${endPoint.pemulihanEkonomiUrl.v1}logout`, data);
 };
