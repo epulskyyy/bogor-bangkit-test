@@ -23,7 +23,6 @@ const Home: React.FC<Props> = ({ authedData }) => {
 
   useEffect(() => {
     dispatch(getProductByCountRequest(8));
-    dispatch(getProductByHitsRequest(8));
     dispatch(getProductByDiscountRequest(8));
     dispatch(getBannerRequest());
     /* eslint-disable react-hooks/exhaustive-deps */

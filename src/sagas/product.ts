@@ -193,6 +193,5 @@ export default all([
   takeLatest(productAction.GET_PRODUCT_REQUEST, getProductF),
   takeLatest(productAction.GET_PRODUCT_BY_COUNT_REQUEST, getProductCountF),
   takeLatest(productAction.GET_PRODUCT_BY_ID_REQUEST, getProductIdF),
-  takeLatest(productAction.GET_PRODUCT_BY_HITS_REQUEST, getProductHitsF),
   takeLatest(productAction.GET_PRODUCT_BY_DISCOUNT_REQUEST, getProductDiscountF)
 ]);
