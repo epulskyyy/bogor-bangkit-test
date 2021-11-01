@@ -20,6 +20,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    a {
+      color: white !important;
+      :hover {
+        color: rgb(207, 207, 207) !important;
+      }
+    }
+
+    h2 {
+      margin: 0;
+    }
   }
 }
 .peb-dropdown-umkm {

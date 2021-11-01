@@ -9,10 +9,8 @@ import {
   List,
   Tooltip,
   Steps,
-  Breadcrumb,
 } from "antd";
 import {
-  ArrowLeftOutlined,
   LinkOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
@@ -24,12 +22,12 @@ import IcLazada from "../../../assets/peb-lazada.svg";
 import IcWhatsapp from "../../../assets/peb-whatsapp.svg";
 import IcFb from "../../../assets/peb-fb.svg";
 import IcIg from "../../../assets/peb-ig.svg";
+import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { useEffect, useState } from "react";
 import { getUserByIdRequest } from "../../../actions/user";
 import { capitalize } from "../../../utils/utils";
-import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import history from "../../../utils/history";
 
 const { TabPane } = Tabs;

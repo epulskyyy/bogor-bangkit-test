@@ -64,7 +64,7 @@ export function* forgotPasswordF(action: any) {
     const response: ResponseGenerator = yield call(forgotPassword, action.data);
     let data = response.data;
     notificationMessage("success", `Berhasil`, `Cek Email`);
-    history.push({ pathname: "reset-password", state: true });
+    action.func()
   } catch (e: any) {
     notificationMessage(
       "error",
@@ -72,7 +72,6 @@ export function* forgotPasswordF(action: any) {
       e?.response?.data?.responseDescription ||
         `Mohon periksa kembali data yang anda masukan`
     );
-    history.push({ pathname: "reset-password", state: false });
   }
 }
 export function* resetPasswordF(action: any) {
@@ -84,7 +83,7 @@ export function* resetPasswordF(action: any) {
     );
     let data = response.data;
     notificationMessage("success", `Berhasil`, `diubah`);
-    history.push({ pathname: "reset-password", state: true });
+    action.func()
   } catch (e: any) {
     notificationMessage(
       "error",

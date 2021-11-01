@@ -24,12 +24,10 @@ export default function ForgotPassword() {
       cancelText: "Batal",
       onOk() {
         notificationLoadingMessage("Tunggu sebentar");
-        const dataForm = {
-          email: "harfik95@gmail.com",
-        };
         dispatch(
-          forgotPasswordRequest(dataForm, () => {
+          forgotPasswordRequest(form.getFieldsValue(), () => {
             history.push("/forgot-password/reset");
+            form.resetFields();
           })
         );
       },
@@ -42,6 +40,7 @@ export default function ForgotPassword() {
         <div className="peb-container-auth-background">
           <div className="peb-card peb-shadow">
             <div className="peb-card-body ">
+              <h3>Lupa Kata Sandi</h3>
               <Form form={form} onFinish={sendEmailForgotPassword}>
                 <Form.Item
                   name="email"
@@ -66,6 +65,8 @@ export default function ForgotPassword() {
                 </Form.Item>
               </Form>
               <div className="peb-text-center">
+                <Link to="/forgot-password/reset">Sudah Punya OTP ?</Link>
+                <br />
                 <Link to="/login">Kembali ke login</Link>
               </div>
             </div>
