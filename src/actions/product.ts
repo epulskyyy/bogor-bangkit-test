@@ -28,6 +28,13 @@ export const getProductByCountSuccess = defaultActionCreator(GET_PRODUCT_BY_COUN
 export const GET_PRODUCT_BY_COUNT_ERROR = 'GET_PRODUCT_BY_COUNT_ERROR'
 export const getProductByCountError = defaultActionCreator(GET_PRODUCT_BY_COUNT_ERROR, 'data')
 
+export const GET_PRODUCT_BY_HITS_REQUEST = 'GET_PRODUCT_BY_HITS_REQUEST'
+export const getProductByHitsRequest = defaultActionCreator(GET_PRODUCT_BY_HITS_REQUEST, 'data')
+export const GET_PRODUCT_BY_HITS_SUCCESS = 'GET_PRODUCT_BY_HITS_SUCCESS'
+export const getProductByHitsSuccess = defaultActionCreator(GET_PRODUCT_BY_HITS_SUCCESS, 'data')
+export const GET_PRODUCT_BY_HITS_ERROR = 'GET_PRODUCT_BY_HITS_ERROR'
+export const getProductByHitsError = defaultActionCreator(GET_PRODUCT_BY_HITS_ERROR, 'data')
+
 export const GET_PRODUCT_BY_ID_REQUEST = 'GET_PRODUCT_BY_ID_REQUEST'
 export const getProductByIDRequest = defaultActionCreator(GET_PRODUCT_BY_ID_REQUEST, 'data')
 export const GET_PRODUCT_BY_ID_SUCCESS = 'GET_PRODUCT_BY_ID_SUCCESS'

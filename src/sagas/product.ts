@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getProduct,
   getProductCount,
+  getProductHits,
   getProductId,
   postProduct,
   putProduct,
@@ -41,10 +42,19 @@ export function* getProductCountF(action: any) {
       getProductCount,
       action.data
     );
+    const response2: ResponseGenerator = yield call(
+      getProductHits,
+      action.data
+    );
     let data = response.data;
+    let data2 = response2.data;
     yield put({
       type: productAction.GET_PRODUCT_BY_COUNT_SUCCESS,
       data,
+    });
+    yield put({
+      type: productAction.GET_PRODUCT_BY_HITS_SUCCESS,
+      data: data2,
     });
   } catch (e: any) {
     yield put({

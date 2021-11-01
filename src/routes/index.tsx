@@ -5,8 +5,11 @@ import { ProtectedRoute } from "./protectedRoute";
 
 import SockJS from "sockjs-client";
 import { EncryptionUtil } from "../utils/Encryption";
-import { ChatMessage } from "../models/ChatOnly";
-import { changeStateChatRequest } from "../actions/chat";
+import {
+  changeStateChatRequest,
+  sendChatSuccess,
+  notificationCount,
+} from "../actions/chat";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../models/RootState";
 import IndexPage from "../components/Page/IndexPage";
@@ -14,33 +17,33 @@ import IndexPage from "../components/Page/IndexPage";
 const Routes = () => {
   const dispatch = useDispatch();
   let stompClients: any = null;
-  const { dataMessage, selectedUserID, notificationCount } = useSelector(
-    (state: RootState) => state.chat
-  );
   let onConnected = () => {
     const user: any = ProtectedRoute()?.data?.user_id;
+    dispatch(changeStateChatRequest("isLoadingWs", false));
     console.log("Connected!!");
-    let messageAdd: ChatMessage[] = dataMessage;
     stompClients.subscribe(
       "/topic/message/" +
         EncryptionUtil.encodeHex(user + "-message-destination"),
       function (msg: any) {
         if (msg.body) {
-          let messageAdd2: ChatMessage[] = messageAdd;
-          let jsonMessage: any = JSON.parse(msg.body);
-          console.log(msg.body);
-          dispatch(
-            changeStateChatRequest("notificationCount", notificationCount + 1)
-          );
+          try {
+            let jsonMessage: any = JSON.parse(msg.body || "{}");
+            console.log(jsonMessage);
+            console.log("====================================");
+            dispatch(
+              changeStateChatRequest("selectedUserID", jsonMessage.sender)
+            );
+            dispatch(sendChatSuccess(jsonMessage));
+          } catch (error) {}
 
-          messageAdd2.push(jsonMessage);
-          dispatch(changeStateChatRequest("selectedUserID", selectedUserID));
-          dispatch(changeStateChatRequest("inputMessage", messageAdd2));
+          dispatch(notificationCount());
         }
       }
     );
   };
   let onDisconnected = () => {
+    dispatch(changeStateChatRequest("isLoadingWs", false));
+
     console.log("Disconnected!!");
   };
   let connectWs = () => {
@@ -62,12 +65,13 @@ const Routes = () => {
     var currentLocation = window.location.pathname;
     if (ProtectedRoute().wsChat) {
       if (!currentLocation.includes("admin")) {
+        dispatch(changeStateChatRequest("isLoadingWs", true));
         connectWs();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.clear();
   return (
     <IndexPage
       title="Bogor Bangkit"

@@ -25,9 +25,6 @@ const Home: React.FC<Props> = ({ authedData }) => {
 
   const imageFlicking = () => {
     let tempArr = [];
-    console.log('====================================');
-    console.log(banner);
-    console.log('====================================');
     for (let index = 0; index < banner?.data?.data?.length; index++) {
       for (const key in banner?.data?.data[index].url_gambar) {
         const element = banner?.data?.data[index].url_gambar[key];

@@ -6,6 +6,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SendOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import IcNoChat from "../../assets/peb-nochat.svg";
 import { UserInfo } from "../../models/ChatOnly";
@@ -39,9 +40,8 @@ const ChatCollapse: React.FC<Props> = ({
   isModal,
   authedData,
 }) => {
-  const { userList, dataMessage, selectedUserID, inputMessage } = useSelector(
-    (state: RootState) => state.chat
-  );
+  const { userList, dataMessage, selectedUserID, inputMessage, isLoadingWs } =
+    useSelector((state: RootState) => state.chat);
   const [collapseSide, setCollapseSide] = useState(true);
   const dispatch = useDispatch();
 
@@ -107,8 +107,31 @@ const ChatCollapse: React.FC<Props> = ({
     };
     dispatch(getHistoryChatRequest(requestBody, () => scrollToTopChat()));
   };
-  useEffect(() => {}, []);
-  return (
+  useEffect(() => {
+    dispatch(changeStateChatRequest("notificationCount", 0));
+    if (Number.isInteger(selectedUserID)) {
+      let uI: any = {};
+      for (let index = 0; index < userList.data.response.length; index++) {
+        const element = userList.data.response[index].conversationWith;
+        if (element.id === selectedUserID) {
+          uI = element;
+          break;
+        }
+      }
+      dispatch(changeStateChatRequest("selectedUserID", uI));
+    }
+  }, [isOpen]);
+  return isLoadingWs ? (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <LoadingOutlined style={{ fontSize: 24 }} spin />
+    </div>
+  ) : (
     <div
       id="pebChatCollape"
       style={{ display: isModal ? (isOpen ? "" : "none") : "flex" }}
@@ -163,9 +186,6 @@ const ChatCollapse: React.FC<Props> = ({
                           item.conversationWith.email}{" "}
                       </Paragraph>
                     }
-                    description={
-                      <Paragraph ellipsis>{item.content} </Paragraph>
-                    }
                   />
                 </List.Item>
               )}
@@ -213,27 +233,33 @@ const ChatCollapse: React.FC<Props> = ({
               id="content-discus"
             >
               <div className="peb-dflex-center">
-                <Button
-                  shape="round"
-                  type="primary"
-                  onClick={() =>
-                    showMore(dataMessage?.data.response.totalDataOnPage + 10)
-                  }
-                >
-                  Tampilkan lebih...
-                </Button>
+                {dataMessage?.data.response.totalDataOnPage !==
+                dataMessage?.data.response.totalData ? (
+                  <Button
+                    shape="round"
+                    type="primary"
+                    onClick={() =>
+                      showMore(dataMessage?.data.response.totalDataOnPage + 10)
+                    }
+                  >
+                    Tampilkan lebih...
+                  </Button>
+                ) : null}
               </div>
-              {dataMessage?.data.response.data?.map((item: any) =>
-                selectedUserID.id !== item.sender ? (
-                  <div className="peb-chat-content-discus-sender mt-1 mb-1">
-                    <label>{item.content}</label>
-                  </div>
-                ) : (
-                  <div className="peb-chat-content-discus-receiver mt-1 mb-1">
-                    <label>{item.content}</label>
-                  </div>
-                )
-              )}
+              {dataMessage?.data.response.data
+                ?.slice()
+                .reverse()
+                .map((item: any) =>
+                  selectedUserID.id !== item.sender ? (
+                    <div className="peb-chat-content-discus-sender mt-1 mb-1">
+                      <label>{item.content}</label>
+                    </div>
+                  ) : (
+                    <div className="peb-chat-content-discus-receiver mt-1 mb-1">
+                      <label>{item.content}</label>
+                    </div>
+                  )
+                )}
             </div>
             <div className="peb-chat-content-text">
               <form onSubmit={sendMessage}>

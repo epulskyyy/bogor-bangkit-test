@@ -39,6 +39,7 @@ export interface ProductRoot {
   data2: any;
   dataSearch: any;
   dataCount: any;
+  dataHits: any;
   dataId: any;
   isLoading: any;
   isLoadingId: any;
@@ -53,6 +54,7 @@ export interface ChatRoot {
   userList: any;
   users: any;
   selectedUserID: any;
+  isLoadingWs:any
   isLoading: any;
   isMessageLoading: any;
   isSendLoading: any;
