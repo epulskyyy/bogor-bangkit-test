@@ -39,7 +39,7 @@ const InfoWisataDetails: React.FC<Props> = ({ authedData }) => {
       getInfoWisataRequest({ perPage: 10, page: 1, name: "", location: "" })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
   const onBack = () => {
     history.push("/info-wisata");
   };
