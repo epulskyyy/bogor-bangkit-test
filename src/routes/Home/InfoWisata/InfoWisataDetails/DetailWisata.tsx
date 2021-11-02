@@ -47,7 +47,7 @@ export default function DetailWisata() {
   );
   return (
     <div>
-      <div className="peb-user">
+      <div className="peb-user ">
         <div className="peb-user-avatar">
           <img
             src={dataId.data.url_gambar[0] || UserImage}

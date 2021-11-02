@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { MoreOutlined } from "@ant-design/icons";
 import UserImage from "../../../assets/peb-user.svg";
+import { Link } from "react-router-dom";
 
 export default function Umkm() {
   const { data } = useSelector((state: RootState) => state.user);
@@ -49,12 +50,14 @@ export default function Umkm() {
     <div>
       <div className="peb-user">
         <div className="peb-user-avatar">
-          <img src={data?.data?.profil_gambar||UserImage} alt="" />
+          <img src={data?.data?.profil_gambar || UserImage} alt="" />
         </div>
         <div className="peb-user-name">
-          <h3 className="peb-text-bold ">
-            {data?.data?.nama_umkm?.toUpperCase() || "-"}
-          </h3>
+          <h2 className="peb-text-bold ">
+            <Link to={"/umkm/" + data?.data?.id}>
+              {data?.data?.nama_umkm?.toUpperCase() || "-"}
+            </Link>
+          </h2>
           <Dropdown
             className="peb-dropdown-umkm ml-2"
             overlay={menu}
@@ -83,7 +86,7 @@ export default function Umkm() {
             className="peb-link-social mr-1"
           >
             {" "}
-            <img alt="" src={IcFb} />
+            <img alt="" src={IcIg} />
           </a>
         ) : null}
         {detailUmkm?.facebook != null || detailUmkm?.facebook !== "" ? (
@@ -93,7 +96,7 @@ export default function Umkm() {
             className="peb-link-social mr-1"
           >
             {" "}
-            <img alt="" src={IcIg} />
+            <img alt="" src={IcFb} />
           </a>
         ) : null}
       </div>

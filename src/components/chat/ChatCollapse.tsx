@@ -118,6 +118,9 @@ const ChatCollapse: React.FC<Props> = ({
           break;
         }
       }
+      console.log("====================================");
+      console.log("ui", uI);
+      console.log("====================================");
       dispatch(changeStateChatRequest("selectedUserID", uI));
     }
   }, [isOpen]);
@@ -249,15 +252,15 @@ const ChatCollapse: React.FC<Props> = ({
                 ?.slice()
                 .reverse()
                 .map((item: any) =>
-                  selectedUserID.id !== item.sender ? (
+                  selectedUserID.id === item.receiver ? (
                     <div className="peb-chat-content-discus-sender mt-1 mb-1">
                       <label>{item.content}</label>
                     </div>
-                  ) : (
+                  ) : selectedUserID.id === item.sender ? (
                     <div className="peb-chat-content-discus-receiver mt-1 mb-1">
                       <label>{item.content}</label>
                     </div>
-                  )
+                  ) : null
                 )}
             </div>
             <div className="peb-chat-content-text">

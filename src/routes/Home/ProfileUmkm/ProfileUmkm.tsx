@@ -8,9 +8,12 @@ import {
   Col,
   List,
   Tooltip,
-  Divider,
+  Steps,
 } from "antd";
-import { LinkOutlined, WechatOutlined } from "@ant-design/icons";
+import {
+  LinkOutlined,
+  WechatOutlined,
+} from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 
 import IcShopee from "../../../assets/peb-shopee.svg";
@@ -19,15 +22,17 @@ import IcLazada from "../../../assets/peb-lazada.svg";
 import IcWhatsapp from "../../../assets/peb-whatsapp.svg";
 import IcFb from "../../../assets/peb-fb.svg";
 import IcIg from "../../../assets/peb-ig.svg";
+import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../models/RootState";
 import { useEffect, useState } from "react";
 import { getUserByIdRequest } from "../../../actions/user";
 import { capitalize } from "../../../utils/utils";
-import IcBukalapak from "../../../assets/peb-bukalapak.svg";
+import history from "../../../utils/history";
 
 const { TabPane } = Tabs;
 
+const { Step } = Steps;
 type Props = {
   authedData?: any;
 };
@@ -35,21 +40,6 @@ const ProfileUmkm: React.FC<Props> = ({ authedData }) => {
   const product = useSelector((state: RootState) => state.product);
 
   const { id }: any = useParams();
-
-  const routes = [
-    {
-      path: "/",
-      breadcrumbName: "Beranda",
-    },
-    {
-      path: "/umkm",
-      breadcrumbName: "UMKM",
-    },
-    {
-      path: "",
-      breadcrumbName: "Nama Usaha",
-    },
-  ];
 
   function callback(key: any) {
     console.log(key);
@@ -85,123 +75,142 @@ const ProfileUmkm: React.FC<Props> = ({ authedData }) => {
   };
   const content = (
     <>
-      <Row>
-        <Col xl={3}>
-          <div className="">
-            {data.data?.no_hp ? (
-              <Button
-                type="link"
-                icon={<img alt="" src={IcWhatsapp} />}
-                size="middle"
-                onClick={() => openWhatsapp(data.data?.no_hp)}
-              >
-                {data.data?.no_hp}
-              </Button>
-            ) : null}
-          </div>
-        </Col>
-      </Row>
-      <List itemLayout="horizontal">
-        <List.Item>
-          <List.Item.Meta
-            title="Nomor Usaha"
-            description={data.data?.umkm_detail?.no_regis_umkm}
-          />
-        </List.Item>
-        <List.Item>
-          <List.Item.Meta
-            title="Alamat Usaha"
-            description={data.data?.umkm_detail?.alamat_umkm}
-          />
-        </List.Item>
-        <List.Item>
-          <List.Item.Meta
-            title="Klasifikasi Usaha"
-            description={data.data?.umkm_detail?.klasifikasi_umkm}
-          />
-        </List.Item>
-      </List>
-      <h3>Sosial Media</h3>
-      {data.data?.umkm_detail ? (
-        <div className="peb-umkm-modal-social">
-          {data.data?.umkm_detail?.instagram !== "" ? (
-            <Tooltip placement="top" title={"instagrem"}>
-              <a
-                href={`${data.data?.umkm_detail?.instagram}`}
-                target="_blank"
-                className="peb-link-social mr-1"
-              >
-                {" "}
-                <img alt="" src={IcIg} />
-              </a>
-            </Tooltip>
-          ) : null}
-          {data.data?.umkm_detail?.facebook !== "" ? (
-            <Tooltip placement="top" title={"facebook"}>
-              <a
-                href={`${data.data?.umkm_detail?.facebook}`}
-                target="_blank"
-                className="peb-link-social mr-1"
-              >
-                {" "}
-                <img alt="" src={IcFb} />
-              </a>
-            </Tooltip>
-          ) : null}
-        </div>
-      ) : (
-        "-"
-      )}
-      <h3>E-commerce</h3>
-      {data.data?.umkm_detail ? (
-        <div className="peb-umkm-modal-social">
-          {data.data?.umkm_detail?.shopee_url !== "" ? (
-            <Tooltip placement="top" title={"shopee"}>
-              <a
-                href={data.data?.umkm_detail?.shopee_url}
-                className="peb-link-social mr-1"
-              >
-                <img alt="" src={IcShopee} />
-              </a>
-            </Tooltip>
-          ) : null}
+      <Tabs defaultActiveKey="umkm" onChange={callback}>
+        <TabPane tab="Info Alamat Usaha" key="umkm">
+          <Row>
+            <Col xl={3}>
+              <div className="">
+                {data.data?.no_hp ? (
+                  <Button
+                    type="link"
+                    icon={<img alt="" src={IcWhatsapp} />}
+                    size="middle"
+                    onClick={() => openWhatsapp(data.data?.no_hp)}
+                  >
+                    {" " + data.data?.no_hp}
+                  </Button>
+                ) : null}
+              </div>
+            </Col>
+          </Row>
+          <List itemLayout="horizontal">
+            <List.Item>
+              <List.Item.Meta
+                title="Nomor Usaha"
+                description={data.data?.umkm_detail?.no_regis_umkm}
+              />
+            </List.Item>
+            <List.Item>
+              <List.Item.Meta
+                title="Alamat Usaha"
+                description={data.data?.umkm_detail?.alamat_umkm}
+              />
+            </List.Item>
+            <List.Item>
+              <List.Item.Meta
+                title="Klasifikasi Usaha"
+                description={data.data?.umkm_detail?.klasifikasi_umkm}
+              />
+            </List.Item>
+          </List>
+        </TabPane>
+        <TabPane tab="Sosial Media & E-commerce" key="sosmed">
+          {data.data?.umkm_detail ? (
+            <div className="peb-umkm-modal-social">
+              {data.data?.umkm_detail?.instagram !== "" ? (
+                <Tooltip placement="top" title={"instagrem"}>
+                  <a
+                    href={`${data.data?.umkm_detail?.instagram}`}
+                    target="_blank"
+                    className="peb-link-social mr-1 mb-2"
+                  >
+                    {" "}
+                    <img alt="" src={IcIg} />
+                  </a>
+                </Tooltip>
+              ) : null}
+              {data.data?.umkm_detail?.facebook !== "" ? (
+                <Tooltip placement="top" title={"facebook"}>
+                  <a
+                    href={`${data.data?.umkm_detail?.facebook}`}
+                    target="_blank"
+                    className="peb-link-social mr-1 mb-2"
+                  >
+                    {" "}
+                    <img alt="" src={IcFb} />
+                  </a>
+                </Tooltip>
+              ) : null}
+            </div>
+          ) : (
+            "-"
+          )}
+          <br />
+          {data.data?.umkm_detail ? (
+            <div className="peb-umkm-modal-social">
+              {data.data?.umkm_detail?.shopee_url !== "" ? (
+                <Tooltip placement="top" title={"shopee"}>
+                  <a
+                    href={data.data?.umkm_detail?.shopee_url}
+                    className="peb-link-social mr-1"
+                  >
+                    <img alt="" src={IcShopee} />
+                  </a>
+                </Tooltip>
+              ) : null}
 
-          {data.data?.umkm_detail?.tokped_url !== "" ? (
-            <Tooltip placement="top" title={"tokopedia"}>
-              <a
-                href={data.data?.umkm_detail?.tokped_url}
-                className="peb-link-social mr-1"
-              >
-                <img alt="" src={IcTokped} />
-              </a>
-            </Tooltip>
-          ) : null}
+              {data.data?.umkm_detail?.tokped_url !== "" ? (
+                <Tooltip placement="top" title={"tokopedia"}>
+                  <a
+                    href={data.data?.umkm_detail?.tokped_url}
+                    className="peb-link-social mr-1"
+                  >
+                    <img alt="" src={IcTokped} />
+                  </a>
+                </Tooltip>
+              ) : null}
 
-          {data.data?.umkm_detail?.lazada_url !== "" ? (
-            <Tooltip placement="top" title={"lazada"}>
-              <a
-                href={data.data?.umkm_detail?.lazada_url}
-                className="peb-link-social mr-1"
-              >
-                <img alt="" src={IcLazada} />
-              </a>
-            </Tooltip>
-          ) : null}
+              {data.data?.umkm_detail?.lazada_url !== "" ? (
+                <Tooltip placement="top" title={"lazada"}>
+                  <a
+                    href={data.data?.umkm_detail?.lazada_url}
+                    className="peb-link-social mr-1"
+                  >
+                    <img alt="" src={IcLazada} />
+                  </a>
+                </Tooltip>
+              ) : null}
 
-          {data.data?.umkm_detail?.bukalapak_url !== "" ? (
-            <Tooltip placement="top" title={"bukalapak"}>
-              <a
-                href={data.data?.umkm_detail?.bukalapak_url}
-                className="peb-link-social mr-1"
-              >
-                <img alt="" src={IcBukalapak} />
-              </a>
-            </Tooltip>
-          ) : null}
-        </div>
-      ) : (
-        "-"
-      )}
+              {data.data?.umkm_detail?.bukalapak_url !== "" ? (
+                <Tooltip placement="top" title={"bukalapak"}>
+                  <a
+                    href={data.data?.umkm_detail?.bukalapak_url}
+                    className="peb-link-social mr-1"
+                  >
+                    <img alt="" src={IcBukalapak} />
+                  </a>
+                </Tooltip>
+              ) : null}
+            </div>
+          ) : (
+            "-"
+          )}
+        </TabPane>
+        <TabPane tab="Legalitas" key="Legalitas">
+          {data?.data?.legalitas != null &&
+          Array.isArray(data?.data?.legalitas) ? (
+            <List itemLayout="horizontal">
+              {data?.data?.legalitas?.map((v: any, k: any) => (
+                <List.Item>{v}</List.Item>
+              ))}
+            </List>
+          ) : data?.data?.legalitas != null ? (
+            <p>{data?.data?.legalitas}</p>
+          ) : (
+            <p>Tidak ada informasi</p>
+          )}
+        </TabPane>
+      </Tabs>
     </>
   );
 
@@ -211,12 +220,15 @@ const ProfileUmkm: React.FC<Props> = ({ authedData }) => {
       <div className="image">{extraContent}</div>
     </Row>
   );
+  const goBack = () => {
+    history.goBack();
+  };
   return (
-    <Container title="Profil UMKM">
+    <Container authedData={authedData} title="Profil UMKM">
       <div className="container ">
         <PageHeader
           title={capitalize(data.data?.nama_umkm)}
-          className="site-page-header"
+          className="site-page-header mt-2"
           //   subTitle="This is a subtitle"
           tags={
             <>
@@ -250,9 +262,8 @@ const ProfileUmkm: React.FC<Props> = ({ authedData }) => {
           avatar={{
             src: data.data?.profil_gambar,
           }}
-          breadcrumb={{ routes }}
         >
-          <Content>{content}</Content>
+          <Content authedData={authedData}>{content}</Content>
         </PageHeader>
       </div>
     </Container>

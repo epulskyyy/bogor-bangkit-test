@@ -68,40 +68,6 @@ const InfoWisataDetails: React.FC<Props> = ({ authedData }) => {
       </div>
       <Footer authedData={authedData} />
     </Layout>
-    /* <div className="container mt-2 mb-2">
-        <Spin spinning={infoWisata.isLoading} tip="Memuat...">
-          {infoWisata.isLoading ? (
-            <> </>
-          ) : infoWisata.dataId ? (
-            <>
-              <h2>{capitalize(infoWisata.dataId?.data.nama_wisata)}</h2>
-              <Image.PreviewGroup>
-                {imageFlicking().map((v: any, k: any) => (
-                  <Image key={k} style={{ maxWidth: "200px" }} src={v} />
-                ))}
-              </Image.PreviewGroup>
-              <h5>Lokasi : {infoWisata.dataId?.data.lokasi_wisata}</h5>
-              <h5>Nomor Hp : {infoWisata.dataId?.data.no_hp}</h5>
-              <Paragraph
-                ellipsis={{ rows: 4, expandable: true, symbol: "lihat lagi" }}
-              >
-                {infoWisata.dataId?.data.deskripsi_wisata}
-              </Paragraph>
-            </>
-          ) : (
-            <Result
-              status="404"
-              title="404"
-              subTitle="Maaf, Wisata tidak ditemukan."
-              extra={
-                <Button onClick={onBack} type="primary">
-                  Info Wisata Kota Bogor
-                </Button>
-              }
-            />
-          )}
-        </Spin>
-      </div> */
   );
 };
 export default InfoWisataDetails;

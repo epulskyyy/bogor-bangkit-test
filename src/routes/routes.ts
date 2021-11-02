@@ -17,16 +17,16 @@ import ResetPassword from "./Dashboard/ResetPassword";
 
 import AuthAdmin from "./DashboardAdmin/AuthAdmin";
 
-// import ForgotPassword from "./Auth/ForgotPassword";
-// import ForgotPasswordReset from "./Auth/ForgotPassowrdReset";
+import ForgotPassword from "./Auth/ForgotPassword";
+import ForgotPasswordReset from "./Auth/ForgotPassowrdReset";
 
 export const routes = [
-  // {
-  //   path: "/forgot-password/reset",
-  //   component: ForgotPasswordReset,
-  //   exact: true,
-  // },
-  // { path: "/forgot-password", component: ForgotPassword, exact: true },
+  {
+    path: "/forgot-password/reset",
+    component: ForgotPasswordReset,
+    exact: true,
+  },
+  { path: "/forgot-password", component: ForgotPassword, exact: true },
   { path: "/faq", component: Faq, exact: true },
   { path: "/info-wisata/:id", component: InfoWisataDetails, exact: true },
   { path: "/info-wisata", component: InfoWisata, exact: true },
