@@ -169,15 +169,15 @@ export default function Home() {
             <h3>Jumlah User Per Klasifikasi UMKM</h3>
             <Doughnut
               data={{
-                labels: dahsboard.chart?.produk?.map(
+                labels: dahsboard.chart?.user?.map(
                   ({ nama_klasifikasi }: any) => nama_klasifikasi
                 ),
                 datasets: [
                   {
-                    data: dahsboard.chart?.produk?.map(
+                    data: dahsboard.chart?.user?.map(
                       ({ jumlah_user }: any) => jumlah_user
                     ),
-                    backgroundColor: dahsboard.chart?.produk?.map(() =>
+                    backgroundColor: dahsboard.chart?.user?.map(() =>
                       randomRGB()
                     ),
                   },

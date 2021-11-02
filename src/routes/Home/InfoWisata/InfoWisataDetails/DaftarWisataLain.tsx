@@ -27,7 +27,7 @@ export default function DaftarWisataLain() {
               <Skeleton avatar title={false} loading={item.loading} active>
                 <List.Item.Meta
                   avatar={<Avatar src={item.url_gambar[0]} />}
-                  title={<a href="https://ant.design">{item.nama_wisata}</a>}
+                  title={<Link to={"/info-wisata/" + item.id}>{item.nama_wisata}</Link>}
                   description={
                     <Paragraph ellipsis>{item.deskripsi_wisata} </Paragraph>
                   }
