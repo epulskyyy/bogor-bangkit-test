@@ -75,12 +75,12 @@ const Auth: React.FC = () => {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Logo size="small" />
                   <div className="peb-dflex-center ml-1">
-                    <h4
+                    {/* <h4
                       className="peb-text-bold mr-1 peb-text-blue"
                       style={{ margin: "0px" }}
                     >
                       Bogor Bangkit
-                    </h4>
+                    </h4> */}
 
                     <h3 className="peb-text-bold" style={{ margin: "0px" }}>
                       Masuk
