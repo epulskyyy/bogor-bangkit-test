@@ -10,7 +10,7 @@ type Props = {
 
 const HomeProducts: React.FC<Props> = ({ title, data }) => {
   return (
-    <>
+    <div style={{ marginLeft: "120px" ,marginRight:'100px' }}>
       <Divider orientation="left" className="peb-text-bold">
         {title}
       </Divider>
@@ -26,7 +26,7 @@ const HomeProducts: React.FC<Props> = ({ title, data }) => {
           Lihat Semua
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 
