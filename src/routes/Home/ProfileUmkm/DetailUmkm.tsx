@@ -23,6 +23,8 @@ import IcBukalapak from "../../../assets/peb-bukalapak.svg";
 import Container from "../components/Container";
 import { LinkOutlined, WechatOutlined } from "@ant-design/icons";
 import { capitalize } from "../../../utils/utils";
+import Map from "./MapPicker";
+import Avatar from "antd/lib/avatar/avatar";
 
 const { TabPane } = Tabs;
 
@@ -259,6 +261,17 @@ const DetailUmkm: React.FC<Props> = ({ authedData }) => {
         >
           <Content>{renderContent(data)}</Content>
         </PageHeader>
+        <Map
+          icon={<Avatar src={data.data?.profil_gambar} />}
+          data={{
+            title: capitalize(data.data?.nama_umkm),
+            description: "",
+            position: [
+              data?.data?.longitude ?? -6.597916984998104,
+              data?.data?.latitude ?? 106.79841288409595,
+            ],
+          }}
+        />
       </div>
     </Container>
   );

@@ -1,3 +1,5 @@
+import { LatLngExpression } from "leaflet";
+
 /* eslint-disable no-useless-escape */
 export const formItemLayoutR = {
   labelCol: {
@@ -21,6 +23,10 @@ export const messageValidate = (
     return nameField + "Harus terdiri dari " + length + " digit";
   return "";
 };
+
+export const _bogor_mark_map: LatLngExpression = [
+  -6.597916984998104, 106.79841288409595,
+];
 
 export const kecamatanBogor = [
   {

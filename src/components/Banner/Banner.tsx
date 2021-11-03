@@ -3,6 +3,9 @@ import { Pagination, AutoPlay, Fade } from "@egjs/flicking-plugins";
 import "@egjs/flicking-plugins/dist/arrow.css";
 import "./reactFlicking.css";
 
+import "@egjs/react-flicking/dist/flicking.css";
+import "@egjs/react-flicking/dist/flicking-inline.css";
+
 /**
  * Create banner with master key.
  * @param {Object} data to be list banner
@@ -24,7 +27,6 @@ const Banner: React.FC<Props> = ({ data }) => {
       <Flicking
         circular={true}
         plugins={_plugins}
-        // resizeOnContentsReady={true}
         adaptive={true}
       >
         {data()?.map((v: any, k: any) => (

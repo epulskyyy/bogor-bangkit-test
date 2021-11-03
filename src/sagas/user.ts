@@ -25,6 +25,27 @@ export function* getAllUserF(action: any) {
   }
 }
 
+export function* getAllUserInfiniteF(action: any) {
+  try {
+    const response: ResponseGenerator = yield call(
+      getAllUser,
+      action.perPage,
+      action.status,
+      action.page
+    );
+    let data = response.data;
+    yield put({
+      type: userAction.GET_ALL_USER_INFINITE_SUCCESS,
+      data,
+      dataCurrent: action.dataCurrent,
+    });
+  } catch (e: any) {
+    yield put({
+      type: userAction.GET_ALL_USER_INFINITE_ERROR,
+      data: e,
+    });
+  }
+}
 export function* getUserByIdF(action: any) {
   try {
     const response: ResponseGenerator = yield call(getUserById, action.id);
@@ -68,6 +89,7 @@ export function* editProfileF(action: any) {
   }
 }
 export default all([
+  takeLatest(userAction.GET_ALL_USER_INFINITE_REQUEST, getAllUserInfiniteF),
   takeLatest(userAction.GET_ALL_USER_REQUEST, getAllUserF),
   takeLatest(userAction.GET_USER_BY_ID_REQUEST, getUserByIdF),
   takeLatest(userAction.EDIT_PROFILE_REQUEST, editProfileF),
