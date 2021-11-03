@@ -21,11 +21,13 @@ const UmkmContent: React.FC<Props> = ({ authedData }) => {
             <h3 style={{ margin: 0 }}>
               <ContactsOutlined /> DAFTAR UMKM
             </h3>
-            <Col xl={0} lg={0} md={0} sm={3} xs={3}>
+            <Col xl={0} lg={0} md={0} sm={6} xs={6}>
               <Button
                 onClick={() => setVisible(true)}
                 icon={<PicRightOutlined />}
-              />
+              >
+                Lainnya
+              </Button>
             </Col>
 
             <Drawer
