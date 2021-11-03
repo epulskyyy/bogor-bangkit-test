@@ -7,11 +7,11 @@ type Props = {
 };
 const MapPicker: React.FC<Props> = ({ data, icon }) => {
   return (
-    <div className=" mt-5">
+    <div className=" mt-5" style={{ height: "300px", overflow: "hidden" }}>
       <MapContainers
         zoom={15}
         width="800px"
-        height="300px"
+        height="320px"
         position={data.position}
       >
         <Map icon={icon} places={data} selectedId={null} />
