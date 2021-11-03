@@ -12,7 +12,6 @@
 }
 .peb-card-2 {
   background-color: #fff;
-  border-radius: 10px;
   max-width: 500px;
   &-product-image {
     overflow: hidden;
@@ -48,9 +47,26 @@
     font-size: 18px;
     margin: 0;
   }
+  &:hover {
+    .produk-view-title {
+      transition: all 0.3s ease-in-out;
+      bottom: 0;
+    }
+  }
+  .produk-view-title {
+    position: absolute;
+    bottom: -21px;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+    background-color: $orange;
+    transition: all 0.3s ease-in-out;
+    color: white !important;
+  }
 }
 .product-card {
-  border-radius: 10px;
   .ant-card-body {
     padding: 0 !important;
   }

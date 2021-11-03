@@ -2,10 +2,10 @@
 @import "./src/styles/mixin";
 .peb-category {
   cursor: pointer;
-  width: 100%;
+  width: 150px;
   overflow: hidden;
   display: flex;
-  height: 70px;
+  height: 150px;
   align-items: center;
   position: relative;
   background-color: #fafafa;
@@ -25,19 +25,19 @@
     justify-content: center;
     z-index: 2;
 
-    &::before {
-      content: "";
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      left: -20px;
-      top: -10px;
-      background: #ff824d;
-      background: linear-gradient(90deg, #ff824d, rgba(0, 212, 255, 0) 100%);
-      z-index: -1;
-      transition: all 0.3s ease-in-out;
-    }
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   width: 90px;
+    //   height: 90px;
+    //   border-radius: 50%;
+    //   left: -20px;
+    //   top: -10px;
+    //   background: #ff824d;
+    //   background: linear-gradient(90deg, #ff824d, rgba(0, 212, 255, 0) 100%);
+    //   z-index: -1;
+    //   transition: all 0.3s ease-in-out;
+    // }
   }
   &-right {
     width: 100%;
@@ -47,7 +47,7 @@
   &-label {
     cursor: pointer;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 24px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -59,20 +59,20 @@
   &:hover {
     .peb-category {
       &-left {
-        &::before {
-          width: 100%;
-          height: 70px;
-          border-radius: unset;
-          left: 0;
-          top: 0;
-          background: #ff824d;
-          background: linear-gradient(
-            90deg,
-            #ff824d,
-            rgba(0, 212, 255, 0) 100%
-          );
-          transition: all 0.3s ease-in-out;
-        }
+        // &::before {
+        //   width: 100%;
+        //   height: 70px;
+        //   border-radius: unset;
+        //   left: 0;
+        //   top: 0;
+        //   background: #ff824d;
+        //   background: linear-gradient(
+        //     90deg,
+        //     #ff824d,
+        //     rgba(0, 212, 255, 0) 100%
+        //   );
+        //   transition: all 0.3s ease-in-out;
+        // }
       }
       &-label {
         color: white;

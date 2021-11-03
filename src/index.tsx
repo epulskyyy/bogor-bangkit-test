@@ -3,7 +3,10 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import configureStore, { history } from "./utils/configureStore";
+
+import "./assets/font/Signika_Negative/SignikaNegative-Regular.ttf";
 import "./styles/antd.css";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

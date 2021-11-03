@@ -129,7 +129,17 @@ h3.peb-product-price-text {
     background-color: lightblue;
   }
 }
+.peb-dropdown {
+  background-color: $blue !important;
+  color: white;
+}
 
+.product-title-tags {
+  border-bottom: 2px solid $orange;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: white;
+}
 @media (max-width: 499px) {
   h3.peb-product-price-text {
     font-size: 12px;
