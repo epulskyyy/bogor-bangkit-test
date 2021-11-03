@@ -1,0 +1,8 @@
+div.flicking-viewport {
+  height: 500px !important;
+}
+@media (min-width: 100px) {
+  div.flicking-viewport {
+    height: unset !important;
+  }
+}

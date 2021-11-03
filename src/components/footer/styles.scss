@@ -1,10 +1,52 @@
 .peb-footer {
-  background-color: #fafafa;
+  background-color: #ffa057;
+  h3 {
+    color: white;
+  }
+  color: white;
   margin-top: auto !important;
   &-list {
     display: flex;
   }
 }
-.peb-list{
-    padding: 0;
+.peb-list {
+  padding: 0;
+  margin-left: 15px;
+  &-link {
+    position: relative;
+    padding: 2px;
+    z-index: 2;
+    .icon-list {
+      position: absolute;
+      transition: all 0.3s ease-in-out;
+      left: -15px;
+    }
+    color: white;
+    &:hover {
+      .icon-list {
+        color: white;
+        left: unset;
+        transition: all 0.3s ease-in-out;
+        right: -15px !important;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      width: 0;
+      height: 100%;
+      background-color: #ffffff;
+      transition: all 0.3s ease-in-out;
+      left: 0;
+    }
+    &:hover {
+      color: #ffa057;
+      &::before {
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
 }

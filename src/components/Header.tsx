@@ -1,8 +1,9 @@
-import { Button, Dropdown, Menu, Tooltip } from "antd";
+import { Avatar, Button, Dropdown, Menu, Tooltip } from "antd";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   AppstoreOutlined,
+  DownOutlined,
   LogoutOutlined,
   MailOutlined,
   ProfileOutlined,
@@ -61,6 +62,7 @@ const Header: React.FC<Props> = ({ authedData }) => {
   );
   const userMenu = (
     <Menu>
+      <Menu.Item>{authedData?.username}</Menu.Item>
       <Menu.Item>
         <Button
           icon={<ProfileOutlined />}
@@ -97,13 +99,17 @@ const Header: React.FC<Props> = ({ authedData }) => {
           <SearchComp />
           <ul className="peb-list peb-list-flex ml-2 mr-2">
             <li className="mr-2">
-              <Dropdown overlay={menu} placement="bottomRight">
+              <Dropdown
+                overlay={menu}
+                placement="bottomRight"
+                trigger={["click"]}
+              >
                 <Button
-                  type="link"
-                  className="ant-dropdown-link"
+                  type="primary"
+                  className="peb-dropdown"
                   onClick={(e) => e.preventDefault()}
                 >
-                  Kategori
+                  Kategori <DownOutlined />
                 </Button>
               </Dropdown>
             </li>
@@ -111,7 +117,10 @@ const Header: React.FC<Props> = ({ authedData }) => {
               <>
                 <li>
                   <Tooltip placement="bottom" title="Pesan">
-                    <Button type="link" onClick={() => history.push("/chat")}>
+                    <Button
+                      type="primary"
+                      onClick={() => history.push("/chat")}
+                    >
                       <MailOutlined />
                     </Button>
                   </Tooltip>
@@ -127,31 +136,28 @@ const Header: React.FC<Props> = ({ authedData }) => {
           <Dropdown
             className="peb-navbar-user"
             overlay={userMenu}
+            trigger={["click"]}
             placement="bottomRight"
           >
-            <div className="peb-navbar-top-auth-logged">
-              <label>
-                {authedData?.username?.slice(
-                  0,
-                  authedData?.username.length >= 20 ? 20 : 10
-                )}
-                ...
-              </label>
-              <div className="peb-navbar-top-auth-img">
-                <img alt="" src={UserImage} />
-              </div>
-            </div>
+            <Avatar
+              style={{ cursor: "pointer" }}
+              icon={<img alt="" src={UserImage} />}
+            />
           </Dropdown>
         ) : (
           <div className="peb-navbar-top-auth">
             <div className="peb-navbar-top-auth-not">
-              <Link className="left" to="/login">MASUK</Link>
-              <Link className="right" to="/register">DAFTAR</Link>
+              <Link className="left" to="/login">
+                MASUK
+              </Link>
+              <Link className="right" to="/register">
+                DAFTAR
+              </Link>
             </div>
           </div>
         )}
       </div>
-      <div className="peb-navbar-bottom">
+      <div className="peb-navbar-bottom peb-bg-orange">
         <ul>
           <li>
             <Link className="peb-navbar-bottom-link" to="/info-wisata">

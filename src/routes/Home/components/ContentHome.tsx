@@ -8,10 +8,10 @@ const ContentHome = () => {
 
   return (
     <>
+      <HomeCategory />
       <HomeProducts title="PRODUK DISKON" data={product?.dataDiscount} />
       <HomeProducts title="PRODUK HITS" data={product?.dataHits} />
       <HomeProducts title="PRODUK UMKM" data={product?.dataCount} />
-      <HomeCategory />
     </>
   );
 };

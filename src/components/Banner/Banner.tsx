@@ -31,7 +31,7 @@ const Banner: React.FC<Props> = ({ data }) => {
           <>
             <div
               key={k}
-              className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel"
+              className="flicking-panel has-background-white has-text-dark is-size-1 card card-panel panel-banner"
             >
               <img className="panel-image" alt="" src={v} />
             </div>
