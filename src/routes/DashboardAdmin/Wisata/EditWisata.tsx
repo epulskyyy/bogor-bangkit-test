@@ -8,6 +8,7 @@ import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import ImgCrop from "antd-img-crop";
 import { endPoint } from "../../../utils/env";
+import { Editor } from "@tinymce/tinymce-react";
 import {
   getInfoWisataRequest,
   updateInfoWisataRequest,
@@ -31,6 +32,9 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [fileLists, setFileLists] = useState<any>([]);
+  const [deskripsiWisata, setDeskripsiWisata] = useState<any>(
+    obj?.deskripsi_wisata
+  );
 
   const showDrawer = () => {
     setVisible(true);
@@ -124,7 +128,7 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
       const dataForm = {
         nama_wisata: getFieldValue("nama_wisata"),
         lokasi_wisata: getFieldValue("lokasi_wisata"),
-        deskripsi_wisata: getFieldValue("deskripsi_wisata"),
+        deskripsi_wisata: deskripsiWisata,
         url_gambar: imageUploads,
         url_socmed: {
           website: getFieldValue("website"),
@@ -438,22 +442,36 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
-                rules={[
-                  (value) => ({
-                    validator(rule, value) {
-                      if (value != null) {
-                        if (!xssValidBool(value)) {
-                          return Promise.reject("Masukan tidak valid");
-                        }
-                      }
-                      return Promise.resolve();
-                    },
-                  }),
-                ]}
-                name="deskripsi_wisata"
+                // rules={[
+                //   (value) => ({
+                //     validator(rule, value) {
+                //       if (value != null) {
+                //         if (!xssValidBool(value)) {
+                //           return Promise.reject("Masukan tidak valid");
+                //         }
+                //       }
+                //       return Promise.resolve();
+                //     },
+                //   }),
+                // ]}
+                // name="deskripsi_wisata"
                 label="Deskripsi Wisata"
               >
-                <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" />
+                <Editor
+                  value={deskripsiWisata}
+                  initialValue={obj?.deskripsi_wisata}
+                  init={{
+                    height: 500,
+                    menubar: false,
+                  }}
+                  onEditorChange={(e) => {
+                    setDeskripsiWisata(e);
+                    console.log(e);
+                    
+                  }}
+                  tagName="deskripsi_wisata"
+                />
+                {/* <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" /> */}
               </Form.Item>
             </Col>
           </Row>

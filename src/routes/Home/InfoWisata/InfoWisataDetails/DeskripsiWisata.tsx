@@ -40,7 +40,9 @@ export default function DeskripsiWisata() {
       >
         <TabPane tab="Deskripsi Wisata" key="deskripsi-wisata">
           <div className="deskripsi-container ">
-            <Text>{dataId.data.deskripsi_wisata}</Text>
+            <div
+              dangerouslySetInnerHTML={{ __html: dataId.data.deskripsi_wisata }}
+            ></div>
           </div>
         </TabPane>
         <TabPane tab="Galeri Gambar">
