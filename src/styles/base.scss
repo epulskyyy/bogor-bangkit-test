@@ -140,6 +140,38 @@ h3.peb-product-price-text {
   padding-top: 10px;
   background-color: white;
 }
+.map__container {
+  width: 600px;
+}
+
+#map {
+  height: 180px;
+}
+
+.umkm-list-item {
+  overflow: hidden;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  &:hover {
+    background-color: rgb(255, 250, 240);
+    .umkm-list-item-link {
+      transition: all 0.3s ease-in-out;
+      transform: translateX(0);
+    }
+  }
+  &-link {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(18px);
+  }
+  &.selected {
+    background-color: rgb(255, 250, 240);
+  }
+}
+#scrollableDiv.peb-srollable {
+  padding: 0px !important;
+}
 @media (max-width: 499px) {
   h3.peb-product-price-text {
     font-size: 12px;

@@ -4,8 +4,8 @@ import "./category.css";
 import { useSelector } from "react-redux";
 import Category from "../../../components/category/Category";
 import { RootState } from "../../../models/RootState";
-
-import Flicking from "@egjs/react-flicking";
+import Flicking, { ViewportSlot } from "@egjs/react-flicking";
+import { AutoPlay, Pagination } from "@egjs/flicking-plugins";
 
 const HomeCategory = () => {
   const categories = useSelector((state: RootState) => state.categories);
@@ -17,15 +17,15 @@ const HomeCategory = () => {
           <ThunderboltOutlined /> KATEGORI
         </h3>
       </div>
-      <Flicking circular={true}>
-        {categories?.data?.data?.data?.map((v: any, i: any) => (
-          <>
+      {Object.values(categories?.data).length ? (
+        <Flicking circular={true} adaptive={true}>
+          {categories?.data?.data?.data?.map((v: any, i: any) => (
             <div key={i} style={{ margin: "0px 10px" }}>
               <Category title={v.nama_klasifikasi} key={i} idCategory={v.id} />
             </div>
-          </>
-        ))}
-      </Flicking>
+          ))}
+        </Flicking>
+      ) : null}
     </>
   );
 };

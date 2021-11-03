@@ -42,10 +42,14 @@ const Footer: React.FC<Props> = ({ authedData }) => {
             {authedData == null ? (
               <ul className="peb-list mr-3">
                 <li className="peb-list-item">
-                  <Link to="">MASUK</Link>
+                  <Link to="/login" className="peb-list-link">
+                    MASUK
+                  </Link>
                 </li>
                 <li className="peb-list-item">
-                  <Link to="">REGISTRASI</Link>
+                  <Link to="/register" className="peb-list-link">
+                    REGISTRASI
+                  </Link>
                 </li>
               </ul>
             ) : null}
@@ -53,7 +57,6 @@ const Footer: React.FC<Props> = ({ authedData }) => {
             <ul className="peb-list">
               <li className="peb-list-item">
                 <Link className="peb-list-link" to="/search">
-                  {" "}
                   <SwapRightOutlined className="icon-list" /> Produk
                 </Link>
               </li>

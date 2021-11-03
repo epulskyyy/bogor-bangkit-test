@@ -65,6 +65,8 @@ export interface ChatRoot {
 export interface UserRoot {
   data: any;
   datas: any;
+  dataInfinite: any,
+  isLoadingInfinite: any,
   isLoading: any;
   isError: any;
   message: any;

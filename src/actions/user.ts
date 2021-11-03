@@ -48,3 +48,20 @@ export const editProfileError = defaultActionCreator(
   EDIT_PROFILE_ERROR,
   "data"
 );
+
+export const GET_ALL_USER_INFINITE_REQUEST = "GET_ALL_USER_INFINITE_REQUEST";
+export const getAllUserInfiniteRequest = defaultActionCreator(
+  GET_ALL_USER_INFINITE_REQUEST,
+  "perPage",
+  "status",
+  "page",
+  "dataCurrent"
+);
+export const GET_ALL_USER_INFINITE_SUCCESS = "GET_ALL_USER_INFINITE_SUCCESS";
+export const getAllUserInfiniteSuccess = defaultActionCreator(
+  GET_ALL_USER_INFINITE_SUCCESS,
+  "data",
+  "dataCurrent"
+);
+export const GET_ALL_USER_INFINITE_ERROR = "GET_ALL_USER_INFINITE_ERROR";
+export const getAllUserInfiniteError = defaultActionCreator(GET_ALL_USER_ERROR, "data");
