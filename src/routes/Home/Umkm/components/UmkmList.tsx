@@ -10,9 +10,15 @@ import { capitalize } from "../../../../utils/utils";
 type Props = {
   setselectedId: any;
   selectedId: any;
+  setVisible: any;
+  visible: any;
 };
 
-const UmkmList: React.FC<Props> = ({ setselectedId, selectedId }) => {
+const UmkmList: React.FC<Props> = ({
+  setselectedId,
+  selectedId,
+  setVisible,
+}) => {
   const { dataInfinite, isLoadingInfinite } = useSelector(
     (state: RootState) => state.user
   );
@@ -75,7 +81,7 @@ const UmkmList: React.FC<Props> = ({ setselectedId, selectedId }) => {
                 className={
                   "umkm-list-item " + (item.id == selectedId ? "selected" : "")
                 }
-                // onMouseOut={() => setselectedId("")}
+                onClick={() => setVisible(false)}
                 onMouseOver={() => setselectedId(item.id)}
               >
                 <List.Item.Meta
