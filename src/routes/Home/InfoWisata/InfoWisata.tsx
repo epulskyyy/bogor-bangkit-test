@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfoWisataRequest } from "../../../actions/infoWisata";
 import { RootState } from "../../../models/RootState";
+import noImage from "../../../assets/img/peb-product-noimage.jpg";
 import history from "../../../utils/history";
 import { capitalize } from "../../../utils/utils";
 import Container from "../components/Container";
+import { relative } from "path/posix";
 
 const { Meta } = Card;
 type Props = {
@@ -19,11 +21,12 @@ const InfoWisata: React.FC<Props> = ({ authedData }) => {
   const onChangeSearch = (v: any) => {
     setsearchInput((s) => (s = { ...s, [v.target.name]: v.target.value }));
   };
+  const [opacity, setOpacity] = useState("0.4");
   const onSearch = (v: any) => {
     dispatch(
       getInfoWisataRequest({
-        perPage: infoWisata.data?.data?.data.per_page,
-        page: infoWisata.data?.data?.data.current_page,
+        perPage: infoWisata.data?.per_page,
+        page: infoWisata.data?.current_page,
         name: searchInput.name,
         location: searchInput.location,
       })
@@ -92,23 +95,46 @@ const InfoWisata: React.FC<Props> = ({ authedData }) => {
                     (v) => v !== ""
                   );
                   return (
-                    <Col xl={4} lg={6} md={6} sm={6} xs={12} key={i}>
-                      <Card
+                    <Col xl={6} lg={6} md={12} sm={10} xs={24} key={i}>
+                      <div
                         onClick={() => goToDetail(v.id)}
-                        hoverable
-                        cover={
-                          <img alt="example" src={images[0]} height={"250px"} />
-                        }
+                        className="image-cover-container"
                       >
-                        <Meta
+                        <div>
+                          <img
+                            alt="example"
+                            src={
+                              images == null || images.length === 0
+                                ? noImage
+                                : images[0]
+                            }
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              borderRadius: "10px",
+                            }}
+                          />
+
+                          {/* <Meta
                           title={capitalize(v.nama_wisata || "")}
                           description={
                             v.lokasi_wisata.length > 30
-                              ? v.lokasi_wisata.slice(0, 30) + "..."
+                              ? v.lokasi_wisata.slice(0, 20) + "..."
                               : v.lokasi_wisata
                           }
-                        />
-                      </Card>
+                        /> */}
+                        </div>
+                        <div className="image-cover-card"></div>
+                        <div className="image-cover-content">
+                          {" "}
+                          <label>{capitalize(v.nama_wisata || "")}</label>
+                          <label>
+                            {v.lokasi_wisata.length > 30
+                              ? v.lokasi_wisata.slice(0, 30) + "..."
+                              : v.lokasi_wisata}
+                          </label>
+                        </div>
+                      </div>
                     </Col>
                   );
                 })}

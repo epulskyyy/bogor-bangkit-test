@@ -15,6 +15,7 @@ export default function DaftarWisataLain() {
           className="demo-loadmore-list"
           loading={infoWisata.isLoading}
           itemLayout="horizontal"
+          style={{ height: "400px", overflow: "scroll" }}
           dataSource={infoWisata.data?.data}
           renderItem={(item: any) => (
             <List.Item
@@ -27,7 +28,11 @@ export default function DaftarWisataLain() {
               <Skeleton avatar title={false} loading={item.loading} active>
                 <List.Item.Meta
                   avatar={<Avatar src={item.url_gambar[0]} />}
-                  title={<Link to={"/info-wisata/" + item.id}>{item.nama_wisata}</Link>}
+                  title={
+                    <Link to={"/info-wisata/" + item.id}>
+                      {item.nama_wisata}
+                    </Link>
+                  }
                   description={
                     <Paragraph ellipsis>{item.deskripsi_wisata} </Paragraph>
                   }

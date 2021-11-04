@@ -8,6 +8,7 @@ import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import ImgCrop from "antd-img-crop";
 import { endPoint } from "../../../utils/env";
+import { Editor } from "@tinymce/tinymce-react";
 import {
   getInfoWisataRequest,
   insertInfoWisataRequest,
@@ -29,7 +30,7 @@ const AddWisata: React.FC<Props> = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [fileLists, setFileLists] = useState<any>([]);
-
+  const [deskripsiWisata, setDeskripsiWisata] = useState<any>();
   const showDrawer = () => {
     setVisible(true);
   };
@@ -87,7 +88,7 @@ const AddWisata: React.FC<Props> = () => {
       const dataForm = {
         nama_wisata: getFieldValue("nama_wisata"),
         lokasi_wisata: getFieldValue("lokasi_wisata"),
-        deskripsi_wisata: getFieldValue("deskripsi_wisata"),
+        deskripsi_wisata: deskripsiWisata,
         url_gambar: imageUploads,
         url_socmed: {
           website: getFieldValue("website"),
@@ -365,22 +366,43 @@ const AddWisata: React.FC<Props> = () => {
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
-                rules={[
-                  (value) => ({
-                    validator(rule, value) {
-                      if (value != null) {
-                        if (!xssValidBool(value)) {
-                          return Promise.reject("Masukan tidak valid");
-                        }
-                      }
-                      return Promise.resolve();
-                    },
-                  }),
-                ]}
-                name="deskripsi_wisata"
+                // rules={[
+                //   (value) => ({
+                //     validator(rule, value) {
+                //       if (value != null) {
+                //         if (!xssValidBool(value)) {
+                //           return Promise.reject("Masukan tidak valid");
+                //         }
+                //       }
+                //       return Promise.resolve();
+                //     },
+                //   }),
+                // ]}
+                // name="deskripsi_wisata"
                 label="Deskripsi Wisata"
               >
-                <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" />
+                <Editor
+                  value={deskripsiWisata}
+                  init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                      "advlist autolink lists link image charmap print preview anchor",
+                      "searchreplace visualblocks code fullscreen",
+                      "insertdatetime media table paste code help wordcount",
+                    ],
+                    toolbar:
+                      // eslint-disable-next-line no-multi-str
+                      "undo redo | formatselect | bold italic backcolor | \
+                      alignleft aligncenter alignright alignjustify | \
+                      bullist numlist outdent indent | removeformat | help",
+                  }}
+                  plugins="wordcount"
+                  onEditorChange={(e) => {
+                    setDeskripsiWisata(e);
+                  }}
+                />
+                {/* <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" /> */}
               </Form.Item>
             </Col>
           </Row>
