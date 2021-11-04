@@ -1,9 +1,11 @@
-import { Typography, Card, Statistic } from "antd";
+import { Typography, Card, Statistic, Button } from "antd";
 import React from "react";
 import "../styles/base.scss";
 import history from "../utils/history";
 import noImage from "../assets/img/peb-product-noimage.jpg";
 import { formatMoney } from "../utils/utils";
+import { Link } from "react-router-dom";
+import { SwapRightOutlined } from "@ant-design/icons";
 
 const { Paragraph } = Typography;
 type Props = {
@@ -25,7 +27,7 @@ const Product: React.FC<Props> = ({ data }) => {
   };
   return (
     <Card hoverable className="product-card" onClick={() => goTo(data.id)}>
-      <div className="peb-card-2 product peb-shadow">
+      <div className="peb-card-2 product">
         {data?.diskon ? (
           <div className="peb-card-2-product-discount">{data.diskon}%</div>
         ) : null}
@@ -40,7 +42,7 @@ const Product: React.FC<Props> = ({ data }) => {
           <Statistic
             title={
               <>
-                <Paragraph ellipsis>{data.nama_produk} </Paragraph>
+                <Paragraph ellipsis>{data.nama_produk.toUpperCase()} </Paragraph>
               </>
             }
             value={Number(data.harga_produk)}
@@ -57,6 +59,9 @@ const Product: React.FC<Props> = ({ data }) => {
               )
             }
           />
+        </div>
+        <div className="produk-view-title">
+          Lihat <SwapRightOutlined />
         </div>
       </div>
     </Card>

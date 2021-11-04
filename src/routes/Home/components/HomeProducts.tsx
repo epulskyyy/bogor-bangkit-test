@@ -1,7 +1,8 @@
 import React from "react";
-import { Col, Divider, Row } from "antd";
+import { Affix, Col, Divider, Row } from "antd";
 import { Link } from "react-router-dom";
 import Product from "../../../components/Product";
+import { TagsOutlined } from "@ant-design/icons";
 
 type Props = {
   title: string;
@@ -11,9 +12,16 @@ type Props = {
 const HomeProducts: React.FC<Props> = ({ title, data }) => {
   return (
     <>
-      <Divider orientation="left" className="peb-text-bold">
-        {title}
-      </Divider>
+      <Affix offsetTop={62}>
+        <div className="mt-3 mb-2 peb-dflex-between product-title-tags">
+          <h3 style={{ margin: 0 }}>
+            <TagsOutlined /> {title}
+          </h3>
+          <Link className="" to="/search">
+            Lihat Semua
+          </Link>
+        </div>
+      </Affix>
       <Row gutter={[16, 16]}>
         {data?.data?.data?.map((v: any, i: any) => (
           <Col xl={6} lg={6} md={8} sm={6} xs={12} key={i}>
@@ -21,11 +29,6 @@ const HomeProducts: React.FC<Props> = ({ title, data }) => {
           </Col>
         ))}
       </Row>
-      <div className="mt-3 mb-3 peb-text-center">
-        <Link className="" to="/search">
-          Lihat Semua
-        </Link>
-      </div>
     </>
   );
 };

@@ -1,22 +1,31 @@
-import { Col, Divider, Row } from "antd";
+import { ThunderboltOutlined } from "@ant-design/icons";
 import React from "react";
+import "./category.css";
 import { useSelector } from "react-redux";
 import Category from "../../../components/category/Category";
 import { RootState } from "../../../models/RootState";
+import Flicking, { ViewportSlot } from "@egjs/react-flicking";
+import { AutoPlay, Pagination } from "@egjs/flicking-plugins";
 
 const HomeCategory = () => {
   const categories = useSelector((state: RootState) => state.categories);
- 
+
   return (
     <>
-    <Divider orientation="left" className="peb-text-bold">KATEGORI PRODUK</Divider>
-      <Row gutter={[32, 32]}>
-        {categories?.data?.data?.data?.map((v: any, i: any) => (
-          <Col xl={6} lg={6} md={8} sm={8} xs={12}>
-            <Category title={v.nama_klasifikasi} key={i} idCategory={v.id}/>
-          </Col>
-        ))}
-      </Row>
+      <div className=" mb-2 peb-dflex-between product-title-tags">
+        <h3 style={{ margin: 0 }}>
+          <ThunderboltOutlined /> KATEGORI
+        </h3>
+      </div>
+      {Object.values(categories?.data).length ? (
+        <Flicking circular={true} adaptive={true}>
+          {categories?.data?.data?.data?.map((v: any, i: any) => (
+            <div key={i} style={{ margin: "0px 10px" }}>
+              <Category title={v.nama_klasifikasi} key={i} idCategory={v.id} />
+            </div>
+          ))}
+        </Flicking>
+      ) : null}
     </>
   );
 };

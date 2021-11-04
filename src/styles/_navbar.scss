@@ -125,7 +125,6 @@
   }
   &-bottom {
     @include padding70();
-    height: 40px;
     background: $blue;
     color: white;
     ul {
@@ -145,7 +144,7 @@
     }
     &-link {
       color: white;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: bold;
       &::before {
         position: absolute;
@@ -163,6 +162,13 @@
         &::before {
           height: 100%;
           transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+    &.peb-bg-orange {
+      .peb-navbar-bottom-link {
+        &:hover {
+          color: #ff824d !important;
         }
       }
     }
