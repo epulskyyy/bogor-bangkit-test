@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button, Menu } from "antd";
+import { Affix, Breadcrumb, Button, Menu } from "antd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../models/RootState";
@@ -35,25 +35,27 @@ export default function BreadCrumb() {
   };
   return (
     <div className="mb-2">
-      <Breadcrumb>
-        <Breadcrumb.Item>
-          <Button
-            onClick={goBack}
-            size="small"
-            type="text"
-            icon={<ArrowLeftOutlined />}
-          />
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Link to="/">Beranda</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item overlay={menu}>
-          {capitalize(category?.nama_klasifikasi || "")}
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          {capitalize(dataId?.data?.nama_produk || "")}
-        </Breadcrumb.Item>
-      </Breadcrumb>
+      <Affix offsetTop={92}>
+        <Breadcrumb style={{ backgroundColor: "white" }}>
+          <Breadcrumb.Item>
+            <Button
+              onClick={goBack}
+              size="small"
+              type="text"
+              icon={<ArrowLeftOutlined />}
+            />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/">Beranda</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item overlay={menu}>
+            {capitalize(category?.nama_klasifikasi || "")}
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            {capitalize(dataId?.data?.nama_produk || "")}
+          </Breadcrumb.Item>
+        </Breadcrumb>
+      </Affix>
     </div>
   );
 }

@@ -40,7 +40,7 @@ const Container: React.FC<Props> = ({ title, children, authedData }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Affix offsetTop={0}>
+        <Affix offsetTop={0} style={{ zIndex: 11 }}>
           <Header authedData={authedData} />
         </Affix>
         {children}

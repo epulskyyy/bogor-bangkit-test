@@ -18,7 +18,7 @@ const Chat: React.FC<Props> = ({ authedData }) => {
       <div
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        <Affix offsetTop={0}>
+        <Affix offsetTop={0} style={{ zIndex: 11 }}>
           <Header authedData={authedData} />
         </Affix>
         <div className="container mt-2 mb-2 chat-content">

@@ -13,6 +13,7 @@ import {
   updateInfoWisataRequest,
 } from "../../../actions/infoWisata";
 import axios from "axios";
+import { Editor } from "react-draft-wysiwyg";
 
 const { confirm } = Modal;
 type Props = {
@@ -124,7 +125,7 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
       const dataForm = {
         nama_wisata: getFieldValue("nama_wisata"),
         lokasi_wisata: getFieldValue("lokasi_wisata"),
-        deskripsi_wisata: getFieldValue("deskripsi_wisata"),
+        deskripsi_wisata: JSON.stringify(getFieldValue("deskripsi_wisata")),
         url_gambar: imageUploads,
         url_socmed: {
           website: getFieldValue("website"),
@@ -174,7 +175,6 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
     });
   };
   const handleCancel = () => setpreviewImages({ previewVisible: false });
-
   return (
     <>
       <Button onClick={showDrawer} icon={<EditOutlined />} />
@@ -200,23 +200,25 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
             },
             {
               name: "deskripsi_wisata",
-              value: obj?.deskripsi_wisata,
+              value: obj?.deskripsi_wisata
+                ? JSON.parse(obj?.deskripsi_wisata)
+                : null,
             },
             {
               name: "website",
-              value: obj?.website,
+              value: obj?.url_socmed?.website,
             },
             {
               name: "instagram",
-              value: obj?.instagram,
+              value: obj?.url_socmed?.instagram,
             },
             {
               name: "facebook",
-              value: obj?.facebook,
+              value: obj?.url_socmed?.facebook,
             },
             {
               name: "youtube",
-              value: obj?.youtube,
+              value: obj?.url_socmed?.youtube,
             },
             {
               name: "no_hp",
@@ -436,15 +438,18 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
           </Row>
 
           <Row gutter={16}>
-            <Col span={24}>
+            <Col span={20}>
               <Form.Item
                 rules={[
                   (value) => ({
                     validator(rule, value) {
-                      if (value != null) {
-                        if (!xssValidBool(value)) {
-                          return Promise.reject("Masukan tidak valid");
-                        }
+                      if (
+                        value?.blocks.length === 1 &&
+                        value?.blocks[0].text === ""
+                      ) {
+                        return Promise.reject(
+                          messageValidate("required", "Deskripsi Wisata ")
+                        );
                       }
                       return Promise.resolve();
                     },
@@ -453,7 +458,12 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
                 name="deskripsi_wisata"
                 label="Deskripsi Wisata"
               >
-                <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" />
+                <Editor
+                  initialContentState={JSON.parse(obj?.deskripsi_wisata)}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  placeholder="Ketik Deskripsi Wisata"
+                />
               </Form.Item>
             </Col>
           </Row>

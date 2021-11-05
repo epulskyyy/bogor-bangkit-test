@@ -1,8 +1,9 @@
 import { Card, Col, Image, Row, Tabs } from "antd";
-import Text from "antd/lib/typography/Text";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../models/RootState";
+
+import draftToHtml from "draftjs-to-html";
 
 const { TabPane } = Tabs;
 
@@ -18,6 +19,18 @@ export default function DeskripsiWisata() {
   function callback(key: any) {
     console.log(key);
   }
+  const sanitizedData = () => {
+    try {
+      const newBody = draftToHtml(JSON.parse(dataId.data.deskripsi_wisata));
+      return {
+        __html: newBody,
+      };
+    } catch (error) {
+      return {
+        __html: `${dataId.data.deskripsi_wisata}`,
+      };
+    }
+  };
   return (
     <Card className="mr-2">
       <div className="iframe-container">
@@ -40,7 +53,7 @@ export default function DeskripsiWisata() {
       >
         <TabPane tab="Deskripsi Wisata" key="deskripsi-wisata">
           <div className="deskripsi-container ">
-            <Text>{dataId.data.deskripsi_wisata}</Text>
+            <div dangerouslySetInnerHTML={sanitizedData()}></div>
           </div>
         </TabPane>
         <TabPane tab="Galeri Gambar">

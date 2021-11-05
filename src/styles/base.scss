@@ -172,6 +172,36 @@ h3.peb-product-price-text {
 #scrollableDiv.peb-srollable {
   padding: 0px !important;
 }
+.ant-btn.ant-btn-ghost.peb-text-left {
+  position: relative;
+  z-index: 11;
+  &::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 0;
+    z-index: -1;
+  }
+  &::after {
+    transition: all 0.3s ease-in-out;
+    background-color: $blue;
+  }
+  &:hover {
+    span {
+      color: white !important;
+    }
+    &::after {
+      width: 100%;
+      transition: all 0.3s ease-in-out;
+      background-color: $blue;
+    }
+  }
+}
+.side-search-dropdown ~ div > div > div.ant-dropdown {
+  z-index: 5 !important;
+}
 @media (max-width: 499px) {
   h3.peb-product-price-text {
     font-size: 12px;

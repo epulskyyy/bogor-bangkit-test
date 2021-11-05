@@ -15,6 +15,8 @@ import { convertDate } from "../../../utils/utils";
 import AddWisata from "./AddWisata";
 import EditWisata from "./EditWisata";
 
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 type Props = {
   authedData?: AuthUser;
 };

@@ -1,17 +1,23 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { notification } from "antd";
+import { NotificationPlacement } from "antd/lib/notification";
 
 export const notificationMessage = (
-  key: "error"|"success",
+  key: "error" | "success" | "warning",
   message: string,
-  description: string
+  description: any,
+  placement?: NotificationPlacement,
+  duration?: number 
 ) => {
+  placement = placement ?? "topRight";
   notification.close("loading");
   notification.close("registration-warning");
   notification[key]({
     key,
     message,
     description,
+    placement,
+    duration,
   });
 };
 export const notificationLoadingMessage = (
@@ -26,6 +32,6 @@ export const notificationLoadingMessage = (
     message,
     description,
     icon: <LoadingOutlined />,
-    duration: 0
+    duration: 0,
   });
 };

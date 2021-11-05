@@ -13,6 +13,7 @@ import {
   insertInfoWisataRequest,
 } from "../../../actions/infoWisata";
 import axios from "axios";
+import { Editor } from "react-draft-wysiwyg";
 
 const { confirm } = Modal;
 type Props = {};
@@ -29,7 +30,6 @@ const AddWisata: React.FC<Props> = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [fileLists, setFileLists] = useState<any>([]);
-
   const showDrawer = () => {
     setVisible(true);
   };
@@ -87,7 +87,7 @@ const AddWisata: React.FC<Props> = () => {
       const dataForm = {
         nama_wisata: getFieldValue("nama_wisata"),
         lokasi_wisata: getFieldValue("lokasi_wisata"),
-        deskripsi_wisata: getFieldValue("deskripsi_wisata"),
+        deskripsi_wisata: JSON.stringify(getFieldValue("deskripsi_wisata")),
         url_gambar: imageUploads,
         url_socmed: {
           website: getFieldValue("website"),
@@ -183,7 +183,7 @@ const AddWisata: React.FC<Props> = () => {
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "Lokasi"),
+                    message: messageValidate("required", "Lokasi "),
                   },
                   (value) => ({
                     validator(rule, value) {
@@ -207,7 +207,7 @@ const AddWisata: React.FC<Props> = () => {
                 rules={[
                   {
                     required: true,
-                    message: messageValidate("required", "No Hp"),
+                    message: messageValidate("required", "No Hp "),
                   },
                   (value) => ({
                     validator(rule, value) {
@@ -363,15 +363,22 @@ const AddWisata: React.FC<Props> = () => {
           </Row>
 
           <Row gutter={16}>
-            <Col span={24}>
+            <Col span={20}>
               <Form.Item
                 rules={[
+                  {
+                    required: true,
+                    message: messageValidate("required", "Deskripsi Wisata "),
+                  },
                   (value) => ({
                     validator(rule, value) {
-                      if (value != null) {
-                        if (!xssValidBool(value)) {
-                          return Promise.reject("Masukan tidak valid");
-                        }
+                      if (
+                        value?.blocks.length === 1 &&
+                        value?.blocks[0].text === ""
+                      ) {
+                        return Promise.reject(
+                          messageValidate("required", "Deskripsi Wisata ")
+                        );
                       }
                       return Promise.resolve();
                     },
@@ -380,7 +387,11 @@ const AddWisata: React.FC<Props> = () => {
                 name="deskripsi_wisata"
                 label="Deskripsi Wisata"
               >
-                <Input.TextArea rows={4} placeholder="Ketik Deskripsi Wisata" />
+                <Editor
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  placeholder="Ketik Deskripsi Wisata"
+                />
               </Form.Item>
             </Col>
           </Row>

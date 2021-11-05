@@ -1,5 +1,7 @@
 /* eslint-disable eqeqeq */
 import {
+  Affix,
+  Breadcrumb,
   Button,
   Card,
   Col,
@@ -18,10 +20,11 @@ import { RootState } from "../../../models/RootState";
 import { useEffect } from "react";
 import { getProducRequest } from "../../../actions/product";
 import history from "../../../utils/history";
-import { AppstoreOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, SearchOutlined } from "@ant-design/icons";
 import "../styles/styles.scss";
 import "../../../styles/base.scss";
 import { useQuery } from "../../../utils/utils";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -118,9 +121,22 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
   return (
     <Container title="Pencarian" authedData={authedData}>
       <div className="container search-page mt-2 mb-2">
+        <Affix offsetTop={92}>
+          <Breadcrumb style={{ backgroundColor: "white" }}>
+            <Breadcrumb.Item>
+              <Link to="/">Beranda</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Pencarian</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="product-title-tags peb-dflex-between">
+            <h3 style={{ margin: 0 }}>
+              <SearchOutlined /> PENCARIAN
+            </h3>
+          </div>
+        </Affix>
         <Row gutter={[16, 16]}>
-          <Col lg={6} md={6} xs={0}>
-            <List bordered>
+          <Col lg={4} md={6} xs={0}>
+            <List style={{ zIndex: 5 }}>
               <List.Item>
                 <Button
                   onClick={() => onChangeProductCategory("")}
@@ -147,13 +163,14 @@ const SearchPage: React.FC<Props> = ({ authedData }) => {
               ))}
             </List>
           </Col>
-          <Col lg={18} md={18} sm={24} xs={24}>
+          <Col lg={20} md={18} sm={24} xs={24}>
             <div className="peb-dropdown-search-page mb-2 peb-dflex-end ">
               <Dropdown
-                className="page mb-1"
+                className="page mt-2 mb-1 side-search-dropdown"
                 overlay={menu}
                 placement="bottomLeft"
                 arrow
+                trigger={["click"]}
               >
                 <Button
                   type="primary"

@@ -7,22 +7,36 @@ import { getAllUserInfiniteRequest } from "../../../../actions/user";
 import { Link } from "react-router-dom";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { capitalize } from "../../../../utils/utils";
+import { getDistance } from "../../../../utils/geolocation";
+import iconLoc from "../../../../assets/peb-location.svg";
+import { examplePosition } from "../../../../utils/constants";
+
 type Props = {
   setselectedId: any;
   selectedId: any;
   setVisible: any;
   visible: any;
+  geloc: any;
 };
 
 const UmkmList: React.FC<Props> = ({
   setselectedId,
   selectedId,
   setVisible,
+  geloc,
 }) => {
   const { dataInfinite, isLoadingInfinite } = useSelector(
     (state: RootState) => state.user
   );
 
+  const data = dataInfinite?.data?.data?.map((v: any, i: any) => ({
+    ...v,
+    title: v.nama_umkm,
+    position: [
+      v?.data?.latitude ?? examplePosition[i]?.position[0],
+      v?.data?.longitude ?? examplePosition[i]?.position[1],
+    ],
+  }));
   const dispatch = useDispatch();
   const loadMoreData = () => {
     if (
@@ -74,12 +88,13 @@ const UmkmList: React.FC<Props> = ({
         >
           <List
             className="umkm-list"
-            dataSource={dataInfinite?.data?.data}
+            dataSource={data}
             renderItem={(item: any) => (
               <List.Item
                 key={item.id}
                 className={
-                  "umkm-list-item " + (item.id == selectedId ? "selected" : "")
+                  "umkm-list-item " +
+                  (Number(item.id) === Number(selectedId) ? "selected" : "")
                 }
                 onClick={() => setVisible(false)}
                 onMouseOver={() => setselectedId(item.id)}
@@ -87,7 +102,22 @@ const UmkmList: React.FC<Props> = ({
                 <List.Item.Meta
                   avatar={<Avatar src={item.profil_gambar} />}
                   title={<h5>{item.nama_umkm}</h5>}
-                  description={capitalize(item.umkm_detail?.klasifikasi_umkm)}
+                  description={
+                    <>
+                      {capitalize(item.umkm_detail?.klasifikasi_umkm)}
+                      {geloc ? (
+                        <span style={{ margin: 0 }}>
+                          {" "}
+                          |
+                          <img src={iconLoc} alt="loc" height="18px" />
+                          {getDistance(
+                            [geloc.latitude, geloc.longitude],
+                            [item?.position[0], item?.position[1]]
+                          )}
+                        </span>
+                      ) : null}
+                    </>
+                  }
                 />
                 <Link
                   className="umkm-list-item-link"

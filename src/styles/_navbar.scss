@@ -124,6 +124,7 @@
     }
   }
   &-bottom {
+    z-index: 11;
     @include padding70();
     background: $blue;
     color: white;

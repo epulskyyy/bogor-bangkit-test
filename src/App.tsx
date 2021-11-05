@@ -4,6 +4,7 @@ import Routes from "./routes";
 import history from "./utils/history";
 import { endPoint } from "./utils/env";
 import axios from "axios";
+import { getGeolocation, getPermissionNavigator } from "./utils/geolocation";
 
 function App() {
   const getVisitCount = () => {
@@ -18,7 +19,7 @@ function App() {
       });
     }
   };
-  
+
   getVisitCount();
   return (
     <Router history={history}>

@@ -1,7 +1,8 @@
-import { CaretRightOutlined } from "@ant-design/icons";
-import { Collapse, Pagination } from "antd";
+import { CaretRightOutlined, MessageOutlined } from "@ant-design/icons";
+import { Affix, Breadcrumb, Collapse, Pagination } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getFaqRequest } from "../../../actions/faq";
 import { RootState } from "../../../models/RootState";
 import Container from "../components/Container";
@@ -27,7 +28,19 @@ const Faq: React.FC<Props> = ({ authedData }) => {
   return (
     <Container title="Info Wisata" authedData={authedData}>
       <div className="container mt-2 mb-2">
-        <h3>FAQ</h3>
+        <Affix offsetTop={92}>
+          <Breadcrumb style={{ backgroundColor: "white" }}>
+            <Breadcrumb.Item>
+              <Link to="/">Beranda</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>FAQ</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="product-title-tags peb-dflex-between">
+            <h3 style={{ margin: 0 }}>
+              <MessageOutlined /> FAQ
+            </h3>
+          </div>
+        </Affix>
         <Collapse
           bordered={false}
           expandIcon={({ isActive }) => (

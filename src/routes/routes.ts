@@ -42,7 +42,7 @@ export const noAuthRoutes = [
   { path: "/login", component: Auth },
 ];
 export const noAuthAdminRoutes = [
-  { path: "/b0g0r-84nk1t-admin-login", component: AuthAdmin, exact: true },
+  { path: "/bogor-bangkit-admin-login", component: AuthAdmin, exact: true },
 ];
 
 export const protectedRoutes = [

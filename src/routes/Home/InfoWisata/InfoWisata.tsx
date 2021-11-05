@@ -1,7 +1,20 @@
-import { Card, Col, Empty, Form, Input, Pagination, Row, Spin } from "antd";
+import { RocketOutlined } from "@ant-design/icons";
+import {
+  Affix,
+  Breadcrumb,
+  Card,
+  Col,
+  Empty,
+  Form,
+  Input,
+  Pagination,
+  Row,
+  Spin,
+} from "antd";
 import Search from "antd/lib/input/Search";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getInfoWisataRequest } from "../../../actions/infoWisata";
 import { RootState } from "../../../models/RootState";
 import history from "../../../utils/history";
@@ -52,7 +65,19 @@ const InfoWisata: React.FC<Props> = ({ authedData }) => {
   return (
     <Container title="Info Wisata" authedData={authedData}>
       <div className="container mt-2 mb-2">
-        <h3>Info Wisata</h3>
+        <Affix offsetTop={92}>
+          <Breadcrumb style={{ backgroundColor: "white" }}>
+            <Breadcrumb.Item>
+              <Link to="/">Beranda</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Info Wisata</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="product-title-tags peb-dflex-between">
+            <h3 style={{ margin: 0 }}>
+              <RocketOutlined /> INFO WISATA
+            </h3>
+          </div>
+        </Affix>
         <div className="site-card-wrapper">
           <Form onChange={onChangeSearch} onSubmitCapture={onSearch}>
             <Form.Item style={{ marginBottom: 0 }}>
