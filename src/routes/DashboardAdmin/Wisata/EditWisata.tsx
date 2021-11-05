@@ -32,6 +32,9 @@ const EditWisata: React.FC<Props> = ({ obj }) => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [fileLists, setFileLists] = useState<any>([]);
+  const [deskripsiWisata, setDeskripsiWisata] = useState<any>(
+    obj?.deskripsi_wisata
+  );
 
   const showDrawer = () => {
     setVisible(true);
