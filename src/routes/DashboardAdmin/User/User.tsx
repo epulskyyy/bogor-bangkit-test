@@ -1,12 +1,15 @@
-import { Card, Layout, Table } from "antd";
+import { Card, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesRequest } from "../../../actions/categories";
 import { getAllUserRequest } from "../../../actions/user";
+import { Layout } from "../../../components";
 import { AuthUser } from "../../../models/AuthUser";
 import { RootState } from "../../../models/RootState";
 import EditUser from "./EditUser";
+
+import "./styles.scss"
 
 type Props = {
   authedData?: AuthUser;
@@ -73,7 +76,7 @@ const User: React.FC<Props> = ({ authedData }) => {
     dispatch(getAllUserRequest(paginations.perPage, "any", paginations.page));
   };
   return (
-    <Layout title="Users">
+    <Layout title="Pengguna">
       <h3>Data Pengguna</h3>
       <Card>
         <Table

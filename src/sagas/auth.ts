@@ -1,17 +1,28 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as authAction from "../actions/auth";
 import { ResponseGenerator } from "../models/RootState";
-import { changePassword, forgotPassword, login, loginAdmin, logout, logoutAdmin, resetPassword } from "../requests/auth";
+import {
+  changePassword,
+  forgotPassword,
+  login,
+  loginAdmin,
+  logout,
+  logoutAdmin,
+  resetPassword,
+} from "../requests/auth";
 import history from "../utils/history";
 import { notificationMessage } from "../utils/notifications";
+import { getDataAdminSession, getDataSession } from "../utils/utils";
 
 export function* postLogin(action: any) {
   try {
     const response: ResponseGenerator = yield call(login, action.data);
     let data = response.data;
+    let dataState = getDataSession(data?.data);
+
     yield put({
       type: authAction.LOGIN_SUCCESS,
-      data,
+      data: dataState,
     });
     notificationMessage("success", `Berhasil`, ``);
     localStorage.setItem("access_token", data.data);
@@ -23,7 +34,7 @@ export function* postLogin(action: any) {
       error: e,
       message: "Oups, Error",
     });
-    
+
     yield localStorage.removeItem("emailOtp");
     notificationMessage(
       "error",
@@ -43,7 +54,7 @@ export function* postLogout(action: any) {
       data,
     });
     notificationMessage("success", `Berhasi`, `anda telah keluar`);
-    
+
     localStorage.removeItem("access_token");
     history.push("/login");
   } catch (e: any) {
@@ -52,7 +63,7 @@ export function* postLogout(action: any) {
       error: e,
       message: "Oups, Error",
     });
-    
+
     localStorage.removeItem("access_token");
     history.push("/login");
     // notificationMessage("error",`Gagal keluar`,``)
@@ -64,7 +75,7 @@ export function* forgotPasswordF(action: any) {
     const response: ResponseGenerator = yield call(forgotPassword, action.data);
     let data = response.data;
     notificationMessage("success", `Berhasil`, `Cek Email`);
-    action.func()
+    action.func();
   } catch (e: any) {
     notificationMessage(
       "error",
@@ -83,7 +94,7 @@ export function* resetPasswordF(action: any) {
     );
     let data = response.data;
     notificationMessage("success", `Berhasil`, `diubah`);
-    action.func()
+    action.func();
   } catch (e: any) {
     notificationMessage(
       "error",
@@ -96,10 +107,7 @@ export function* resetPasswordF(action: any) {
 
 export function* changePasswordF(action: any) {
   try {
-    const response: ResponseGenerator = yield call(
-      changePassword,
-      action.data,
-    );
+    const response: ResponseGenerator = yield call(changePassword, action.data);
     let data = response.data;
     notificationMessage("success", `Berhasil`, `diubah`);
     history.push({ pathname: "reset-password", state: true });
@@ -117,11 +125,14 @@ export function* postLoginAdmin(action: any) {
   try {
     const response: ResponseGenerator = yield call(loginAdmin, action.data);
     let data = response.data;
+
     localStorage.setItem("role", "admin");
     localStorage.setItem("admin_access_token", data.data);
+    let dataState = getDataAdminSession(data.data)
+
     yield put({
       type: authAction.LOGIN_ADMIN_SUCCESS,
-      data,
+      data:dataState,
     });
     notificationMessage("success", `Berhasil`, ``);
     history.push("/dashboard-admin");
@@ -131,7 +142,7 @@ export function* postLoginAdmin(action: any) {
       error: e,
       message: "Oups, Error",
     });
-    
+
     notificationMessage(
       "error",
       e?.response?.data?.message || `Gagal`,
@@ -150,16 +161,16 @@ export function* postLogoutAdmin(action: any) {
       data,
     });
     notificationMessage("success", `Berhasi`, `anda telah keluar`);
-    
+
     localStorage.removeItem("admin_access_token");
-    history.push("/login");
+    history.push("/bogor-bangkit-admin-login");
   } catch (e: any) {
     yield put({
       type: authAction.LOGOUT_ERROR,
       error: e,
       message: "Oups, Error",
     });
-    
+
     localStorage.removeItem("admin_access_token");
     history.push("/b0g0r-84nk1t-admin-login");
     // notificationMessage("error",`Gagal keluar`,``)

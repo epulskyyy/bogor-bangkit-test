@@ -30,6 +30,8 @@ export interface RootState {
 }
 export interface AuthRoot {
   formData: any;
+  authedData:any
+  authedDataAdmin:any
   isLoading: any;
   isError: any;
   message: any;

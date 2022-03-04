@@ -84,6 +84,7 @@ const Routes = () => {
     <IndexPage
       title="Bogor Bangkit"
       authedData={ProtectedRoute().data || undefined}
+      authedDataAdmin={ProtectedRoute().dataAdmin}
       routes={ProtectedRoute().routes}
     >
       <Suspense fallback={<div />}>
@@ -94,7 +95,7 @@ const Routes = () => {
               exact={value.exact}
               path={value.path}
               render={() => (
-                <value.component authedData={ProtectedRoute().data} />
+                <value.component authedData={ProtectedRoute().data} authedDataAdmin={ProtectedRoute().dataAdmin} />
               )}
             />
           ))}

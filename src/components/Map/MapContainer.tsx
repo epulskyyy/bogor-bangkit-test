@@ -1,6 +1,6 @@
 import { LatLngExpression } from "leaflet";
 import React from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { _bogor_mark_map } from "../../utils/constants";
 
 type Props = {
@@ -16,6 +16,17 @@ const MapContainers: React.FC<Props> = ({
   position,
   zoom,
 }) => {
+  const GeoJsonData: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> =
+    {
+      geometry: {
+        coordinates: [-6.564151994968291, 106.80699595412383],
+        type: "Point",
+      },
+      properties: {
+        name: "some name",
+      },
+      type: "Feature",
+    };
   return (
     <MapContainer
       center={position || _bogor_mark_map}
@@ -27,6 +38,7 @@ const MapContainers: React.FC<Props> = ({
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <GeoJSON data={GeoJsonData} />
       {children}
     </MapContainer>
   );

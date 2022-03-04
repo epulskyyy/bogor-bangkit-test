@@ -18,7 +18,6 @@ const Logo: React.FC<Props> = ({ size, path }) => {
         src={BogorBangkitLogo}
         alt="bogor-bankit"
       />
-      <span>BB</span>
     </Link>
   );
 };

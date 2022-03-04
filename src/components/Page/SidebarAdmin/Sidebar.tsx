@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import { Avatar, Menu } from "antd";
 import {
   TagsOutlined,
   RocketOutlined,
@@ -14,9 +14,9 @@ import "./styles.scss";
 
 const { SubMenu } = Menu;
 
-type Props = {};
+type Props = { authedDataAdmin: any };
 
-const SideBar: React.FC<Props> = () => {
+const SideBar: React.FC<Props> = ({ authedDataAdmin }) => {
   const loc = useLocation();
   const menus = [
     {
@@ -88,6 +88,8 @@ const SideBar: React.FC<Props> = () => {
   };
   return (
     <>
+      <Avatar icon={<UserOutlined />} />
+      <h3>125fdsfdsfdsfdsfdfd</h3>
       <Menu
         style={{ height: "100%" }}
         defaultSelectedKeys={selectOpen().selectKey}
@@ -96,21 +98,26 @@ const SideBar: React.FC<Props> = () => {
         theme="dark"
         inlineCollapsed={true}
       >
-        {menus.map((value, key) =>
-          value.subMenu.length > 0 ? (
-            <SubMenu key={value.key} icon={value.icon} title={value.name}>
-              {value?.subMenu?.map((sValue: any, sKey) => (
-                <Menu.Item key={sValue.key}>
-                  <Link to={sValue.key}>{sValue.name}</Link>
-                </Menu.Item>
-              ))}
-            </SubMenu>
-          ) : (
-            <Menu.Item key={value.key} icon={value.icon}>
-              <Link to={value.key}>{value.name}</Link>
-            </Menu.Item>
+        <Menu.Item disabled>{authedDataAdmin.username}</Menu.Item>
+        {menus
+          .filter(
+            (v) => authedDataAdmin.role !== "superadmin" && v.name !== "Admin"
           )
-        )}
+          .map((value, key) =>
+            value.subMenu.length > 0 ? (
+              <SubMenu key={value.key} icon={value.icon} title={value.name}>
+                {value?.subMenu?.map((sValue: any, sKey) => (
+                  <Menu.Item key={sValue.key}>
+                    <Link to={sValue.key}>{sValue.name}</Link>
+                  </Menu.Item>
+                ))}
+              </SubMenu>
+            ) : (
+              <Menu.Item key={value.key} icon={value.icon}>
+                <Link to={value.key}>{value.name}</Link>
+              </Menu.Item>
+            )
+          )}
       </Menu>
     </>
   );

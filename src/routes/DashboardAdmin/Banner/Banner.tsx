@@ -1,4 +1,4 @@
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Card, Popconfirm, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useEffect } from "react";
@@ -13,8 +13,9 @@ import EditBanner from "./EditBanner";
 
 type Props = {
   authedData?: AuthUser;
+  authedDataAdmin: AuthUser;
 };
-const Banner: React.FC<Props> = () => {
+const Banner: React.FC<Props> = ({ authedDataAdmin }) => {
   const { data, isLoading } = useSelector((state: RootState) => state.banner);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,24 +36,27 @@ const Banner: React.FC<Props> = () => {
       key: "operation",
       fixed: true,
       width: 70,
-      render: (text, obj) => (
-        <>
-          <Popconfirm
-            placement="bottomLeft"
-            title="Yakin ingin menghapus?"
-            onConfirm={() => deleteHandler(obj)}
-            okText="Ya, Hapus"
-            cancelText="Tidak"
-          >
-            <Button danger icon={<DeleteOutlined />} />
-          </Popconfirm>
-          <EditBanner obj={obj} />
-        </>
-      ),
+      render: (text, obj) =>
+        authedDataAdmin.role === "executive" ? (
+          <EditBanner authedDataAdmin={authedDataAdmin} obj={obj} />
+        ) : (
+          <>
+            <Popconfirm
+              placement="bottomLeft"
+              title="Yakin ingin menghapus?"
+              onConfirm={() => deleteHandler(obj)}
+              okText="Ya, Hapus"
+              cancelText="Tidak"
+            >
+              <Button danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+            <EditBanner authedDataAdmin={authedDataAdmin} obj={obj} />
+          </>
+        ),
     },
 
     {
-      title: "ID ",
+      title: "ID",
       dataIndex: "id",
       width: 50,
     },
@@ -83,7 +87,7 @@ const Banner: React.FC<Props> = () => {
   return (
     <Layout title="Banner Iklan">
       <h3>Data Banner Iklan</h3>
-      <AddBanner />
+      {authedDataAdmin.role === "executive" ? null : <AddBanner />}
       <Card>
         <Table
           //   onChange={onChangeProduct}

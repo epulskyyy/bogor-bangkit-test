@@ -36,8 +36,8 @@ export const b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
   return blob;
 };
 
-export const getDataSession = () => {
-  const access_token = localStorage.getItem("access_token");
+export const getDataSession = (initialdata) => {
+  const access_token = initialdata ?? localStorage.getItem("access_token");
   try {
     //checking jwt
     jwtDecode(access_token, { header: true });
@@ -55,8 +55,9 @@ export const getDataSession = () => {
     return undefined;
   }
 };
-export const getDataAdminSession = () => {
-  const admin_access_token = localStorage.getItem("admin_access_token");
+export const getDataAdminSession = (initialdata) => {
+  const admin_access_token =
+    initialdata ?? localStorage.getItem("admin_access_token");
   try {
     //checking jwt
     jwtDecode(admin_access_token, { header: false });

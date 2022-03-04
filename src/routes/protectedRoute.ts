@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { AuthUser } from "../models/AuthUser";
 import { getDataAdminSession, getDataSession } from "../utils/utils";
 import {
@@ -16,7 +17,7 @@ export const ProtectedRoute = () => {
       routes: [...noAuthAdminRoutes, ...noAuthRoutes, ...routes],
       data,
       dataAdmin,
-      wsChat: false
+      wsChat: false,
     };
   }
   if (dataAdmin === undefined && data !== undefined) {
@@ -24,7 +25,7 @@ export const ProtectedRoute = () => {
       routes: [...protectedRoutes, ...noAuthAdminRoutes, ...routes],
       data,
       dataAdmin,
-      wsChat: true
+      wsChat: true,
     };
   }
   if (dataAdmin !== undefined && data === undefined) {
@@ -32,13 +33,13 @@ export const ProtectedRoute = () => {
       routes: [...adminRoutes, ...noAuthRoutes, ...routes],
       data,
       dataAdmin,
-      wsChat: false
+      wsChat: false,
     };
   }
   return {
     routes: [...protectedRoutes, ...adminRoutes, ...routes],
     data,
     dataAdmin,
-    wsChat: true
+    wsChat: true,
   };
 };

@@ -81,3 +81,6 @@ export const LOGOUT_ADMIN_SUCCESS = "LOGOUT_ADMIN_SUCCESS";
 export const LogoutAdminSuccess = defaultActionCreator(LOGOUT_ADMIN_SUCCESS, "data");
 export const LOGOUT_ADMIN_ERROR = "LOGOUT_ADMIN_ERROR";
 export const LogoutAdminError = defaultActionCreator(LOGOUT_ADMIN_ERROR, "data");
+
+export const SET_STATE_AUTH = "SET_STATE_AUTH";
+export const setStateAuth = defaultActionCreator(SET_STATE_AUTH, "name", "value");

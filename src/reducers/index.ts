@@ -13,8 +13,10 @@ import faq from './faq'
 import dashboard from './dashboard'
 import admin from './admin'
 import categoryFaq from './categoryFaq'
+import persistState from './persistState'
 
 const createRootReducer = (history: any) => combineReducers({
+    persistState,
     categoryFaq,
     admin,
     dashboard,

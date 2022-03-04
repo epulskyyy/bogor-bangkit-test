@@ -454,6 +454,11 @@ const EditUser: React.FC<Props> = ({ obj }) => {
                     {fileLists.length < 1 && "+ Unduh"}
                   </Upload>
                 </ImgCrop>
+                <small className="desc-field">
+                  * Format file harus jpg/png
+                </small>
+                <br />
+                <small className="desc-field"> * Maksimal 5MB</small>
                 <Modal
                   visible={previewImages.previewVisible}
                   title={previewImages.previewTitle}

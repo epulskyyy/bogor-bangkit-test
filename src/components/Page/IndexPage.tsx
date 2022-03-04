@@ -11,6 +11,7 @@ const { Header, Content, Sider } = Layout;
 type Props = {
   title: string;
   authedData?: any;
+  authedDataAdmin?: any;
   routes?: any;
 };
 
@@ -18,6 +19,7 @@ const IndexPage: React.FC<Props> = ({
   title,
   children,
   authedData,
+  authedDataAdmin,
   routes,
 }) => {
   const [collapsed, setcollapsed] = useState(false);
@@ -68,7 +70,7 @@ const IndexPage: React.FC<Props> = ({
     <>
       <Layout style={{ minHeight: "100vh" }}>
         <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-          <SideBar />
+          <SideBar authedDataAdmin={authedDataAdmin} />
         </Sider>
         <Layout className="site-layout">
           <Header

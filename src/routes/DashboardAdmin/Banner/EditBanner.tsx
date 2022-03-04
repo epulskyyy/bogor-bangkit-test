@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Form, Button, Col, Row, Input, Modal, Upload } from "antd";
 import { useForm } from "antd/lib/form/Form";
-import { useDispatch } from "react-redux";
-import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EditOutlined,
+  ExclamationCircleOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { messageValidate } from "../../../utils/constants";
 import { beforeUpload, getBase64, xssValidBool } from "../../../utils/utils";
 import { notificationLoadingMessage } from "../../../utils/notifications";
@@ -10,12 +14,18 @@ import { getBannerRequest, updateBannerRequest } from "../../../actions/banner";
 import { endPoint } from "../../../utils/env";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
+import { RootState } from "../../../models/RootState";
 
 const { confirm } = Modal;
 type Props = {
   obj: any;
+  authedDataAdmin?: any;
 };
-const EditCategory: React.FC<Props> = ({ obj }) => {
+const EditCategory: React.FC<Props> = ({ obj, authedDataAdmin }) => {
+  const auth = useSelector((state: RootState) => state.auth);
+  console.log("====================================");
+  console.log(auth);
+  console.log("====================================");
   const [previewImages, setpreviewImages] = useState<any>({
     previewVisible: false,
     previewImage: "",
@@ -171,9 +181,22 @@ const EditCategory: React.FC<Props> = ({ obj }) => {
   };
   return (
     <>
-      <Button onClick={showDrawer} icon={<EditOutlined />} />
+      <Button
+        onClick={showDrawer}
+        icon={
+          authedDataAdmin.role === "executive" ? (
+            <SearchOutlined />
+          ) : (
+            <EditOutlined />
+          )
+        }
+      />
       <Drawer
-        title={"Ubah Banner Iklan | " + obj.id}
+        title={
+          (authedDataAdmin.role === "executive"
+            ? "Banner Iklan | "
+            : "Ubah Banner Iklan | ") + obj.id
+        }
         placement="right"
         onClose={onClose}
         visible={visible}

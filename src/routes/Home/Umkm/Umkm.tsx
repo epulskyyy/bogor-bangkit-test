@@ -17,14 +17,14 @@ const Umkm: React.FC<Props> = ({ authedData }) => {
       if (result === "denied") {
         notificationMessage(
           "warning",
-          "ijin kan aplikasi mengakses lokasi anda",
+          "Bogor Bangkit tidak memiliki izin untuk menggunakan lokasi Anda.",
           <>
             <a
               target="_blank"
-              href="https://www.google.com/search?q=cara+mengaktifkan+lokasi+di+laptop+atau+hp"
+              href="https://www.google.com/search?q=cara+mengizinkan+lokasi+di+browser+kita"
               rel="noreferrer"
             >
-              ~ cara mengaktifkan lokasi ~
+              PELAJARI LEBIH LANJUT
             </a>
           </>,
           "bottomRight",
