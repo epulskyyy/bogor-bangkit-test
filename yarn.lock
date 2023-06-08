@@ -2584,6 +2584,11 @@ acorn@^8.2.4:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
   integrity sha512-yXbYeFy+jUuYd3/CDcg2NkIYE991XYX/bje7LmjJigUciaeO1JR4XxXgCIV1/Zc/dRuFEyw1L0pbA+qynJkW5Q==
 
+adblock-detect-react@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/adblock-detect-react/-/adblock-detect-react-1.1.0.tgz#f34dc0ce6f92e011c17b1b94a9b98c3e737ff0c5"
+  integrity sha512-MyXO3gbq5JdYRYpCz0RiB3VFckYryIxVwME+ES6oPOIEovn17hKnfYOfwEXZyPUTnvEvtx7r8LY3hGpSDhNIoA==
+
 address@1.1.2, address@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
