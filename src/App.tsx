@@ -5,6 +5,9 @@ import history from "./utils/history";
 import { endPoint } from "./utils/env";
 import axios from "axios";
 import { getGeolocation, getPermissionNavigator } from "./utils/geolocation";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-QQZ8E49T1P");
 
 function App() {
   const getVisitCount = () => {
@@ -21,6 +24,13 @@ function App() {
   };
 
   getVisitCount();
+
+  ReactGA.send({
+    hitType: "pageview",
+    page: window.location.pathname,
+    title: "Custom Title",
+  });
+
   return (
     <Router history={history}>
       <HelmetProvider>
