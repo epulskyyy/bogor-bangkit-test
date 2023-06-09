@@ -7,9 +7,11 @@ import axios from "axios";
 import { getGeolocation, getPermissionNavigator } from "./utils/geolocation";
 
 import { useAnalytics } from "./utils/useAnalytic";
+import { useTagManagers } from "./utils/useTagManagers";
 
 function App() {
   useAnalytics();
+  useTagManagers();
   const getVisitCount = () => {
     var currentLocation = window.location.pathname;
     if (!currentLocation.includes("admin")) {
