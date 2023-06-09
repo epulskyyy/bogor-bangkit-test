@@ -10,12 +10,22 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { notificationLoadingMessage } from "../../../utils/notifications";
 import { useDispatch } from "react-redux";
 import { forgotPasswordRequest } from "../../../actions/auth";
+import * as gtm from "../../../utils/gtm";
+
 const { confirm } = Modal;
+const tagManagerArgs = {
+  dataLayer: {
+    userId: "001",
+    userProject: "coba",
+    page: "forgot-password",
+  },
+  dataLayerName: "PageDataLayer",
+};
 
 export default function ForgotPassword() {
+  gtm.sendDataLayer(tagManagerArgs);
   const [form] = useForm();
   const dispatch = useDispatch();
-
   const sendEmailForgotPassword = () => {
     confirm({
       title: "Anda yakin?",
@@ -36,7 +46,7 @@ export default function ForgotPassword() {
   };
   return (
     <Layout title="Lupa Kata Sandi">
-      <div className="peb-container-auth">
+      <div className="forgot-password peb-container-auth">
         <div className="peb-container-auth-background">
           <div className="peb-card peb-shadow">
             <div className="peb-card-body ">
@@ -59,7 +69,12 @@ export default function ForgotPassword() {
                   <Input name="email" placeholder="Ketik Email" />
                 </Form.Item>
                 <Form.Item>
-                  <Button block type="primary" htmlType="submit">
+                  <Button
+                    className="userInfo"
+                    block
+                    type="primary"
+                    htmlType="submit"
+                  >
                     Kirim
                   </Button>
                 </Form.Item>
